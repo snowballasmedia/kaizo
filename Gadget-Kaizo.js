@@ -1,6 +1,6 @@
 /**
-Twinkle.js
-Forked from simplewiki's version of Twinkle and de-Wikipedia-fied by Naleksuh
+Kaizo.js
+Forked from simplewiki's version of Kaizo and de-Wikipedia-fied by Naleksuh
  */
  
 mw.loader.load("https://dev.miraheze.org/w/index.php?title=MediaWiki:Jquerymigrate-3.3.2.js&action=raw&ctype=text/javascript");
@@ -9,29 +9,29 @@ mw.loader.load("https://dev.miraheze.org/w/index.php?title=MediaWiki:Jquerymigra
 
 ( function ( window, document, $, undefined ) { // Wrap with anonymous function
 
-var Twinkle = {};
-window.Twinkle = Twinkle;  // allow global access
+var Kaizo = {};
+window.Kaizo = Kaizo;  // allow global access
 
 // for use by custom modules (normally empty)
-Twinkle.initCallbacks = [];
-Twinkle.addInitCallback = function twinkleAddInitCallback( func ) {
-	Twinkle.initCallbacks.push( func );
+Kaizo.initCallbacks = [];
+Kaizo.addInitCallback = function KaizoAddInitCallback( func ) {
+	Kaizo.initCallbacks.push( func );
 };
 
-Twinkle.defaultConfig = {};
+Kaizo.defaultConfig = {};
 /**
- * Twinkle.defaultConfig.twinkle and Twinkle.defaultConfig.friendly
+ * Kaizo.defaultConfig.Kaizo and Kaizo.defaultConfig.friendly
  *
- * This holds the default set of preferences used by Twinkle. (The |friendly| object holds preferences stored in the FriendlyConfig object.)
+ * This holds the default set of preferences used by Kaizo. (The |friendly| object holds preferences stored in the FriendlyConfig object.)
  * It is important that all new preferences added here, especially admin-only ones, are also added to
- * |Twinkle.config.sections| in twinkleconfig.js, so they are configurable via the Twinkle preferences panel.
- * For help on the actual preferences, see the comments in twinkleconfig.js.
+ * |Kaizo.config.sections| in Kaizoconfig.js, so they are configurable via the Kaizo preferences panel.
+ * For help on the actual preferences, see the comments in Kaizoconfig.js.
  */
-Twinkle.defaultConfig.twinkle = {
+Kaizo.defaultConfig.Kaizo = {
 	 // General
-	summaryAd: " ([[Meta:Twinkle|TW]])",
-	deletionSummaryAd: " ([[Meta:Twinkle|TW]])",
-	protectionSummaryAd: " ([[Meta:Twinkle|TW]])",
+	summaryAd: " ([[Meta:Kaizo|TW]])",
+	deletionSummaryAd: " ([[Meta:Kaizo|TW]])",
+	protectionSummaryAd: " ([[Meta:Kaizo|TW]])",
 	userTalkPageMode: "window",
 	dialogLargeFont: false,
 	 // Fluff (revert and rollback)
@@ -84,20 +84,20 @@ Twinkle.defaultConfig.twinkle = {
 
 // now some skin dependent config.
 if ( mw.config.get( "skin" ) === "vector" || mw.config.get( "skin" ) === "vector-2022") {
-	Twinkle.defaultConfig.twinkle.portletArea = "right-navigation";
-	Twinkle.defaultConfig.twinkle.portletId   = "p-twinkle";
-	Twinkle.defaultConfig.twinkle.portletName = "KZ";
-	Twinkle.defaultConfig.twinkle.portletType = "menu";
-	Twinkle.defaultConfig.twinkle.portletNext = "p-search";
+	Kaizo.defaultConfig.Kaizo.portletArea = "right-navigation";
+	Kaizo.defaultConfig.Kaizo.portletId   = "p-Kaizo";
+	Kaizo.defaultConfig.Kaizo.portletName = "KZ";
+	Kaizo.defaultConfig.Kaizo.portletType = "menu";
+	Kaizo.defaultConfig.Kaizo.portletNext = "p-search";
 } else {
-	Twinkle.defaultConfig.twinkle.portletArea =  null;
-	Twinkle.defaultConfig.twinkle.portletId   = "p-cactions";
-	Twinkle.defaultConfig.twinkle.portletName = null;
-	Twinkle.defaultConfig.twinkle.portletType = null;
-	Twinkle.defaultConfig.twinkle.portletNext = null;
+	Kaizo.defaultConfig.Kaizo.portletArea =  null;
+	Kaizo.defaultConfig.Kaizo.portletId   = "p-cactions";
+	Kaizo.defaultConfig.Kaizo.portletName = null;
+	Kaizo.defaultConfig.Kaizo.portletType = null;
+	Kaizo.defaultConfig.Kaizo.portletNext = null;
 }
 
-Twinkle.defaultConfig.friendly = {
+Kaizo.defaultConfig.friendly = {
 	 // Tag
 	groupByDefault: true,
 	watchTaggedPages: true,
@@ -130,34 +130,34 @@ Twinkle.defaultConfig.friendly = {
 	markSharedIPAsMinor: true
 };
 
-Twinkle.getPref = function twinkleGetPref( name ) {
+Kaizo.getPref = function KaizoGetPref( name ) {
 	var result;
-	if ( typeof Twinkle.prefs === "object" && typeof Twinkle.prefs.twinkle === "object" ) {
-		// look in Twinkle.prefs (twinkleoptions.js)
-		result = Twinkle.prefs.twinkle[name];
-	} else if ( typeof window.TwinkleConfig === "object" ) {
-		// look in TwinkleConfig
-		result = window.TwinkleConfig[name];
+	if ( typeof Kaizo.prefs === "object" && typeof Kaizo.prefs.Kaizo === "object" ) {
+		// look in Kaizo.prefs (Kaizooptions.js)
+		result = Kaizo.prefs.Kaizo[name];
+	} else if ( typeof window.KaizoConfig === "object" ) {
+		// look in KaizoConfig
+		result = window.KaizoConfig[name];
 	}
 
 	if ( result === undefined ) {
-		return Twinkle.defaultConfig.twinkle[name];
+		return Kaizo.defaultConfig.Kaizo[name];
 	}
 	return result;
 };
 
-Twinkle.getFriendlyPref = function twinkleGetFriendlyPref(name) {
+Kaizo.getFriendlyPref = function KaizoGetFriendlyPref(name) {
 	var result;
-	if ( typeof Twinkle.prefs === "object" && typeof Twinkle.prefs.friendly === "object" ) {
-		// look in Twinkle.prefs (twinkleoptions.js)
-		result = Twinkle.prefs.friendly[ name ];
+	if ( typeof Kaizo.prefs === "object" && typeof Kaizo.prefs.friendly === "object" ) {
+		// look in Kaizo.prefs (Kaizooptions.js)
+		result = Kaizo.prefs.friendly[ name ];
 	} else if ( typeof window.FriendlyConfig === "object" ) {
 		// look in FriendlyConfig
 		result = window.FriendlyConfig[ name ];
 	}
 
 	if ( result === undefined ) {
-		return Twinkle.defaultConfig.friendly[ name ];
+		return Kaizo.defaultConfig.friendly[ name ];
 	}
 	return result;
 };
@@ -312,10 +312,10 @@ function twAddPortlet( navigation, id, text, type, nextnodeid )
  */
 function twAddPortletLink( task, text, id, tooltip )
 {
-	if ( Twinkle.getPref("portletArea") !== null ) {
-		twAddPortlet( Twinkle.getPref( "portletArea" ), Twinkle.getPref( "portletId" ), Twinkle.getPref( "portletName" ), Twinkle.getPref( "portletType" ), Twinkle.getPref( "portletNext" ));
+	if ( Kaizo.getPref("portletArea") !== null ) {
+		twAddPortlet( Kaizo.getPref( "portletArea" ), Kaizo.getPref( "portletId" ), Kaizo.getPref( "portletName" ), Kaizo.getPref( "portletType" ), Kaizo.getPref( "portletNext" ));
 	}
-	var link = mw.util.addPortletLink( Twinkle.getPref( "portletId" ), typeof task === "string" ? task : "#", text, id, tooltip );
+	var link = mw.util.addPortletLink( Kaizo.getPref( "portletId" ), typeof task === "string" ? task : "#", text, id, tooltip );
 	$('.client-js .skin-vector #p-cactions').css('margin-right', 'initial');
 	if ( $.isFunction( task ) ) {
 		$( link ).click(function ( ev ) {
@@ -329,8 +329,8 @@ function twAddPortletLink( task, text, id, tooltip )
 	return link;
 }
 
-// Check if account is experienced enough to use Twinkle
-var twinkleUserAuthorized = Morebits.userIsInGroup( "autoconfirmed" ) || Morebits.userIsInGroup( "confirmed" );
+// Check if account is experienced enough to use Kaizo
+var KaizoUserAuthorized = Morebits.userIsInGroup( "autoconfirmed" ) || Morebits.userIsInGroup( "confirmed" );
 /*
  ****************************************
  *** friendlyshared.js: Shared IP tagging module
@@ -340,26 +340,26 @@ var twinkleUserAuthorized = Morebits.userIsInGroup( "autoconfirmed" ) || Morebit
  * Config directives in:   FriendlyConfig
  */
 
-Twinkle.shared = function friendlyshared() {
+Kaizo.shared = function friendlyshared() {
 	if( mw.config.get('wgNamespaceNumber') === 3 && Morebits.isIPAddress(mw.config.get('wgTitle')) ) {
 		var username = mw.config.get('wgTitle').split( '/' )[0].replace( /\"/, "\\\""); // only first part before any slashes
-		twAddPortletLink( function(){ Twinkle.shared.callback(username); }, "Shared IP", "friendly-shared", "Shared IP tagging" );
+		twAddPortletLink( function(){ Kaizo.shared.callback(username); }, "Shared IP", "friendly-shared", "Shared IP tagging" );
 	}
 };
 
-Twinkle.shared.callback = function friendlysharedCallback( uid ) {
+Kaizo.shared.callback = function friendlysharedCallback( uid ) {
 	var Window = new Morebits.simpleWindow( 600, 400 );
 	Window.setTitle( "Shared IP address tagging" );
-	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#shared" );
+	Window.setScriptName( "Kaizo" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#shared" );
 
-	var form = new Morebits.quickForm( Twinkle.shared.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.shared.callback.evaluate );
 
 	var div = form.append( { type: 'div', id: 'sharedip-templatelist' } );
 	div.append( { type: 'header', label: 'Shared IP address templates' } );
-	div.append( { type: 'radio', name: 'shared', list: Twinkle.shared.standardList,
+	div.append( { type: 'radio', name: 'shared', list: Kaizo.shared.standardList,
 		event: function( e ) {
-			Twinkle.shared.callback.change_shared( e );
+			Kaizo.shared.callback.change_shared( e );
 			e.stopPropagation();
 		}
 	} );
@@ -399,7 +399,7 @@ Twinkle.shared.callback = function friendlysharedCallback( uid ) {
 	$(result).find('div#sharedip-templatelist').addClass('quickform-scrollbox');
 };
 
-Twinkle.shared.standardList = [
+Kaizo.shared.standardList = [
 	{
 		label: '{{SharedIP}}: standard shared IP address template',
 		value: 'Shared IP',
@@ -419,7 +419,7 @@ Twinkle.shared.standardList = [
 	}
 ];
 
-Twinkle.shared.callback.change_shared = function friendlysharedCallbackChangeShared(e) {
+Kaizo.shared.callback.change_shared = function friendlysharedCallbackChangeShared(e) {
 	if( e.target.value === 'Shared IP edu' ) {
 		e.target.form.contact.disabled = false;
 	} else {
@@ -429,17 +429,17 @@ Twinkle.shared.callback.change_shared = function friendlysharedCallbackChangeSha
 	e.target.form.host.disabled=false;
 };
 
-Twinkle.shared.callbacks = {
+Kaizo.shared.callbacks = {
 	main: function( pageobj ) {
 		var params = pageobj.getCallbackParameters();
 		var pageText = pageobj.getPageText();
 		var found = false;
 		var text = '{{';
 
-		for( var i=0; i < Twinkle.shared.standardList.length; i++ ) {
-			var tagRe = new RegExp( '(\\{\\{' + Twinkle.shared.standardList[i].value + '(\\||\\}\\}))', 'im' );
+		for( var i=0; i < Kaizo.shared.standardList.length; i++ ) {
+			var tagRe = new RegExp( '(\\{\\{' + Kaizo.shared.standardList[i].value + '(\\||\\}\\}))', 'im' );
 			if( tagRe.exec( pageText ) ) {
-				Morebits.status.warn( 'Info', 'Found {{' + Twinkle.shared.standardList[i].value + '}} on the user\'s talk page already...aborting' );
+				Morebits.status.warn( 'Info', 'Found {{' + Kaizo.shared.standardList[i].value + '}} on the user\'s talk page already...aborting' );
 				found = true;
 			}
 		}
@@ -460,14 +460,14 @@ Twinkle.shared.callbacks = {
 
 		var summaryText = 'Added {{[[Template:' + params.value + '|' + params.value + ']]}} template.';
 		pageobj.setPageText(text + pageText);
-		pageobj.setEditSummary(summaryText + Twinkle.getPref('summaryAd'));
-		pageobj.setMinorEdit(Twinkle.getFriendlyPref('markSharedIPAsMinor'));
+		pageobj.setEditSummary(summaryText + Kaizo.getPref('summaryAd'));
+		pageobj.setMinorEdit(Kaizo.getFriendlyPref('markSharedIPAsMinor'));
 		pageobj.setCreateOption('recreate');
 		pageobj.save();
 	}
 };
 
-Twinkle.shared.callback.evaluate = function friendlysharedCallbackEvaluate(e) {
+Kaizo.shared.callback.evaluate = function friendlysharedCallbackEvaluate(e) {
 	var shared = e.target.getChecked( 'shared' );
 	if( !shared || shared.length <= 0 ) {
 		alert( 'You must select a shared IP address template to use!' );
@@ -497,7 +497,7 @@ Twinkle.shared.callback.evaluate = function friendlysharedCallbackEvaluate(e) {
 	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "User talk page modification");
 	wikipedia_page.setFollowRedirect(true);
 	wikipedia_page.setCallbackParameters(params);
-	wikipedia_page.load(Twinkle.shared.callbacks.main);
+	wikipedia_page.load(Kaizo.shared.callbacks.main);
 };
 /*
  ****************************************
@@ -511,32 +511,32 @@ Twinkle.shared.callback.evaluate = function friendlysharedCallbackEvaluate(e) {
  * Config directives in:   FriendlyConfig
  */
 
-Twinkle.tag = function friendlytag() {
+Kaizo.tag = function friendlytag() {
 	// redirect tagging
 	if( Morebits.wiki.isPageRedirect() ) {
-		Twinkle.tag.mode = 'redirect';
-		//twAddPortletLink( Twinkle.tag.callback, "Tag", "friendly-tag", "Tag redirect" );
+		Kaizo.tag.mode = 'redirect';
+		//twAddPortletLink( Kaizo.tag.callback, "Tag", "friendly-tag", "Tag redirect" );
 	}
 	// file tagging
 	else if( mw.config.get('wgNamespaceNumber') === 6 && !document.getElementById("mw-sharedupload") && document.getElementById("mw-imagepage-section-filehistory") ) {
-		Twinkle.tag.mode = 'file';
+		Kaizo.tag.mode = 'file';
 	}
 	// article/draft article tagging
 	else if( ( mw.config.get('wgNamespaceNumber') === 0 || /^Wikipedia([ _]talk)?\:Requested[ _]pages\//.exec(mw.config.get('wgPageName')) ) && mw.config.get('wgCurRevisionId') ) {
-		Twinkle.tag.mode = 'article';
-		//twAddPortletLink( Twinkle.tag.callback, "Tag", "friendly-tag", "Add maintenance tags to article" );
+		Kaizo.tag.mode = 'article';
+		//twAddPortletLink( Kaizo.tag.callback, "Tag", "friendly-tag", "Add maintenance tags to article" );
 	}
 };
 
-Twinkle.tag.callback = function friendlytagCallback( uid ) {
-	var Window = new Morebits.simpleWindow( 630, (Twinkle.tag.mode === "article") ? 450 : 400 );
-	Window.setScriptName( "Twinkle" );
+Kaizo.tag.callback = function friendlytagCallback( uid ) {
+	var Window = new Morebits.simpleWindow( 630, (Kaizo.tag.mode === "article") ? 450 : 400 );
+	Window.setScriptName( "Kaizo" );
 	// anyone got a good policy/guideline/info page/instructional page link??
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#tag" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#tag" );
 
-	var form = new Morebits.quickForm( Twinkle.tag.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.tag.callback.evaluate );
 
-	switch( Twinkle.tag.mode ) {
+	switch( Kaizo.tag.mode ) {
 		case 'article':
 			Window.setTitle( "Article maintenance tagging" );
 
@@ -548,7 +548,7 @@ Twinkle.tag.callback = function friendlytagCallback( uid ) {
 							value: 'group',
 							name: 'group',
 							tooltip: 'If applying three or more templates supported by {{multiple issues}} and this box is checked, all supported templates will be grouped inside a {{multiple issues}} template.',
-							checked: Twinkle.getFriendlyPref('groupByDefault')
+							checked: Kaizo.getFriendlyPref('groupByDefault')
 						}
 					]
 				}
@@ -558,19 +558,19 @@ Twinkle.tag.callback = function friendlytagCallback( uid ) {
 				type: 'select',
 				name: 'sortorder',
 				label: 'View this list:',
-				tooltip: 'You can change the default view order in your Twinkle preferences (Meta:Twinkle/Preferences).',
-				event: Twinkle.tag.updateSortOrder,
+				tooltip: 'You can change the default view order in your Kaizo preferences (Meta:Kaizo/Preferences).',
+				event: Kaizo.tag.updateSortOrder,
 				list: [
-					{ type: 'option', value: 'cat', label: 'By categories', selected: Twinkle.getFriendlyPref('tagArticleSortOrder') === 'cat' },
-					{ type: 'option', value: 'alpha', label: 'In alphabetical order', selected: Twinkle.getFriendlyPref('tagArticleSortOrder') === 'alpha' }
+					{ type: 'option', value: 'cat', label: 'By categories', selected: Kaizo.getFriendlyPref('tagArticleSortOrder') === 'cat' },
+					{ type: 'option', value: 'alpha', label: 'In alphabetical order', selected: Kaizo.getFriendlyPref('tagArticleSortOrder') === 'alpha' }
 				]
 			});
 
 			form.append( { type: 'div', id: 'tagWorkArea' } );
 
-			if( Twinkle.getFriendlyPref('customTagList').length ) {
+			if( Kaizo.getFriendlyPref('customTagList').length ) {
 				form.append( { type: 'header', label: 'Custom tags' } );
-				form.append( { type: 'checkbox', name: 'articleTags', list: Twinkle.getFriendlyPref('customTagList') } );
+				form.append( { type: 'checkbox', name: 'articleTags', list: Kaizo.getFriendlyPref('customTagList') } );
 			}
 			break;
 
@@ -578,11 +578,11 @@ Twinkle.tag.callback = function friendlytagCallback( uid ) {
 			Window.setTitle( "Redirect tagging" );
 	//Spelling, misspelling, tense and capitalization templates
 			form.append({ type: 'header', label:'All templates' });
-			form.append({ type: 'checkbox', name: 'redirectTags', list: Twinkle.tag.spellingList });
+			form.append({ type: 'checkbox', name: 'redirectTags', list: Kaizo.tag.spellingList });
 			break;
 
 		default:
-			alert("Twinkle.tag: unknown mode " + Twinkle.tag.mode);
+			alert("Kaizo.tag: unknown mode " + Kaizo.tag.mode);
 			break;
 	}
 
@@ -592,7 +592,7 @@ Twinkle.tag.callback = function friendlytagCallback( uid ) {
 	Window.setContent( result );
 	Window.display();
 
-	if (Twinkle.tag.mode === "article") {
+	if (Kaizo.tag.mode === "article") {
 		// fake a change event on the sort dropdown, to initialize the tag list
 		var evt = document.createEvent("Event");
 		evt.initEvent("change", true, true);
@@ -600,21 +600,21 @@ Twinkle.tag.callback = function friendlytagCallback( uid ) {
 	}
 };
 
-Twinkle.tag.checkedTags = [];
+Kaizo.tag.checkedTags = [];
 
-Twinkle.tag.updateSortOrder = function(e) {
+Kaizo.tag.updateSortOrder = function(e) {
 	var sortorder = e.target.value;
 	var $workarea = $(e.target.form).find("div#tagWorkArea");
 
-	Twinkle.tag.checkedTags = e.target.form.getChecked("articleTags");
-	if (!Twinkle.tag.checkedTags) {
-		Twinkle.tag.checkedTags = [];
+	Kaizo.tag.checkedTags = e.target.form.getChecked("articleTags");
+	if (!Kaizo.tag.checkedTags) {
+		Kaizo.tag.checkedTags = [];
 	}
 
 	// function to generate a checkbox, with appropriate subgroup if needed
 	var makeCheckbox = function(tag, description) {
 		var checkbox = { value: tag, label: "{{" + tag + "}}: " + description };
-		if (Twinkle.tag.checkedTags.indexOf(tag) !== -1) {
+		if (Kaizo.tag.checkedTags.indexOf(tag) !== -1) {
 			checkbox.checked = true;
 		}
 		
@@ -653,7 +653,7 @@ Twinkle.tag.updateSortOrder = function(e) {
 		var doCategoryCheckboxes = function(subdiv, array) {
 			var checkboxes = [];
 			$.each(array, function(k, tag) {
-				var description = Twinkle.tag.article.tags[tag];
+				var description = Kaizo.tag.article.tags[tag];
 				checkboxes.push(makeCheckbox(tag, description));
 			});
 			subdiv.append({
@@ -665,7 +665,7 @@ Twinkle.tag.updateSortOrder = function(e) {
 
 		var i = 0;
 		// go through each category and sub-category and append lists of checkboxes
-		$.each(Twinkle.tag.article.tagCategories, function(title, content) {
+		$.each(Kaizo.tag.article.tagCategories, function(title, content) {
 			div.append({ type: "header", id: "tagHeader" + i, label: title });
 			var subdiv = div.append({ type: "div", id: "tagSubdiv" + i++ });
 			if ($.isArray(content)) {
@@ -687,7 +687,7 @@ Twinkle.tag.updateSortOrder = function(e) {
 	// alphabetical sort order
 	else {
 		var checkboxes = [];
-		$.each(Twinkle.tag.article.tags, function(tag, description) {
+		$.each(Kaizo.tag.article.tags, function(tag, description) {
 			checkboxes.push(makeCheckbox(tag, description));
 		});
 		var tags = new Morebits.quickForm.element({
@@ -702,12 +702,12 @@ Twinkle.tag.updateSortOrder = function(e) {
 
 // Tags for ARTICLES start here
 
-Twinkle.tag.article = {};
+Kaizo.tag.article = {};
 
 // A list of all article tags, in alphabetical order
 // To ensure tags appear in the default "categorized" view, add them to the tagCategories hash below.
 
-Twinkle.tag.article.tags = {
+Kaizo.tag.article.tags = {
 	"advertisement": "article is written like an advertisement",
 	"autobiography": "article is an autobiography and may not be written neutrally",
 	"BLP sources": "BLP article needs more sources for verification",
@@ -767,7 +767,7 @@ Twinkle.tag.article.tags = {
 // Tags should be in alphabetical order within the categories
 // Add new categories with discretion - the list is long enough as is!
 
-Twinkle.tag.article.tagCategories = {
+Kaizo.tag.article.tagCategories = {
 	"Cleanup and maintenance tags": {
 		"General maintenance tags": [
 			"cleanup",
@@ -866,7 +866,7 @@ Twinkle.tag.article.tagCategories = {
 
 // Tags for REDIRECTS start here
 
-Twinkle.tag.spellingList = [
+Kaizo.tag.spellingList = [
 	{
 		label: '{{R from capitalization}}: redirect from a from a capitalized title',
 		value: 'R from capitalization' 
@@ -907,7 +907,7 @@ Twinkle.tag.spellingList = [
 
 
 // Contains those article tags that *do not* work inside {{multiple issues}}.
-Twinkle.tag.multipleIssuesExceptions = [
+Kaizo.tag.multipleIssuesExceptions = [
 	'cat improve',
 	'in use',
 	'merge',
@@ -920,7 +920,7 @@ Twinkle.tag.multipleIssuesExceptions = [
 ];
 
 
-Twinkle.tag.callbacks = {
+Kaizo.tag.callbacks = {
 	main: function( pageobj ) {
 		var params = pageobj.getCallbackParameters(),
 		    tagRe, tagText = '', summaryText = 'Added',
@@ -933,7 +933,7 @@ Twinkle.tag.callbacks = {
 			if( tagName === 'globalize' ) {
 				currentTag += '{{' + params.globalizeSubcategory;
 			} else {
-				currentTag += ( Twinkle.tag.mode === 'redirect' ? '\n' : '' ) + '{{' + tagName;
+				currentTag += ( Kaizo.tag.mode === 'redirect' ? '\n' : '' ) + '{{' + tagName;
 			}
 
 			if( tagName === 'notability' && params.notabilitySubcategory !== 'none' ) {
@@ -1022,7 +1022,7 @@ Twinkle.tag.callbacks = {
 					break;
 			}
 
-				currentTag += (Twinkle.tag.mode === 'redirect') ? '}}' : '|date={{subst:CURRENTMONTHNAME}} {{subst:CURRENTYEAR}}}}\n';
+				currentTag += (Kaizo.tag.mode === 'redirect') ? '}}' : '|date={{subst:CURRENTMONTHNAME}} {{subst:CURRENTYEAR}}}}\n';
 				tagText += currentTag;
 
 			if ( tagIndex > 0 ) {
@@ -1038,12 +1038,12 @@ Twinkle.tag.callbacks = {
 			summaryText += ']]}}';
 		};
 
-		if( Twinkle.tag.mode !== 'redirect' ) {
+		if( Kaizo.tag.mode !== 'redirect' ) {
 			// Check for preexisting tags and separate tags into groupable and non-groupable arrays
 			for( i = 0; i < params.tags.length; i++ ) {
 				tagRe = new RegExp( '(\\{\\{' + params.tags[i] + '(\\||\\}\\}))', 'im' );
 				if( !tagRe.exec( pageText ) ) {
-					if( Twinkle.tag.multipleIssuesExceptions.indexOf(params.tags[i]) === -1 ) {
+					if( Kaizo.tag.multipleIssuesExceptions.indexOf(params.tags[i]) === -1 ) {
 						groupableTags = groupableTags.concat( params.tags[i] );
 					} else {
 						tags = tags.concat( params.tags[i] );
@@ -1088,7 +1088,7 @@ Twinkle.tag.callbacks = {
 		totalTags = tags.length;
 		$.each(tags, addTag);
 
-		if( Twinkle.tag.mode === 'redirect' ) {
+		if( Kaizo.tag.mode === 'redirect' ) {
 			pageText += tagText;
 		} else {
 			// smartly insert the new tags after any hatnotes. Regex is a bit more
@@ -1098,16 +1098,16 @@ Twinkle.tag.callbacks = {
 				"$1" + tagText);
 		}
 		summaryText += ( tags.length > 0 ? ' tag' + ( tags.length > 1 ? 's' : '' ) : '' ) +
-			' to ' + Twinkle.tag.mode + Twinkle.getPref('summaryAd');
+			' to ' + Kaizo.tag.mode + Kaizo.getPref('summaryAd');
 
 		pageobj.setPageText(pageText);
 		pageobj.setEditSummary(summaryText);
-		pageobj.setWatchlist(Twinkle.getFriendlyPref('watchTaggedPages'));
-		pageobj.setMinorEdit(Twinkle.getFriendlyPref('markTaggedPagesAsMinor'));
+		pageobj.setWatchlist(Kaizo.getFriendlyPref('watchTaggedPages'));
+		pageobj.setMinorEdit(Kaizo.getFriendlyPref('markTaggedPagesAsMinor'));
 		pageobj.setCreateOption('nocreate');
 		pageobj.save();
 
-		if( Twinkle.getFriendlyPref('markTaggedPagesAsPatrolled') ) {
+		if( Kaizo.getFriendlyPref('markTaggedPagesAsPatrolled') ) {
 			pageobj.patrol();
 		}
 	},
@@ -1140,23 +1140,23 @@ Twinkle.tag.callbacks = {
 		}
 
 		pageobj.setPageText(text);
-		pageobj.setEditSummary(summary.substring(0, summary.length - 2) + Twinkle.getPref('summaryAd'));
-		pageobj.setWatchlist(Twinkle.getFriendlyPref('watchTaggedPages'));
-		pageobj.setMinorEdit(Twinkle.getFriendlyPref('markTaggedPagesAsMinor'));
+		pageobj.setEditSummary(summary.substring(0, summary.length - 2) + Kaizo.getPref('summaryAd'));
+		pageobj.setWatchlist(Kaizo.getFriendlyPref('watchTaggedPages'));
+		pageobj.setMinorEdit(Kaizo.getFriendlyPref('markTaggedPagesAsMinor'));
 		pageobj.setCreateOption('nocreate');
 		pageobj.save();
 
-		if( Twinkle.getFriendlyPref('markTaggedPagesAsPatrolled') ) {
+		if( Kaizo.getFriendlyPref('markTaggedPagesAsPatrolled') ) {
 			pageobj.patrol();
 		}
 	}
 };
 
-Twinkle.tag.callback.evaluate = function friendlytagCallbackEvaluate(e) {
+Kaizo.tag.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 	var form = e.target;
 	var params = {};
 
-	switch (Twinkle.tag.mode) {
+	switch (Kaizo.tag.mode) {
 		case 'article':
 			params.tags = form.getChecked( 'articleTags' );
 			params.group = form.group.checked;
@@ -1170,7 +1170,7 @@ Twinkle.tag.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 			params.tags = form.getChecked( 'redirectTags' );
 			break;
 		default:
-			alert("Twinkle.tag: unknown mode " + Twinkle.tag.mode);
+			alert("Kaizo.tag: unknown mode " + Kaizo.tag.mode);
 			break;
 	}
 
@@ -1184,30 +1184,30 @@ Twinkle.tag.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 
 	Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
 	Morebits.wiki.actionCompleted.notice = "Tagging complete, reloading article in a few seconds";
-	if (Twinkle.tag.mode === 'redirect') {
+	if (Kaizo.tag.mode === 'redirect') {
 		Morebits.wiki.actionCompleted.followRedirect = false;
 	}
 
-	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "Tagging " + Twinkle.tag.mode);
+	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "Tagging " + Kaizo.tag.mode);
 	wikipedia_page.setCallbackParameters(params);
-	switch (Twinkle.tag.mode) {
+	switch (Kaizo.tag.mode) {
 		case 'article':
 			/* falls through */
 		case 'redirect':
-			wikipedia_page.load(Twinkle.tag.callbacks.main);
+			wikipedia_page.load(Kaizo.tag.callbacks.main);
 			return;
 		case 'file':
-			wikipedia_page.load(Twinkle.tag.callbacks.file);
+			wikipedia_page.load(Kaizo.tag.callbacks.file);
 			return;
 		default:
-			alert("Twinkle.tag: unknown mode " + Twinkle.tag.mode);
+			alert("Kaizo.tag: unknown mode " + Kaizo.tag.mode);
 			break;
 	}
 };
 
 /*
  ****************************************
- *** twinklestub.js: Tag module
+ *** Kaizostub.js: Tag module
  ****************************************
  * Mode of invocation:     Tab ("Stub")
  * Active on:              Existing articles
@@ -1215,32 +1215,32 @@ Twinkle.tag.callback.evaluate = function friendlytagCallbackEvaluate(e) {
  * Note:				   customised friendlytag module (for SEWP)
  */
 
-Twinkle.stub = function friendlytag() {
+Kaizo.stub = function friendlytag() {
 	// redirect tagging
 	if( Morebits.wiki.isPageRedirect() ) {
-		Twinkle.stub.mode = 'redirect';
+		Kaizo.stub.mode = 'redirect';
 	}
 	// file tagging
 	else if( mw.config.get('wgNamespaceNumber') === 6 && !document.getElementById("mw-sharedupload") && document.getElementById("mw-imagepage-section-filehistory") ) {
-		Twinkle.stub.mode = 'file';
+		Kaizo.stub.mode = 'file';
 	}
 	// article/draft article tagging
 	else if( ( mw.config.get('wgNamespaceNumber') === 0 || /^Wikipedia([ _]talk)?\:Requested[ _]pages\//.exec(mw.config.get('wgPageName')) ) && mw.config.get('wgCurRevisionId') ) {
-		Twinkle.stub.mode = 'article';
-		//twAddPortletLink( Twinkle.stub.callback, "Stub", "friendly-tag", "Add stub tags to article" );
+		Kaizo.stub.mode = 'article';
+		//twAddPortletLink( Kaizo.stub.callback, "Stub", "friendly-tag", "Add stub tags to article" );
 	}
 };
 
-Twinkle.stub.callback = function friendlytagCallback( uid ) {
-	var Window = new Morebits.simpleWindow( 630, (Twinkle.stub.mode === "article") ? 450 : 400 );
-	Window.setScriptName( "Twinkle" );
+Kaizo.stub.callback = function friendlytagCallback( uid ) {
+	var Window = new Morebits.simpleWindow( 630, (Kaizo.stub.mode === "article") ? 450 : 400 );
+	Window.setScriptName( "Kaizo" );
 	Window.addFooterLink( "Simple Stub project", "Wikipedia:Simple Stub Project" );
 	Window.addFooterLink( "Stub guideline", "Wikipedia:Stub" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#stub" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#stub" );
 
-	var form = new Morebits.quickForm( Twinkle.stub.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.stub.callback.evaluate );
 
-	switch( Twinkle.stub.mode ) {
+	switch( Kaizo.stub.mode ) {
 		case 'article':
 			Window.setTitle( "Article stub tagging" );
 
@@ -1248,11 +1248,11 @@ Twinkle.stub.callback = function friendlytagCallback( uid ) {
 				type: 'select',
 				name: 'sortorder',
 				label: 'View this list:',
-				tooltip: 'You can change the default view order in your Twinkle preferences (Meta:Twinkle/Preferences).',
-				event: Twinkle.stub.updateSortOrder,
+				tooltip: 'You can change the default view order in your Kaizo preferences (Meta:Kaizo/Preferences).',
+				event: Kaizo.stub.updateSortOrder,
 				list: [
-					{ type: 'option', value: 'cat', label: 'By categories', selected: Twinkle.getFriendlyPref('stubArticleSortOrder') === 'cat' },
-					{ type: 'option', value: 'alpha', label: 'In alphabetical order', selected: Twinkle.getFriendlyPref('stubArticleSortOrder') === 'alpha' }
+					{ type: 'option', value: 'cat', label: 'By categories', selected: Kaizo.getFriendlyPref('stubArticleSortOrder') === 'cat' },
+					{ type: 'option', value: 'alpha', label: 'In alphabetical order', selected: Kaizo.getFriendlyPref('stubArticleSortOrder') === 'alpha' }
 				]
 			});
 
@@ -1265,7 +1265,7 @@ Twinkle.stub.callback = function friendlytagCallback( uid ) {
 	Window.setContent( result );
 	Window.display();
 
-	if (Twinkle.stub.mode === "article") {
+	if (Kaizo.stub.mode === "article") {
 		// fake a change event on the sort dropdown, to initialize the tag list
 		var evt = document.createEvent("Event");
 		evt.initEvent("change", true, true);
@@ -1273,21 +1273,21 @@ Twinkle.stub.callback = function friendlytagCallback( uid ) {
 	}
 };
 
-Twinkle.stub.checkedTags = [];
+Kaizo.stub.checkedTags = [];
 
-Twinkle.stub.updateSortOrder = function(e) {
+Kaizo.stub.updateSortOrder = function(e) {
 	var sortorder = e.target.value;
 	var $workarea = $(e.target.form).find("div#tagWorkArea");
 
-	Twinkle.stub.checkedTags = e.target.form.getChecked("articleTags");
-	if (!Twinkle.stub.checkedTags) {
-		Twinkle.stub.checkedTags = [];
+	Kaizo.stub.checkedTags = e.target.form.getChecked("articleTags");
+	if (!Kaizo.stub.checkedTags) {
+		Kaizo.stub.checkedTags = [];
 	}
 
 	// function to generate a checkbox, with appropriate subgroup if needed
 	var makeCheckbox = function(tag, description) {
 		var checkbox = { value: tag, label: "{{" + tag + "}}: " + description };
-		if (Twinkle.stub.checkedTags.indexOf(tag) !== -1) {
+		if (Kaizo.stub.checkedTags.indexOf(tag) !== -1) {
 			checkbox.checked = true;
 		}
 
@@ -1305,7 +1305,7 @@ Twinkle.stub.updateSortOrder = function(e) {
 		var doCategoryCheckboxes = function(subdiv, array) {
 			var checkboxes = [];
 			$.each(array, function(k, tag) {
-				var description = Twinkle.stub.article.tags[tag];
+				var description = Kaizo.stub.article.tags[tag];
 				checkboxes.push(makeCheckbox(tag, description));
 			});
 			subdiv.append({
@@ -1317,7 +1317,7 @@ Twinkle.stub.updateSortOrder = function(e) {
 
 		var i = 0;
 		// go through each category and sub-category and append lists of checkboxes
-		$.each(Twinkle.stub.article.tagCategories, function(title, content) {
+		$.each(Kaizo.stub.article.tagCategories, function(title, content) {
 			div.append({ type: "header", id: "tagHeader" + i, label: title });
 			var subdiv = div.append({ type: "div", id: "tagSubdiv" + i++ });
 			if ($.isArray(content)) {
@@ -1339,7 +1339,7 @@ Twinkle.stub.updateSortOrder = function(e) {
 	// alphabetical sort order
 	else {
 		var checkboxes = [];
-		$.each(Twinkle.stub.article.tags, function(tag, description) {
+		$.each(Kaizo.stub.article.tags, function(tag, description) {
 			checkboxes.push(makeCheckbox(tag, description));
 		});
 		var tags = new Morebits.quickForm.element({
@@ -1354,12 +1354,12 @@ Twinkle.stub.updateSortOrder = function(e) {
 
 // Tags for ARTICLES start here
 
-Twinkle.stub.article = {};
+Kaizo.stub.article = {};
 
 // A list of all article tags, in alphabetical order
 // To ensure tags appear in the default "categorized" view, add them to the tagCategories hash below.
 
-Twinkle.stub.article.tags = {
+Kaizo.stub.article.tags = {
 	"actor-stub": "for use with articles about actors",
 	"asia-stub": "for use with anything about Asia, except people",
 	"bio-stub": "for use with all people, no matter who or what profession",
@@ -1405,7 +1405,7 @@ Twinkle.stub.article.tags = {
 // Tags should be in alphabetical order within the categories
 // Add new categories with discretion - the list is long enough as is!
 
-Twinkle.stub.article.tagCategories = {
+Kaizo.stub.article.tagCategories = {
 		"Stub templates": [
 			"stub",
 			"list-stub"
@@ -1475,7 +1475,7 @@ Twinkle.stub.article.tagCategories = {
 
 
 // Contains those article tags that *do not* work inside {{multiple issues}}.
-Twinkle.stub.multipleIssuesExceptions = [
+Kaizo.stub.multipleIssuesExceptions = [
 	'cat improve',
 	'in use',
 	'merge',
@@ -1489,7 +1489,7 @@ Twinkle.stub.multipleIssuesExceptions = [
 ];
 
 
-Twinkle.stub.callbacks = {
+Kaizo.stub.callbacks = {
 	main: function( pageobj ) {
 		var params = pageobj.getCallbackParameters(),
 		    tagRe, tagText = '', summaryText = 'Added',
@@ -1520,7 +1520,7 @@ Twinkle.stub.callbacks = {
 			for( i = 0; i < params.tags.length; i++ ) {
 				tagRe = new RegExp( '(\\{\\{' + params.tags[i] + '(\\||\\}\\}))', 'im' );
 				if( !tagRe.exec( pageText ) ) {
-					if( Twinkle.stub.multipleIssuesExceptions.indexOf(params.tags[i]) === -1 ) {
+					if( Kaizo.stub.multipleIssuesExceptions.indexOf(params.tags[i]) === -1 ) {
 						groupableTags = groupableTags.concat( params.tags[i] );
 					} else {
 						tags = tags.concat( params.tags[i] );
@@ -1538,26 +1538,26 @@ Twinkle.stub.callbacks = {
 		$.each(tags, addTag);
 
 		summaryText += ( tags.length > 0 ? ' tag' + ( tags.length > 1 ? 's' : '' ) : '' ) +
-			' to ' + Twinkle.stub.mode + Twinkle.getPref('summaryAd');
+			' to ' + Kaizo.stub.mode + Kaizo.getPref('summaryAd');
 
 		pageobj.setPageText(pageText);
 		pageobj.setEditSummary(summaryText);
-		pageobj.setWatchlist(Twinkle.getFriendlyPref('watchStubbedPages'));
-		pageobj.setMinorEdit(Twinkle.getFriendlyPref('markStubbedPagesAsMinor'));
+		pageobj.setWatchlist(Kaizo.getFriendlyPref('watchStubbedPages'));
+		pageobj.setMinorEdit(Kaizo.getFriendlyPref('markStubbedPagesAsMinor'));
 		pageobj.setCreateOption('nocreate');
 		pageobj.save();
 
-		if( Twinkle.getFriendlyPref('markStubbedPagesAsPatrolled') ) {
+		if( Kaizo.getFriendlyPref('markStubbedPagesAsPatrolled') ) {
 			pageobj.patrol();
 		}
 	}
 };
 
-Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
+Kaizo.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 	var form = e.target;
 	var params = {};
 
-	switch (Twinkle.stub.mode) {
+	switch (Kaizo.stub.mode) {
 		case 'article':
 			params.tags = form.getChecked( 'articleTags' );
 			params.group = false;
@@ -1582,20 +1582,20 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 
 	Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
 	Morebits.wiki.actionCompleted.notice = "Tagging complete, reloading article in a few seconds";
-	if (Twinkle.stub.mode === 'redirect') {
+	if (Kaizo.stub.mode === 'redirect') {
 		Morebits.wiki.actionCompleted.followRedirect = false;
 	}
 
-	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "Tagging " + Twinkle.stub.mode);
+	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "Tagging " + Kaizo.stub.mode);
 	wikipedia_page.setCallbackParameters(params);
-	switch (Twinkle.stub.mode) {
+	switch (Kaizo.stub.mode) {
 		case 'article':
 			/* falls through */
 		case 'redirect':
-			wikipedia_page.load(Twinkle.stub.callbacks.main);
+			wikipedia_page.load(Kaizo.stub.callbacks.main);
 			return;
 		case 'file':
-			wikipedia_page.load(Twinkle.stub.callbacks.file);
+			wikipedia_page.load(Kaizo.stub.callbacks.file);
 			return;
 	}
 };
@@ -1610,7 +1610,7 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
  */
 ;(function(){
 
-	Twinkle.talkback = function() {
+	Kaizo.talkback = function() {
 	
 		if ( Morebits.getPageAssociatedUser() === false ) {
 			return;
@@ -1626,9 +1626,9 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 	
 		var Window = new Morebits.simpleWindow( 600, 350 );
 		Window.setTitle("Talkback");
-		Window.setScriptName("Twinkle");
+		Window.setScriptName("Kaizo");
 		Window.addFooterLink( "About {{talkback}}", "Template:Talkback" );
-		Window.addFooterLink( "Twinkle help", "WP:TW/DOC#talkback" );
+		Window.addFooterLink( "Kaizo help", "WP:TW/DOC#talkback" );
 	
 		var form = new Morebits.quickForm( callback_evaluate );
 	
@@ -1759,7 +1759,7 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 						type:"input",
 						name:"page",
 						label:"Full page name",
-						tooltip:"The full page name where you left the message. For example: 'Wikipedia talk:Twinkle'.",
+						tooltip:"The full page name where you left the message. For example: 'Wikipedia talk:Kaizo'.",
 						value: prev_page
 					});
 				
@@ -1850,24 +1850,24 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 	
 		var text;
 		if ( tbtarget === "notice" ) {
-				text = "\n\n== " + Twinkle.getFriendlyPref("adminNoticeHeading") + " ==\n";
+				text = "\n\n== " + Kaizo.getFriendlyPref("adminNoticeHeading") + " ==\n";
 				text += "{{subst:AN-notice|thread=" + section + "|noticeboard=Wikipedia:Administrators' noticeboard}} ~~~~";
-				talkpage.setEditSummary( "Notice of discussion at [[Wikipedia:Administrators' noticeboard]]" + Twinkle.getPref("summaryAd") );
+				talkpage.setEditSummary( "Notice of discussion at [[Wikipedia:Administrators' noticeboard]]" + Kaizo.getPref("summaryAd") );
 
 		} else if ( tbtarget === "mail" ) {
-			text = "\n\n==" + Twinkle.getFriendlyPref("mailHeading") + "==\n{{you've got mail|subject=";
+			text = "\n\n==" + Kaizo.getFriendlyPref("mailHeading") + "==\n{{you've got mail|subject=";
 			text += section + "|ts=~~~~~}}";
 
 			if( message ) {
 				text += "\n" + message + "  ~~~~";
-			} else if( Twinkle.getFriendlyPref("insertTalkbackSignature") ) {
+			} else if( Kaizo.getFriendlyPref("insertTalkbackSignature") ) {
 				text += "\n~~~~";
 			}
 
-			talkpage.setEditSummary("Notification: You've got mail" + Twinkle.getPref("summaryAd"));
+			talkpage.setEditSummary("Notification: You've got mail" + Kaizo.getPref("summaryAd"));
 
 		} else 	if ( tbtarget === "wb" ) {
-			text = "\n\n==" + Twinkle.getFriendlyPref("talkbackHeading").replace( /^\s*=+\s*(.*?)\s*=+$\s*/, "$1" ) + "==\n{{wb|";
+			text = "\n\n==" + Kaizo.getFriendlyPref("talkbackHeading").replace( /^\s*=+\s*(.*?)\s*=+$\s*/, "$1" ) + "==\n{{wb|";
 			text += tbPageName;
 
 			if( section ) {
@@ -1878,16 +1878,16 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 
 			if( message ) {
 				text += "\n" + message + "  ~~~~";
-			} else if( Twinkle.getFriendlyPref("insertTalkbackSignature") ) {
+			} else if( Kaizo.getFriendlyPref("insertTalkbackSignature") ) {
 				text += "\n~~~~";
 			}
  
-			talkpage.setEditSummary("Whisperback" + Twinkle.getPref("summaryAd"));
+			talkpage.setEditSummary("Whisperback" + Kaizo.getPref("summaryAd"));
 				
 			} else {
 
 			//clean talkback heading: strip section header markers, were erroneously suggested in the documentation
-			text = "\n\n==" + Twinkle.getFriendlyPref("talkbackHeading").replace( /^\s*=+\s*(.*?)\s*=+$\s*/, "$1" ) + "==\n{{tb|";
+			text = "\n\n==" + Kaizo.getFriendlyPref("talkbackHeading").replace( /^\s*=+\s*(.*?)\s*=+$\s*/, "$1" ) + "==\n{{tb|";
 			text += tbPageName;
 
 			if( section ) {
@@ -1898,17 +1898,17 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
 
 			if( message ) {
 				text += "\n" + message + "  ~~~~";
-			} else if( Twinkle.getFriendlyPref("insertTalkbackSignature") ) {
+			} else if( Kaizo.getFriendlyPref("insertTalkbackSignature") ) {
 				text += "\n~~~~";
 			}
  
 			talkpage.setEditSummary("Talkback ([[" + (tbtarget === "other" ? "" : "User talk:") + tbPageName +
-				(section ? ("#" + section) : "") + "]])" + Twinkle.getPref("summaryAd"));
+				(section ? ("#" + section) : "") + "]])" + Kaizo.getPref("summaryAd"));
 		}
 	
 		talkpage.setAppendText( text );
 		talkpage.setCreateOption("recreate");
-		talkpage.setMinorEdit(Twinkle.getFriendlyPref("markTalkbackAsMinor"));
+		talkpage.setMinorEdit(Kaizo.getFriendlyPref("markTalkbackAsMinor"));
 		talkpage.setFollowRedirect( true );
 		talkpage.append();
 	};
@@ -1923,32 +1923,32 @@ Twinkle.stub.callback.evaluate = function friendlytagCallbackEvaluate(e) {
  * Config directives in:   FriendlyConfig
  */
 
-Twinkle.welcome = function friendlywelcome() {
+Kaizo.welcome = function friendlywelcome() {
 	if( Morebits.queryString.exists( 'friendlywelcome' ) ) {
 		if( Morebits.queryString.get( 'friendlywelcome' ) === 'auto' ) {
-			Twinkle.welcome.auto();
+			Kaizo.welcome.auto();
 		} else {
-			Twinkle.welcome.semiauto();
+			Kaizo.welcome.semiauto();
 		}
 	} else {
-		Twinkle.welcome.normal();
+		Kaizo.welcome.normal();
 	}
 };
 
-Twinkle.welcome.auto = function() {
+Kaizo.welcome.auto = function() {
 	if( Morebits.queryString.get( 'action' ) !== 'edit' ) {
 		// userpage not empty, aborting auto-welcome
 		return;
 	}
 
-	Twinkle.welcome.welcomeUser();
+	Kaizo.welcome.welcomeUser();
 };
 
-Twinkle.welcome.semiauto = function() {
-	Twinkle.welcome.callback( mw.config.get( 'wgTitle' ).split( '/' )[0].replace( /\"/, "\\\"") );
+Kaizo.welcome.semiauto = function() {
+	Kaizo.welcome.callback( mw.config.get( 'wgTitle' ).split( '/' )[0].replace( /\"/, "\\\"") );
 };
 
-Twinkle.welcome.normal = function() {
+Kaizo.welcome.normal = function() {
 	if( Morebits.queryString.exists( 'diff' ) ) {
 		// check whether the contributors' talk pages exist yet
 		var $oList = $("#mw-diff-otitle2").find("span.mw-usertoollinks a.new:contains(talk)").first();
@@ -1973,7 +1973,7 @@ Twinkle.welcome.normal = function() {
 				var oHref = $oList.attr("href");
 
 				var oWelcomeNode = welcomeNode.cloneNode( true );
-				oWelcomeNode.firstChild.setAttribute( 'href', oHref + '&' + Morebits.queryString.create( { 'friendlywelcome': Twinkle.getFriendlyPref('quickWelcomeMode')==='auto'?'auto':'norm' } ) + '&' + Morebits.queryString.create( { 'vanarticle': mw.config.get( 'wgPageName' ).replace(/_/g, ' ') } ) );
+				oWelcomeNode.firstChild.setAttribute( 'href', oHref + '&' + Morebits.queryString.create( { 'friendlywelcome': Kaizo.getFriendlyPref('quickWelcomeMode')==='auto'?'auto':'norm' } ) + '&' + Morebits.queryString.create( { 'vanarticle': mw.config.get( 'wgPageName' ).replace(/_/g, ' ') } ) );
 				$oList[0].parentNode.parentNode.appendChild( document.createTextNode( ' ' ) );
 				$oList[0].parentNode.parentNode.appendChild( oWelcomeNode );
 			}
@@ -1982,7 +1982,7 @@ Twinkle.welcome.normal = function() {
 				var nHref = $nList.attr("href");
 
 				var nWelcomeNode = welcomeNode.cloneNode( true );
-				nWelcomeNode.firstChild.setAttribute( 'href', nHref + '&' + Morebits.queryString.create( { 'friendlywelcome': Twinkle.getFriendlyPref('quickWelcomeMode')==='auto'?'auto':'norm' } ) + '&' + Morebits.queryString.create( { 'vanarticle': mw.config.get( 'wgPageName' ).replace(/_/g, ' ') } ) );
+				nWelcomeNode.firstChild.setAttribute( 'href', nHref + '&' + Morebits.queryString.create( { 'friendlywelcome': Kaizo.getFriendlyPref('quickWelcomeMode')==='auto'?'auto':'norm' } ) + '&' + Morebits.queryString.create( { 'vanarticle': mw.config.get( 'wgPageName' ).replace(/_/g, ' ') } ) );
 				$nList[0].parentNode.parentNode.appendChild( document.createTextNode( ' ' ) );
 				$nList[0].parentNode.parentNode.appendChild( nWelcomeNode );
 			}
@@ -1990,15 +1990,15 @@ Twinkle.welcome.normal = function() {
 	}
 	if( mw.config.get( 'wgNamespaceNumber' ) === 3 ) {
 		var username = mw.config.get( 'wgTitle' ).split( '/' )[0].replace( /\"/, "\\\""); // only first part before any slashes
-		twAddPortletLink( function(){ Twinkle.welcome.callback(username); }, "Wel", "friendly-welcome", "Welcome user" );
+		twAddPortletLink( function(){ Kaizo.welcome.callback(username); }, "Wel", "friendly-welcome", "Welcome user" );
 	}
 };
 
-Twinkle.welcome.welcomeUser = function welcomeUser() {
+Kaizo.welcome.welcomeUser = function welcomeUser() {
 	Morebits.status.init( document.getElementById('bodyContent') );
 
 	var params = {
-		value: Twinkle.getFriendlyPref('quickWelcomeTemplate'),
+		value: Kaizo.getFriendlyPref('quickWelcomeTemplate'),
 		article: Morebits.queryString.exists( 'vanarticle' ) ? Morebits.queryString.get( 'vanarticle' ) : '',
 		mode: 'auto'
 	};
@@ -2009,26 +2009,26 @@ Twinkle.welcome.welcomeUser = function welcomeUser() {
 	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "User talk page modification");
 	wikipedia_page.setFollowRedirect(true);
 	wikipedia_page.setCallbackParameters(params);
-	wikipedia_page.load(Twinkle.welcome.callbacks.main);
+	wikipedia_page.load(Kaizo.welcome.callbacks.main);
 };
 
-Twinkle.welcome.callback = function friendlywelcomeCallback( uid ) {
+Kaizo.welcome.callback = function friendlywelcomeCallback( uid ) {
 	if( uid === mw.config.get('wgUserName') && !confirm( 'Are you really sure you want to welcome yourself?...' ) ){
 		return;
 	}
 
 	var Window = new Morebits.simpleWindow( 600, 420 );
 	Window.setTitle( "Welcome user" );
-	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#welcome" );
+	Window.setScriptName( "Kaizo" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#welcome" );
 
-	var form = new Morebits.quickForm( Twinkle.welcome.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.welcome.callback.evaluate );
 
 	form.append({
 			type: 'select',
 			name: 'type',
 			label: 'Type of welcome: ',
-			event: Twinkle.welcome.populateWelcomeList,
+			event: Kaizo.welcome.populateWelcomeList,
 			list: [
 				{ type: 'option', value: 'standard', label: 'Standard welcomes', selected: !Morebits.isIPAddress(mw.config.get('wgTitle')) },
 				{ type: 'option', value: 'anonymous', label: 'Problem user welcomes', selected: Morebits.isIPAddress(mw.config.get('wgTitle')) }
@@ -2047,7 +2047,7 @@ Twinkle.welcome.callback = function friendlywelcomeCallback( uid ) {
 
 	var previewlink = document.createElement( 'a' );
 	$(previewlink).click(function(){
-		Twinkle.welcome.callbacks.preview(result);  // |result| is defined below
+		Kaizo.welcome.callbacks.preview(result);  // |result| is defined below
 	});
 	previewlink.style.cursor = "pointer";
 	previewlink.textContent = 'Preview';
@@ -2065,7 +2065,7 @@ Twinkle.welcome.callback = function friendlywelcomeCallback( uid ) {
 	result.type.dispatchEvent( evt );
 };
 
-Twinkle.welcome.populateWelcomeList = function(e) {
+Kaizo.welcome.populateWelcomeList = function(e) {
 	var type = e.target.value;
 	var $workarea = $(e.target.form).find("div#welcomeWorkArea");
 
@@ -2074,13 +2074,13 @@ Twinkle.welcome.populateWelcomeList = function(e) {
 		id: "welcomeWorkArea"
 	});
 
-	if ((type === "standard" || type === "anonymous") && Twinkle.getFriendlyPref("customWelcomeList").length) {
+	if ((type === "standard" || type === "anonymous") && Kaizo.getFriendlyPref("customWelcomeList").length) {
 		div.append({ type: 'header', label: 'Custom welcome templates' });
 		div.append({ 
 			type: 'radio',
 			name: 'template',
-			list: Twinkle.getFriendlyPref("customWelcomeList"),
-			event: Twinkle.welcome.selectTemplate
+			list: Kaizo.getFriendlyPref("customWelcomeList"),
+			event: Kaizo.welcome.selectTemplate
 		});
 	}
 
@@ -2089,7 +2089,7 @@ Twinkle.welcome.populateWelcomeList = function(e) {
 			type: 'radio',
 			name: 'template',
 			list: list.map(function(obj) {
-				var properties = Twinkle.welcome.templates[obj];
+				var properties = Kaizo.welcome.templates[obj];
 				var result = (properties ? { 
 					value: obj,
 					label: "{{" + obj + "}}: " + properties.description + (properties.linkedArticle ? "\u00A0*" : ""),  // U+00A0 NO-BREAK SPACE
@@ -2100,7 +2100,7 @@ Twinkle.welcome.populateWelcomeList = function(e) {
 				});
 				return result;
 			}),
-			event: Twinkle.welcome.selectTemplate
+			event: Kaizo.welcome.selectTemplate
 		});
 	};
 
@@ -2130,7 +2130,7 @@ Twinkle.welcome.populateWelcomeList = function(e) {
 			]);
 			break;
 		default:
-			div.append({ type: 'div', label: 'Twinkle.welcome.populateWelcomeList: something went wrong' });
+			div.append({ type: 'div', label: 'Kaizo.welcome.populateWelcomeList: something went wrong' });
 			break;
 	}
 
@@ -2140,11 +2140,11 @@ Twinkle.welcome.populateWelcomeList = function(e) {
 
 	var firstRadio = e.target.form.template[0];
 	firstRadio.checked = true;
-	Twinkle.welcome.selectTemplate({ target: firstRadio });
+	Kaizo.welcome.selectTemplate({ target: firstRadio });
 };
 
-Twinkle.welcome.selectTemplate = function(e) {
-	var properties = Twinkle.welcome.templates[e.target.values];
+Kaizo.welcome.selectTemplate = function(e) {
+	var properties = Kaizo.welcome.templates[e.target.values];
 	e.target.form.article.disabled = (properties ? !properties.linkedArticle : false);
 };
 
@@ -2157,7 +2157,7 @@ Twinkle.welcome.selectTemplate = function(e) {
 //   - $ARTICLE$   - replaced by an article name, if "linkedArticle" is true
 //   - $HEADER$    - adds a level 2 header (most templates already include this)
 
-Twinkle.welcome.templates = {
+Kaizo.welcome.templates = {
 	"welcome": {
 		description: "standard plain text welcome",
 		linkedArticle: true,
@@ -2233,11 +2233,11 @@ Twinkle.welcome.templates = {
 	}
 };
 
-Twinkle.welcome.getTemplateWikitext = function(template, article) {
-	var properties = Twinkle.welcome.templates[template];
+Kaizo.welcome.getTemplateWikitext = function(template, article) {
+	var properties = Kaizo.welcome.templates[template];
 	if (properties) {
 		return properties.syntax.
-			replace("$USERNAME$", Twinkle.getFriendlyPref("insertUsername") ? mw.config.get("wgUserName") : "").
+			replace("$USERNAME$", Kaizo.getFriendlyPref("insertUsername") ? mw.config.get("wgUserName") : "").
 			replace("$ARTICLE$", article ? article : "").
 			replace(/\$HEADER\$\s*/, "== Welcome ==\n\n").
 			replace("$EXTRA$", "");  // EXTRA is not implemented yet
@@ -2246,7 +2246,7 @@ Twinkle.welcome.getTemplateWikitext = function(template, article) {
 	}
 };
 
-Twinkle.welcome.callbacks = {
+Kaizo.welcome.callbacks = {
 	preview: function(form) {
 		var previewDialog = new Morebits.simpleWindow(750, 400);
 		previewDialog.setTitle("Welcome template preview");
@@ -2259,7 +2259,7 @@ Twinkle.welcome.callbacks = {
 		previewDialog.setContent(previewdiv);
 
 		var previewer = new Morebits.wiki.preview(previewdiv);
-		previewer.beginRender(Twinkle.welcome.getTemplateWikitext(form.getChecked("template"), form.article.value));
+		previewer.beginRender(Kaizo.welcome.getTemplateWikitext(form.getChecked("template"), form.article.value));
 
 		var submit = document.createElement("input");
 		submit.setAttribute("type", "submit");
@@ -2283,9 +2283,9 @@ Twinkle.welcome.callbacks = {
 			return;
 		}
 
-		var welcomeText = Twinkle.welcome.getTemplateWikitext(params.value, params.article);
+		var welcomeText = Kaizo.welcome.getTemplateWikitext(params.value, params.article);
 
-		if( Twinkle.getFriendlyPref('topWelcomes') ) {
+		if( Kaizo.getFriendlyPref('topWelcomes') ) {
 			text = welcomeText + '\n\n' + text;
 		} else {
 			text += "\n" + welcomeText;
@@ -2293,14 +2293,14 @@ Twinkle.welcome.callbacks = {
 
 		var summaryText = "Welcome to Miraheze!";
 		pageobj.setPageText(text);
-		pageobj.setEditSummary(summaryText + Twinkle.getPref('summaryAd'));
-		pageobj.setWatchlist(Twinkle.getFriendlyPref('watchWelcomes'));
+		pageobj.setEditSummary(summaryText + Kaizo.getPref('summaryAd'));
+		pageobj.setWatchlist(Kaizo.getFriendlyPref('watchWelcomes'));
 		pageobj.setCreateOption('recreate');
 		pageobj.save();
 	}
 };
 
-Twinkle.welcome.callback.evaluate = function friendlywelcomeCallbackEvaluate(e) {
+Kaizo.welcome.callback.evaluate = function friendlywelcomeCallbackEvaluate(e) {
 	var form = e.target;
 
 	var params = {
@@ -2318,19 +2318,19 @@ Twinkle.welcome.callback.evaluate = function friendlywelcomeCallbackEvaluate(e) 
 	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "User talk page modification");
 	wikipedia_page.setFollowRedirect(true);
 	wikipedia_page.setCallbackParameters(params);
-	wikipedia_page.load(Twinkle.welcome.callbacks.main);
+	wikipedia_page.load(Kaizo.welcome.callbacks.main);
 };
 
 /*
  ****************************************
- *** twinklearv.js: ARV module
+ *** Kaizoarv.js: ARV module
  ****************************************
  * Mode of invocation:     Tab ("ARV")
  * Active on:              Existing and non-existing user pages, user talk pages, contributions pages
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
-Twinkle.arv = function twinklearv() {
+Kaizo.arv = function Kaizoarv() {
 
 	var username = Morebits.getPageAssociatedUser();
 	if ( username === false ) {
@@ -2339,12 +2339,12 @@ Twinkle.arv = function twinklearv() {
 
 	var title = Morebits.isIPAddress( username ) ? 'Report IP to administrators' : 'Report user to administrators';
 
-	//twAddPortletLink( function(){ Twinkle.arv.callback(username); }, "VIP", "tw-arv", title );
+	//twAddPortletLink( function(){ Kaizo.arv.callback(username); }, "VIP", "tw-arv", title );
 };
 
-Twinkle.arv.callback = function ( uid ) {
-	if ( !twinkleUserAuthorized ) {
-		alert("Your account is too new to use Twinkle.");
+Kaizo.arv.callback = function ( uid ) {
+	if ( !KaizoUserAuthorized ) {
+		alert("Your account is too new to use Kaizo.");
 		return;
 	}
 	if ( uid === mw.config.get('wgUserName') ) {
@@ -2354,15 +2354,15 @@ Twinkle.arv.callback = function ( uid ) {
 
 	var Window = new Morebits.simpleWindow( 600, 500 );
 	Window.setTitle( "Vandalism in progress" ); //changed title
-	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#arv" );
+	Window.setScriptName( "Kaizo" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#arv" );
 
-	var form = new Morebits.quickForm( Twinkle.arv.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.arv.callback.evaluate );
 	var categories = form.append( {
 			type: 'select',
 			name: 'category',
 			label: 'Select report type: ',
-			event: Twinkle.arv.callback.changeCategory
+			event: Kaizo.arv.callback.changeCategory
 		} );
 	categories.append( {
 			type: 'option',
@@ -2391,7 +2391,7 @@ Twinkle.arv.callback = function ( uid ) {
 	result.category.dispatchEvent( evt );
 };
 
-Twinkle.arv.callback.changeCategory = function (e) {
+Kaizo.arv.callback.changeCategory = function (e) {
 	var value = e.target.value;
 	var root = e.target.form;
 	var old_area = Morebits.quickForm.getElements(root, "work_area")[0];
@@ -2482,7 +2482,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 	}
 };
 
-Twinkle.arv.callback.evaluate = function(e) {
+Kaizo.arv.callback.evaluate = function(e) {
 
 	var form = e.target;
 	var reason = "";
@@ -2567,7 +2567,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 					return;
 				}
 				aivPage.getStatusElement().status( 'Adding new report...' );
-				aivPage.setEditSummary( 'Reporting [[Special:Contributions/' + uid + '|' + uid + ']].' + Twinkle.getPref('summaryAd') );
+				aivPage.setEditSummary( 'Reporting [[Special:Contributions/' + uid + '|' + uid + ']].' + Kaizo.getPref('summaryAd') );
 				aivPage.setAppendText( '\n*{{' + ( Morebits.isIPAddress( uid ) ? 'IPvandal' : 'vandal' ) + '|' + (/\=/.test( uid ) ? '1=' : '' ) + uid + '}} &ndash; ' + reason );
 				aivPage.append();
 			} );
@@ -2576,28 +2576,28 @@ Twinkle.arv.callback.evaluate = function(e) {
 };
 /*
  ****************************************
- *** twinklebatchdelete.js: Batch delete module (sysops only)
+ *** Kaizobatchdelete.js: Batch delete module (sysops only)
  ****************************************
  * Mode of invocation:     Tab ("D-batch")
  * Active on:              Existing and non-existing non-articles, and Special:PrefixIndex
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
 
-Twinkle.batchdelete = function twinklebatchdelete() {
+Kaizo.batchdelete = function Kaizobatchdelete() {
 	if( Morebits.userIsInGroup( 'sysop' ) && (mw.config.get( 'wgNamespaceNumber' ) > 0 || mw.config.get( 'wgCanonicalSpecialPageName' ) === 'Prefixindex') ) {
-		twAddPortletLink( Twinkle.batchdelete.callback, "D-batch", "tw-batch", "Delete pages found in this category/on this page" );
+		twAddPortletLink( Kaizo.batchdelete.callback, "D-batch", "tw-batch", "Delete pages found in this category/on this page" );
 	}
 };
 
-Twinkle.batchdelete.unlinkCache = {};
-Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
+Kaizo.batchdelete.unlinkCache = {};
+Kaizo.batchdelete.callback = function KaizobatchdeleteCallback() {
 	var Window = new Morebits.simpleWindow( 800, 400 );
 	Window.setTitle( "Batch deletion" );
-	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#batchdelete" );
+	Window.setScriptName( "Kaizo" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#batchdelete" );
 
-	var form = new Morebits.quickForm( Twinkle.batchdelete.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.batchdelete.callback.evaluate );
 	form.append( {
 			type: 'checkbox',
 			list: [
@@ -2634,7 +2634,7 @@ Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
 			'action': 'query',
 			'generator': 'categorymembers',
 			'gcmtitle': mw.config.get( 'wgPageName' ),
-			'gcmlimit' : Twinkle.getPref('batchMax'), // the max for sysops
+			'gcmlimit' : Kaizo.getPref('batchMax'), // the max for sysops
 			'prop': [ 'categories', 'revisions' ],
 			'rvprop': [ 'size' ]
 		};
@@ -2672,7 +2672,7 @@ Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
 			'generator': 'allpages',
 			'gapnamespace': gapnamespace ,
 			'gapprefix': gapprefix,
-			'gaplimit' : Twinkle.getPref('batchMax'), // the max for sysops
+			'gaplimit' : Kaizo.getPref('batchMax'), // the max for sysops
 			'prop' : ['categories', 'revisions' ],
 			'rvprop': [ 'size' ]
 		};
@@ -2681,7 +2681,7 @@ Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
 			'action': 'query',
 			'generator': 'links',
 			'titles': mw.config.get( 'wgPageName' ),
-			'gpllimit' : Twinkle.getPref('batchMax'), // the max for sysops
+			'gpllimit' : Kaizo.getPref('batchMax'), // the max for sysops
 			'prop': [ 'categories', 'revisions' ],
 			'rvprop': [ 'size' ]
 		};
@@ -2718,10 +2718,10 @@ Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
 	Window.display();
 };
 
-Twinkle.batchdelete.currentDeleteCounter = 0;
-Twinkle.batchdelete.currentUnlinkCounter = 0;
-Twinkle.batchdelete.currentdeletor = 0;
-Twinkle.batchdelete.callback.evaluate = function twinklebatchdeleteCallbackEvaluate(event) {
+Kaizo.batchdelete.currentDeleteCounter = 0;
+Kaizo.batchdelete.currentUnlinkCounter = 0;
+Kaizo.batchdelete.currentdeletor = 0;
+Kaizo.batchdelete.callback.evaluate = function KaizobatchdeleteCallbackEvaluate(event) {
 	Morebits.wiki.actionCompleted.notice = 'Status';
 	Morebits.wiki.actionCompleted.postfix = 'batch deletion is now complete';
 	mw.config.set('wgPageName', mw.config.get('wgPageName').replace(/_/g, ' '));  // for queen/king/whatever and country!
@@ -2741,33 +2741,33 @@ Twinkle.batchdelete.callback.evaluate = function twinklebatchdeleteCallbackEvalu
 	}
 
 	function toCall( work ) {
-		if( work.length === 0 &&  Twinkle.batchdelete.currentDeleteCounter <= 0 && Twinkle.batchdelete.currentUnlinkCounter <= 0 ) {
-			window.clearInterval( Twinkle.batchdelete.currentdeletor );
+		if( work.length === 0 &&  Kaizo.batchdelete.currentDeleteCounter <= 0 && Kaizo.batchdelete.currentUnlinkCounter <= 0 ) {
+			window.clearInterval( Kaizo.batchdelete.currentdeletor );
 			Morebits.wiki.removeCheckpoint();
 			return;
-		} else if( work.length !== 0 && ( Twinkle.batchdelete.currentDeleteCounter <= Twinkle.getPref('batchDeleteMinCutOff') || Twinkle.batchdelete.currentUnlinkCounter <= Twinkle.getPref('batchDeleteMinCutOff')  ) ) {
-			Twinkle.batchdelete.unlinkCache = []; // Clear the cache
+		} else if( work.length !== 0 && ( Kaizo.batchdelete.currentDeleteCounter <= Kaizo.getPref('batchDeleteMinCutOff') || Kaizo.batchdelete.currentUnlinkCounter <= Kaizo.getPref('batchDeleteMinCutOff')  ) ) {
+			Kaizo.batchdelete.unlinkCache = []; // Clear the cache
 			var pages = work.shift();
-			Twinkle.batchdelete.currentDeleteCounter += pages.length;
-			Twinkle.batchdelete.currentUnlinkCounter += pages.length;
+			Kaizo.batchdelete.currentDeleteCounter += pages.length;
+			Kaizo.batchdelete.currentUnlinkCounter += pages.length;
 			for( var i = 0; i < pages.length; ++i ) {
 				var page = pages[i];
 				var query = {
 					'action': 'query',
 					'titles': page
 				};
-				var wikipedia_api = new Morebits.wiki.api( 'Checking if page ' + page + ' exists', query, Twinkle.batchdelete.callbacks.main );
+				var wikipedia_api = new Morebits.wiki.api( 'Checking if page ' + page + ' exists', query, Kaizo.batchdelete.callbacks.main );
 				wikipedia_api.params = { page:page, reason:reason, unlink_page:unlink_page, delete_page:delete_page, delete_redirects:delete_redirects };
 				wikipedia_api.post();
 			}
 		}
 	}
-	var work = Morebits.array.chunk( pages, Twinkle.getPref('batchdeleteChunks') );
+	var work = Morebits.array.chunk( pages, Kaizo.getPref('batchdeleteChunks') );
 	Morebits.wiki.addCheckpoint();
-	Twinkle.batchdelete.currentdeletor = window.setInterval( toCall, 1000, work );
+	Kaizo.batchdelete.currentdeletor = window.setInterval( toCall, 1000, work );
 };
 
-Twinkle.batchdelete.callbacks = {
+Kaizo.batchdelete.callbacks = {
 	main: function( self ) {
 		var xmlDoc = self.responseXML;
 		var normal = xmlDoc.evaluate( '//normalized/n/@to', xmlDoc, null, XPathResult.STRING_TYPE, null ).stringValue;
@@ -2791,11 +2791,11 @@ Twinkle.batchdelete.callbacks = {
 				'bltitle': self.params.page,
 				'bllimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500 // 500 is max for normal users, 5000 for bots and sysops
 			};
-			wikipedia_api = new Morebits.wiki.api( 'Grabbing backlinks', query, Twinkle.batchdelete.callbacks.unlinkBacklinksMain );
+			wikipedia_api = new Morebits.wiki.api( 'Grabbing backlinks', query, Kaizo.batchdelete.callbacks.unlinkBacklinksMain );
 			wikipedia_api.params = self.params;
 			wikipedia_api.post();
 		} else {
-			--Twinkle.batchdelete.currentUnlinkCounter;
+			--Kaizo.batchdelete.currentUnlinkCounter;
 		}
 		if( self.params.delete_page ) {
 			if (self.params.delete_redirects)
@@ -2807,15 +2807,15 @@ Twinkle.batchdelete.callbacks = {
 					'bltitle': self.params.page,
 					'bllimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500 // 500 is max for normal users, 5000 for bots and sysops
 				};
-				wikipedia_api = new Morebits.wiki.api( 'Grabbing redirects', query, Twinkle.batchdelete.callbacks.deleteRedirectsMain );
+				wikipedia_api = new Morebits.wiki.api( 'Grabbing redirects', query, Kaizo.batchdelete.callbacks.deleteRedirectsMain );
 				wikipedia_api.params = self.params;
 				wikipedia_api.post();
 			}
 
 			var wikipedia_page = new Morebits.wiki.page( self.params.page, 'Deleting page ' + self.params.page );
-			wikipedia_page.setEditSummary(self.params.reason + Twinkle.getPref('deletionSummaryAd'));
+			wikipedia_page.setEditSummary(self.params.reason + Kaizo.getPref('deletionSummaryAd'));
 			wikipedia_page.deletePage(function( apiobj ) { 
-					--Twinkle.batchdelete.currentDeleteCounter;
+					--Kaizo.batchdelete.currentDeleteCounter;
 					var link = document.createElement( 'a' );
 					link.setAttribute( 'href', mw.util.getUrl(self.params.page) );
 					link.setAttribute( 'title', self.params.page );
@@ -2823,7 +2823,7 @@ Twinkle.batchdelete.callbacks = {
 					apiobj.statelem.info( [ 'completed (' , link , ')' ] );
 				} );	
 		} else {
-			--Twinkle.batchdelete.currentDeleteCounter;
+			--Kaizo.batchdelete.currentDeleteCounter;
 		}
 	},
 	deleteRedirectsMain: function( self ) {
@@ -2867,7 +2867,7 @@ Twinkle.batchdelete.callbacks = {
 		for ( var i = 0; i < snapshot.snapshotLength; ++i ) {
 			var title = snapshot.snapshotItem(i).value;
 			var wikipedia_page = new Morebits.wiki.page( title, "Deleting " + title );
-			wikipedia_page.setEditSummary('Redirect to deleted page "' + self.params.page + '"' + Twinkle.getPref('deletionSummaryAd'));
+			wikipedia_page.setEditSummary('Redirect to deleted page "' + self.params.page + '"' + Kaizo.getPref('deletionSummaryAd'));
 			wikipedia_page.setCallbackParameters(params);
 			wikipedia_page.deletePage(onsuccess);
 		}
@@ -2877,7 +2877,7 @@ Twinkle.batchdelete.callbacks = {
 		var snapshot = xmlDoc.evaluate('//backlinks/bl/@title', xmlDoc, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null );
 
 		if( snapshot.snapshotLength === 0 ) {
-			--Twinkle.batchdelete.currentUnlinkCounter;
+			--Kaizo.batchdelete.currentUnlinkCounter;
 			return;
 		}
 
@@ -2893,7 +2893,7 @@ Twinkle.batchdelete.callbacks = {
 			self.statelem.unlink();
 			if( self.params.current >= total ) {
 				obj.info( now + ' (completed)' );
-				--Twinkle.batchdelete.currentUnlinkCounter;
+				--Kaizo.batchdelete.currentUnlinkCounter;
 				Morebits.wiki.removeCheckpoint();
 			}
 		};
@@ -2901,7 +2901,7 @@ Twinkle.batchdelete.callbacks = {
 		Morebits.wiki.addCheckpoint();
 		if( snapshot.snapshotLength === 0 ) {
 			statusIndicator.info( '100% (completed)' );
-			--Twinkle.batchdelete.currentUnlinkCounter;
+			--Kaizo.batchdelete.currentUnlinkCounter;
 			Morebits.wiki.removeCheckpoint();
 			return;
 		}
@@ -2916,7 +2916,7 @@ Twinkle.batchdelete.callbacks = {
 			params.title = title;
 			params.onsuccess = onsuccess;
 			wikipedia_page.setCallbackParameters(params);
-			wikipedia_page.load(Twinkle.batchdelete.callbacks.unlinkBacklinks);
+			wikipedia_page.load(Kaizo.batchdelete.callbacks.unlinkBacklinks);
 		}
 	},
 	unlinkBacklinks: function( pageobj ) {
@@ -2929,8 +2929,8 @@ Twinkle.batchdelete.callbacks = {
 		}
 		var text;
 
-		if( params.title in Twinkle.batchdelete.unlinkCache ) {
-			text = Twinkle.batchdelete.unlinkCache[ params.title ];
+		if( params.title in Kaizo.batchdelete.unlinkCache ) {
+			text = Kaizo.batchdelete.unlinkCache[ params.title ];
 		} else {
 			text = pageobj.getPageText();
 		}
@@ -2939,14 +2939,14 @@ Twinkle.batchdelete.callbacks = {
 		wikiPage.removeLink( params.page );
 
 		text = wikiPage.getText();
-		Twinkle.batchdelete.unlinkCache[ params.title ] = text;
+		Kaizo.batchdelete.unlinkCache[ params.title ] = text;
 		if( text === old_text ) {
 			// Nothing to do, return
 			params.onsuccess( { params: params, statelem: pageobj.getStatusElement() } );
 			Morebits.wiki.actionCompleted();
 			return;
 		}
-		pageobj.setEditSummary('Removing link(s) to deleted page ' + self.params.page + Twinkle.getPref('deletionSummaryAd'));
+		pageobj.setEditSummary('Removing link(s) to deleted page ' + self.params.page + Kaizo.getPref('deletionSummaryAd'));
 		pageobj.setPageText(text);
 		pageobj.setCreateOption('nocreate');
 		pageobj.save(params.onsuccess);
@@ -2954,37 +2954,37 @@ Twinkle.batchdelete.callbacks = {
 };
 /*
  ****************************************
- *** twinklebatchprotect.js: Batch protect module (sysops only)
+ *** Kaizobatchprotect.js: Batch protect module (sysops only)
  ****************************************
  * Mode of invocation:     Tab ("P-batch")
  * Active on:              Existing project pages and user pages; existing and
  *                         non-existing categories; Special:PrefixIndex
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
 
-Twinkle.batchprotect = function twinklebatchprotect() {
+Kaizo.batchprotect = function Kaizobatchprotect() {
 	if( Morebits.userIsInGroup( 'sysop' ) && ((mw.config.get( 'wgArticleId' ) > 0 && (mw.config.get( 'wgNamespaceNumber' ) === 2 ||
 		mw.config.get( 'wgNamespaceNumber' ) === 4)) || mw.config.get( 'wgNamespaceNumber' ) === 14 ||
 		mw.config.get( 'wgCanonicalSpecialPageName' ) === 'Prefixindex') ) {
-		twAddPortletLink( Twinkle.batchprotect.callback, "P-batch", "tw-pbatch", "Protect pages linked from this page" );
+		twAddPortletLink( Kaizo.batchprotect.callback, "P-batch", "tw-pbatch", "Protect pages linked from this page" );
 	}
 };
 
-Twinkle.batchprotect.unlinkCache = {};
-Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
+Kaizo.batchprotect.unlinkCache = {};
+Kaizo.batchprotect.callback = function KaizobatchprotectCallback() {
 	var Window = new Morebits.simpleWindow( 800, 400 );
 	Window.setTitle( "Batch protection" );
-	Window.setScriptName( "Twinkle" );
+	Window.setScriptName( "Kaizo" );
 	//Window.addFooterLink( "Protection templates", "Template:Protection templates" );
 	Window.addFooterLink( "Protection policy", "WP:PROT" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#protect" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#protect" );
 
-	var form = new Morebits.quickForm( Twinkle.batchprotect.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.batchprotect.callback.evaluate );
 	form.append({
 			type: 'checkbox',
 			name: 'editmodify',
-			event: Twinkle.protect.formevents.editmodify,
+			event: Kaizo.protect.formevents.editmodify,
 			list: [
 				{
 					label: 'Modify edit protection',
@@ -2998,7 +2998,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			type: 'select',
 			name: 'editlevel',
 			label: 'Edit protection:',
-			event: Twinkle.protect.formevents.editlevel
+			event: Kaizo.protect.formevents.editlevel
 		});
 	editlevel.append({
 			type: 'option',
@@ -3022,7 +3022,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			label: 'Expires:',
 			event: function(e) {
 				if (e.target.value === 'custom') {
-					Twinkle.protect.doCustomExpiry(e.target);
+					Kaizo.protect.doCustomExpiry(e.target);
 				}
 			},
 			list: [
@@ -3049,7 +3049,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 	form.append({
 			type: 'checkbox',
 			name: 'movemodify',
-			event: Twinkle.protect.formevents.movemodify,
+			event: Kaizo.protect.formevents.movemodify,
 			list: [
 				{
 					label: 'Modify move protection',
@@ -3063,7 +3063,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			type: 'select',
 			name: 'movelevel',
 			label: 'Move protection:',
-			event: Twinkle.protect.formevents.movelevel
+			event: Kaizo.protect.formevents.movelevel
 		});
 	movelevel.append({
 			type: 'option',
@@ -3087,7 +3087,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			label: 'Expires:',
 			event: function(e) {
 				if (e.target.value === 'custom') {
-					Twinkle.protect.doCustomExpiry(e.target);
+					Kaizo.protect.doCustomExpiry(e.target);
 				}
 			},
 			list: [
@@ -3114,7 +3114,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 	form.append({
 			type: 'checkbox',
 			name: 'createmodify',
-			event: function twinklebatchprotectFormCreatemodifyEvent(e) {
+			event: function KaizobatchprotectFormCreatemodifyEvent(e) {
 				e.target.form.createlevel.disabled = !e.target.checked;
 				e.target.form.createexpiry.disabled = !e.target.checked || (e.target.form.createlevel.value === 'all');
 				e.target.form.createlevel.style.color = e.target.form.createexpiry.style.color = (e.target.checked ? "" : "transparent");
@@ -3132,7 +3132,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			type: 'select',
 			name: 'createlevel',
 			label: 'Create protection:',
-			event: Twinkle.protect.formevents.createlevel
+			event: Kaizo.protect.formevents.createlevel
 		});
 	createlevel.append({
 			type: 'option',
@@ -3156,7 +3156,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			label: 'Expires:',
 			event: function(e) {
 				if (e.target.value === 'custom') {
-					Twinkle.protect.doCustomExpiry(e.target);
+					Kaizo.protect.doCustomExpiry(e.target);
 				}
 			},
 			list: [
@@ -3193,7 +3193,7 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			'action': 'query',
 			'generator': 'categorymembers',
 			'gcmtitle': mw.config.get( 'wgPageName' ),
-			'gcmlimit' : Twinkle.getPref('batchMax'), // the max for sysops
+			'gcmlimit' : Kaizo.getPref('batchMax'), // the max for sysops
 			'prop': 'revisions',
 			'rvprop': 'size'
 		};
@@ -3204,14 +3204,14 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 			'gapnamespace': Morebits.queryString.exists('namespace') ? Morebits.queryString.get( 'namespace' ) : document.getElementById('namespace').value,
 			'gapprefix': Morebits.queryString.exists('from') ? Morebits.string.toUpperCaseFirstChar(Morebits.queryString.get( 'from' ).replace('+', ' ')) :
 				Morebits.string.toUpperCaseFirstChar(document.getElementById('nsfrom').value),
-			'gaplimit' : Twinkle.getPref('batchMax'), // the max for sysops
+			'gaplimit' : Kaizo.getPref('batchMax'), // the max for sysops
 			'prop': 'revisions',
 			'rvprop': 'size'
 		};
 	} else {
 		query = {
 			'action': 'query',
-			'gpllimit' : Twinkle.getPref('batchMax'), // the max for sysops
+			'gpllimit' : Kaizo.getPref('batchMax'), // the max for sysops
 			'generator': 'links',
 			'titles': mw.config.get( 'wgPageName' ),
 			'prop': 'revisions',
@@ -3264,9 +3264,9 @@ Twinkle.batchprotect.callback = function twinklebatchprotectCallback() {
 	wikipedia_api.post();
 };
 
-Twinkle.batchprotect.currentProtectCounter = 0;
-Twinkle.batchprotect.currentprotector = 0;
-Twinkle.batchprotect.callback.evaluate = function twinklebatchprotectCallbackEvaluate(event) {
+Kaizo.batchprotect.currentProtectCounter = 0;
+Kaizo.batchprotect.currentprotector = 0;
+Kaizo.batchprotect.callback.evaluate = function KaizobatchprotectCallbackEvaluate(event) {
 	var pages = event.target.getChecked( 'pages' );
 	var reason = event.target.reason.value;
 	var editmodify = event.target.editmodify.checked;
@@ -3292,23 +3292,23 @@ Twinkle.batchprotect.callback.evaluate = function twinklebatchprotectCallbackEva
 		return;
 	}
 
-	var toCall = function twinklebatchprotectToCall( work ) {
-		if( work.length === 0 && Twinkle.batchprotect.currentProtectCounter <= 0 ) {
+	var toCall = function KaizobatchprotectToCall( work ) {
+		if( work.length === 0 && Kaizo.batchprotect.currentProtectCounter <= 0 ) {
 			Morebits.status.info( 'work done' );
-			window.clearInterval( Twinkle.batchprotect.currentprotector );
-			Twinkle.batchprotect.currentprotector = Twinkle.batchprotect.currentProtectCounter = 0;
+			window.clearInterval( Kaizo.batchprotect.currentprotector );
+			Kaizo.batchprotect.currentprotector = Kaizo.batchprotect.currentProtectCounter = 0;
 			Morebits.wiki.removeCheckpoint();
 			return;
-		} else if( work.length !== 0 && Twinkle.batchprotect.currentProtectCounter <= Twinkle.getPref('batchProtectMinCutOff') ) {
+		} else if( work.length !== 0 && Kaizo.batchprotect.currentProtectCounter <= Kaizo.getPref('batchProtectMinCutOff') ) {
 			var pages = work.shift();
-			Twinkle.batchprotect.currentProtectCounter += pages.length;
+			Kaizo.batchprotect.currentProtectCounter += pages.length;
 			for( var i = 0; i < pages.length; ++i ) {
 				var page = pages[i];
 				var query = {
 					'action': 'query',
 					'titles': page
 				};
-				var wikipedia_api = new Morebits.wiki.api( 'Checking if page ' + page + ' exists', query, Twinkle.batchprotect.callbacks.main );
+				var wikipedia_api = new Morebits.wiki.api( 'Checking if page ' + page + ' exists', query, Kaizo.batchprotect.callbacks.main );
 				wikipedia_api.params = {
 					page: page,
 					reason: reason,
@@ -3326,12 +3326,12 @@ Twinkle.batchprotect.callback.evaluate = function twinklebatchprotectCallbackEva
 			}
 		}
 	};
-	var work = Morebits.array.chunk( pages, Twinkle.getPref('batchProtectChunks') );
+	var work = Morebits.array.chunk( pages, Kaizo.getPref('batchProtectChunks') );
 	Morebits.wiki.addCheckpoint();
-	Twinkle.batchprotect.currentprotector = window.setInterval( toCall, 1000, work );
+	Kaizo.batchprotect.currentprotector = window.setInterval( toCall, 1000, work );
 };
 
-Twinkle.batchprotect.callbacks = {
+Kaizo.batchprotect.callbacks = {
 	main: function( apiobj ) {
 		var xml = apiobj.responseXML;
 		var normal = $(xml).find('normalized n').attr('to');
@@ -3363,7 +3363,7 @@ Twinkle.batchprotect.callbacks = {
 		page.setEditSummary(apiobj.params.reason);
 
 		page.protect(function(pageobj) {
-			--Twinkle.batchprotect.currentProtectCounter;
+			--Kaizo.batchprotect.currentProtectCounter;
 			var link = document.createElement( 'a' );
 			link.setAttribute( 'href', mw.util.getUrl( apiobj.params.page ) );
 			link.appendChild( document.createTextNode( apiobj.params.page ) );
@@ -3373,30 +3373,30 @@ Twinkle.batchprotect.callbacks = {
 };
 /*
  ****************************************
- *** twinklebatchundelete.js: Batch undelete module
+ *** Kaizobatchundelete.js: Batch undelete module
  ****************************************
  * Mode of invocation:     Tab ("Und-batch")
  * Active on:              Existing and non-existing user pages (??? why?)
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
 // XXX TODO this module needs to be overhauled to use Morebits.wiki.page
 
 
-Twinkle.batchundelete = function twinklebatchundelete() {
+Kaizo.batchundelete = function Kaizobatchundelete() {
 	if( mw.config.get("wgNamespaceNumber") !== mw.config.get("wgNamespaceIds").user ) {
 		return;
 	}
 	if( Morebits.userIsInGroup( 'sysop' ) ) {
-		twAddPortletLink( Twinkle.batchundelete.callback, "Und-batch", "tw-batch-undel", "Undelete 'em all" );
+		twAddPortletLink( Kaizo.batchundelete.callback, "Und-batch", "tw-batch-undel", "Undelete 'em all" );
 	}
 };
 
-Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
+Kaizo.batchundelete.callback = function KaizobatchundeleteCallback() {
 	var Window = new Morebits.simpleWindow( 800, 400 );
-	Window.setScriptName("Twinkle");
+	Window.setScriptName("Kaizo");
 	Window.setTitle("Batch undelete")
-	var form = new Morebits.quickForm( Twinkle.batchundelete.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.batchundelete.callback.evaluate );
 	form.append( {
 			type: 'textarea',
 			name: 'reason',
@@ -3407,7 +3407,7 @@ Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
 		'action': 'query',
 		'generator': 'links',
 		'titles': mw.config.get("wgPageName"),
-		'gpllimit' : Twinkle.getPref('batchMax') // the max for sysops
+		'gpllimit' : Kaizo.getPref('batchMax') // the max for sysops
 	};
 	var wikipedia_api = new Morebits.wiki.api( 'Grabbing pages', query, function( self ) {
 			var xmlDoc = self.responseXML;
@@ -3438,9 +3438,9 @@ Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
 	Window.setContent( root );
 	Window.display();
 };
-Twinkle.batchundelete.currentUndeleteCounter = 0;
-Twinkle.batchundelete.currentundeletor = 0;
-Twinkle.batchundelete.callback.evaluate = function( event ) {
+Kaizo.batchundelete.currentUndeleteCounter = 0;
+Kaizo.batchundelete.currentundeletor = 0;
+Kaizo.batchundelete.callback.evaluate = function( event ) {
 	Morebits.wiki.actionCompleted.notice = 'Status';
 	Morebits.wiki.actionCompleted.postfix = 'batch undeletion is now completed';
 
@@ -3458,31 +3458,31 @@ Twinkle.batchundelete.callback.evaluate = function( event ) {
 		return;
 	}
 
-	var work = Morebits.array.chunk( pages, Twinkle.getPref('batchUndeleteChunks') );
+	var work = Morebits.array.chunk( pages, Kaizo.getPref('batchUndeleteChunks') );
 	Morebits.wiki.addCheckpoint();
-	Twinkle.batchundelete.currentundeletor = window.setInterval( Twinkle.batchundelete.callbacks.main, 1000, work, reason );
+	Kaizo.batchundelete.currentundeletor = window.setInterval( Kaizo.batchundelete.callbacks.main, 1000, work, reason );
 };
 
-Twinkle.batchundelete.callbacks = {
+Kaizo.batchundelete.callbacks = {
 	main: function( work, reason ) {
-		if( work.length === 0 && Twinkle.batchundelete.currentUndeleteCounter <= 0 ) {
+		if( work.length === 0 && Kaizo.batchundelete.currentUndeleteCounter <= 0 ) {
 			Morebits.status.info( 'work done' );
-			window.clearInterval( Twinkle.batchundelete.currentundeletor );
+			window.clearInterval( Kaizo.batchundelete.currentundeletor );
 			Morebits.wiki.removeCheckpoint();
 			return;
-		} else if( work.length !== 0 && Twinkle.batchundelete.currentUndeleteCounter <= Twinkle.getPref('batchUndeleteMinCutOff') ) {
+		} else if( work.length !== 0 && Kaizo.batchundelete.currentUndeleteCounter <= Kaizo.getPref('batchUndeleteMinCutOff') ) {
 			var pages = work.shift();
-			Twinkle.batchundelete.currentUndeleteCounter += pages.length;
+			Kaizo.batchundelete.currentUndeleteCounter += pages.length;
 			for( var i = 0; i < pages.length; ++i ) {
 				var title = pages[i];
 				var query = { 
 					'token': mw.user.tokens.get().editToken,
 					'title': title,
 					'action': 'undelete',
-					'reason': reason + Twinkle.getPref('deletionSummaryAd')
+					'reason': reason + Kaizo.getPref('deletionSummaryAd')
 				};
 				var wikipedia_api = new Morebits.wiki.api( "Undeleting " + title, query, function( self ) { 
-						--Twinkle.batchundelete.currentUndeleteCounter;
+						--Kaizo.batchundelete.currentUndeleteCounter;
 						var link = document.createElement( 'a' );
 						link.setAttribute( 'href', mw.util.getUrl(self.itsTitle) );
 						link.setAttribute( 'title', self.itsTitle );
@@ -3499,13 +3499,13 @@ Twinkle.batchundelete.callbacks = {
 };
 /*
  ****************************************
- *** twinkleconfig.js: Preferences module
+ *** Kaizoconfig.js: Preferences module
  ****************************************
- * Mode of invocation:     Adds configuration form to Wikipedia:Twinkle/Preferences and user 
-                           subpages named "/Twinkle preferences", and adds ad box to the top of user 
+ * Mode of invocation:     Adds configuration form to Wikipedia:Kaizo/Preferences and user 
+                           subpages named "/Kaizo preferences", and adds ad box to the top of user 
                            subpages belonging to the currently logged-in user which end in '.js'
  * Active on:              What I just said.  Yeah.
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
 
  I, [[User:This, that and the other]], originally wrote this.  If the code is misbehaving, or you have any
  questions, don't hesitate to ask me.  (This doesn't at all imply [[WP:OWN]]ership - it's just meant to
@@ -3513,14 +3513,14 @@ Twinkle.batchundelete.callbacks = {
  */
 
 
-Twinkle.config = {};
+Kaizo.config = {};
 
-Twinkle.config.commonEnums = {
+Kaizo.config.commonEnums = {
 	watchlist: { yes: "Add to watchlist", no: "Don't add to watchlist", "default": "Follow your site preferences" },
 	talkPageMode: { window: "In a window, replacing other user talks", tab: "In a new tab", blank: "In a totally new window" }
 };
 
-Twinkle.config.commonSets = {
+Kaizo.config.commonSets = {
 	csdCriteria: {
 		db: "Custom rationale",
 		g1: "G1", g2: "G2", g3: "G3", g4: "G4", g6: "G6", g7: "G7", g8: "G8", g10: "G10", g11: "G11", g12: "G12",
@@ -3596,11 +3596,11 @@ Twinkle.config.commonSets = {
  * {
  *   title: <human-readable section title>,
  *   adminOnly: <true for admin-only sections>,
- *   hidden: <true for advanced preferences that rarely need to be changed - they can still be modified by manually editing twinkleoptions.js>,
- *   inFriendlyConfig: <true for preferences located under FriendlyConfig rather than TwinkleConfig>,
+ *   hidden: <true for advanced preferences that rarely need to be changed - they can still be modified by manually editing Kaizooptions.js>,
+ *   inFriendlyConfig: <true for preferences located under FriendlyConfig rather than KaizoConfig>,
  *   preferences: [
  *     {
- *       name: <TwinkleConfig property name>,
+ *       name: <KaizoConfig property name>,
  *       label: <human-readable short description - used as a form label>,
  *       helptip: <(optional) human-readable text (using valid HTML) that complements the description, like limits, warnings, etc.>
  *       adminOnly: <true for admin-only preferences>,
@@ -3618,21 +3618,21 @@ Twinkle.config.commonSets = {
  *
  */
 
-Twinkle.config.sections = [
+Kaizo.config.sections = [
 {
 	title: "General",
 	preferences: [
-		// TwinkleConfig.summaryAd (string)
-		// Text to be appended to the edit summary of edits made using Twinkle
+		// KaizoConfig.summaryAd (string)
+		// Text to be appended to the edit summary of edits made using Kaizo
 		{
 			name: "summaryAd",
-			label: "\"Ad\" to be appended to Twinkle's edit summaries",
+			label: "\"Ad\" to be appended to Kaizo's edit summaries",
 			helptip: "The summary ad should start with a space, and be kept short.",
 			type: "string"
 		},
 
-		// TwinkleConfig.deletionSummaryAd (string)
-		// Text to be appended to the edit summary of deletions made using Twinkle
+		// KaizoConfig.deletionSummaryAd (string)
+		// Text to be appended to the edit summary of deletions made using Kaizo
 		{
 			name: "deletionSummaryAd",
 			label: "Summary ad to use for deletion summaries",
@@ -3641,8 +3641,8 @@ Twinkle.config.sections = [
 			type: "string"
 		},
 
-		// TwinkleConfig.protectionSummaryAd (string)
-		// Text to be appended to the edit summary of page protections made using Twinkle
+		// KaizoConfig.protectionSummaryAd (string)
+		// Text to be appended to the edit summary of page protections made using Kaizo
 		{
 			name: "protectionSummaryAd",
 			label: "Summary ad to use for page protections",
@@ -3651,7 +3651,7 @@ Twinkle.config.sections = [
 			type: "string"
 		},
 
-		// TwinkleConfig.userTalkPageMode may take arguments:
+		// KaizoConfig.userTalkPageMode may take arguments:
 		// 'window': open a new window, remember the opened window
 		// 'tab': opens in a new tab, if possible.
 		// 'blank': force open in a new window, even if such a window exists
@@ -3659,22 +3659,22 @@ Twinkle.config.sections = [
 			name: "userTalkPageMode",
 			label: "When opening a user talk page, open it",
 			type: "enum",
-			enumValues: Twinkle.config.commonEnums.talkPageMode
+			enumValues: Kaizo.config.commonEnums.talkPageMode
 		},
 
-		// TwinkleConfig.dialogLargeFont (boolean)
+		// KaizoConfig.dialogLargeFont (boolean)
 		{
 			name: "dialogLargeFont",
-			label: "Use larger text in Twinkle dialogs",
+			label: "Use larger text in Kaizo dialogs",
 			type: "boolean"
 		}
 	]
 },
 
 {
-	title: "Revert and rollback",  // twinklefluff module
+	title: "Revert and rollback",  // Kaizofluff module
 	preferences: [
-		// TwinkleConfig.openTalkPage (array)
+		// KaizoConfig.openTalkPage (array)
 		// What types of actions that should result in opening of talk page
 		{
 			name: "openTalkPage",
@@ -3683,7 +3683,7 @@ Twinkle.config.sections = [
 			setValues: { agf: "AGF rollback", norm: "Normal rollback", vand: "Vandalism rollback", torev: "\"Restore this version\"" }
 		},
 
-		// TwinkleConfig.openTalkPageOnAutoRevert (bool)
+		// KaizoConfig.openTalkPageOnAutoRevert (bool)
 		// Defines if talk page should be opened when calling revert from contrib page, because from there, actions may be multiple, and opening talk page not suitable. If set to true, openTalkPage defines then if talk page will be opened.
 		{
 			name: "openTalkPageOnAutoRevert",
@@ -3692,7 +3692,7 @@ Twinkle.config.sections = [
 			type: "boolean"
 		},
 
-		// TwinkleConfig.markRevertedPagesAsMinor (array)
+		// KaizoConfig.markRevertedPagesAsMinor (array)
 		// What types of actions that should result in marking edit as minor
 		{
 			name: "markRevertedPagesAsMinor",
@@ -3701,7 +3701,7 @@ Twinkle.config.sections = [
 			setValues: { agf: "AGF rollback", norm: "Normal rollback", vand: "Vandalism rollback", torev: "\"Restore this version\"" }
 		},
 
-		// TwinkleConfig.watchRevertedPages (array)
+		// KaizoConfig.watchRevertedPages (array)
 		// What types of actions that should result in forced addition to watchlist
 		{
 			name: "watchRevertedPages",
@@ -3710,7 +3710,7 @@ Twinkle.config.sections = [
 			setValues: { agf: "AGF rollback", norm: "Normal rollback", vand: "Vandalism rollback", torev: "\"Restore this version\"" }
 		},
 
-		// TwinkleConfig.offerReasonOnNormalRevert (boolean)
+		// KaizoConfig.offerReasonOnNormalRevert (boolean)
 		// If to offer a prompt for extra summary reason for normal reverts, default to true
 		{
 			name: "offerReasonOnNormalRevert",
@@ -3726,8 +3726,8 @@ Twinkle.config.sections = [
 			type: "boolean"
 		},
 
-		// TwinkleConfig.showRollbackLinks (array)
-		// Where Twinkle should show rollback links (diff, others, mine, contribs)
+		// KaizoConfig.showRollbackLinks (array)
+		// Where Kaizo should show rollback links (diff, others, mine, contribs)
 		// Note from TTO: |contribs| seems to be equal to |others| + |mine|, i.e. redundant, so I left it out heres
 		{
 			name: "showRollbackLinks",
@@ -3763,7 +3763,7 @@ Twinkle.config.sections = [
 
 
 
-		// TwinkleConfig.markSpeedyPagesAsPatrolled (boolean)
+		// KaizoConfig.markSpeedyPagesAsPatrolled (boolean)
 		// If, when applying speedy template to page, to mark the page as patrolled (if the page was reached from NewPages)
 		{
 			name: "markSpeedyPagesAsPatrolled",
@@ -3772,12 +3772,12 @@ Twinkle.config.sections = [
 			type: "boolean"
 		},
 
-		// TwinkleConfig.notifyUserOnSpeedyDeletionNomination (array)
+		// KaizoConfig.notifyUserOnSpeedyDeletionNomination (array)
 		// What types of actions should result that the author of the page being notified of nomination
 		
 
 
-		// TwinkleConfig.deleteTalkPageOnDelete (boolean)
+		// KaizoConfig.deleteTalkPageOnDelete (boolean)
 		// If talk page if exists should also be deleted (CSD G8) when spedying a page (admin only)
 		{
 			name: "deleteTalkPageOnDelete",
@@ -3787,16 +3787,16 @@ Twinkle.config.sections = [
 		},
 
 
-		// TwinkleConfig.speedyWindowWidth (integer)
-		// Defines the width of the Twinkle SD window in pixels
+		// KaizoConfig.speedyWindowWidth (integer)
+		// Defines the width of the Kaizo SD window in pixels
 		{
 			name: "speedyWindowWidth",
 			label: "Width of deletion window (pixels)",
 			type: "integer"
 		},
 
-		// TwinkleConfig.speedyWindowWidth (integer)
-		// Defines the width of the Twinkle SD window in pixels
+		// KaizoConfig.speedyWindowWidth (integer)
+		// Defines the width of the Kaizo SD window in pixels
 		{
 			name: "speedyWindowHeight",
 			label: "Height of deletion window (pixels)",
@@ -3807,7 +3807,7 @@ Twinkle.config.sections = [
 		{
 			name: "logSpeedyNominations",
 			label: "Keep a log in userspace of all deletion nominations",
-			helptip: "Since non-admins do not have access to their deleted contributions, the userspace log offers a good way to keep track of all pages you nominate for QD using Twinkle. Files tagged using DI are also added to this log.",
+			helptip: "Since non-admins do not have access to their deleted contributions, the userspace log offers a good way to keep track of all pages you nominate for QD using Kaizo. Files tagged using DI are also added to this log.",
 			type: "boolean"
 		},
 		{
@@ -3856,14 +3856,14 @@ Twinkle.config.sections = [
 {
 	title: "Unlink",
 	preferences: [
-		// TwinkleConfig.unlinkNamespaces (array)
+		// KaizoConfig.unlinkNamespaces (array)
 		// In what namespaces unlink should happen, default in 0 (article) and 100 (portal)
 		{
 			name: "unlinkNamespaces",
 			label: "Remove links from pages in these namespaces",
-			helptip: "Avoid selecting any talk namespaces, as Twinkle might end up unlinking on talk archives (a big no-no).",
+			helptip: "Avoid selecting any talk namespaces, as Kaizo might end up unlinking on talk archives (a big no-no).",
 			type: "set",
-			setValues: Twinkle.config.commonSets.namespacesNoSpecial
+			setValues: Kaizo.config.commonSets.namespacesNoSpecial
 		}
 	]
 },
@@ -3871,7 +3871,7 @@ Twinkle.config.sections = [
 {
 	title: "Warn user",
 	preferences: [
-		// TwinkleConfig.defaultWarningGroup (int)
+		// KaizoConfig.defaultWarningGroup (int)
 		// if true, watch the page which has been dispatched an warning or notice, if false, default applies
 		{
 			name: "defaultWarningGroup",
@@ -3880,7 +3880,7 @@ Twinkle.config.sections = [
 			enumValues: { "1": "Level 1", "2": "Level 2", "3": "Level 3", "4": "Level 4", "5": "Level 4im", "6": "Single-issue notices", "7": "Single-issue warnings", "8": "Block (admin only)" }
 		},
 
-		// TwinkleConfig.showSharedIPNotice may take arguments:
+		// KaizoConfig.showSharedIPNotice may take arguments:
 		// true: to show shared ip notice if an IP address
 		// false: to not print the notice
 		{
@@ -3890,7 +3890,7 @@ Twinkle.config.sections = [
 			type: "boolean"
 		},
 
-		// TwinkleConfig.watchWarnings (boolean)
+		// KaizoConfig.watchWarnings (boolean)
 		// if true, watch the page which has been dispatched an warning or notice, if false, default applies
 		{
 			name: "watchWarnings",
@@ -3898,7 +3898,7 @@ Twinkle.config.sections = [
 			type: "boolean"
 		},
 
-		// TwinkleConfig.blankTalkpageOnIndefBlock (boolean)
+		// KaizoConfig.blankTalkpageOnIndefBlock (boolean)
 		// if true, blank the talk page when issuing an indef block notice (per [[WP:UW#Indefinitely blocked users]])
 		{
 			name: "blankTalkpageOnIndefBlock",
@@ -3960,7 +3960,7 @@ Twinkle.config.sections = [
 	title: "Hidden",
 	hidden: true,
 	preferences: [
-		// twinkle.header.js: portlet setup
+		// Kaizo.header.js: portlet setup
 		{
 			name: "portletArea",
 			type: "string"
@@ -3981,42 +3981,42 @@ Twinkle.config.sections = [
 			name: "portletNext",
 			type: "string"
 		},
-		// twinklefluff.js: defines how many revision to query maximum, maximum possible is 50, default is 50
+		// Kaizofluff.js: defines how many revision to query maximum, maximum possible is 50, default is 50
 		{
 			name: "revertMaxRevisions",
 			type: "integer"
 		},
-		// twinklebatchdelete.js: How many pages should be processed at a time
+		// Kaizobatchdelete.js: How many pages should be processed at a time
 		{
 			name: "batchdeleteChunks",
 			type: "integer"
 		},
-		// twinklebatchdelete.js: How many pages left in the process of being completed should allow a new batch to be initialized
+		// Kaizobatchdelete.js: How many pages left in the process of being completed should allow a new batch to be initialized
 		{
 			name: "batchDeleteMinCutOff",
 			type: "integer"
 		},
-		// twinklebatchdelete.js: How many pages should be processed maximum
+		// Kaizobatchdelete.js: How many pages should be processed maximum
 		{
 			name: "batchMax",
 			type: "integer"
 		},
-		// twinklebatchprotect.js: How many pages should be processed at a time
+		// Kaizobatchprotect.js: How many pages should be processed at a time
 		{
 			name: "batchProtectChunks",
 			type: "integer"
 		},
-		// twinklebatchprotect.js: How many pages left in the process of being completed should allow a new batch to be initialized
+		// Kaizobatchprotect.js: How many pages left in the process of being completed should allow a new batch to be initialized
 		{
 			name: "batchProtectMinCutOff",
 			type: "integer"
 		},
-		// twinklebatchundelete.js: How many pages should be processed at a time
+		// Kaizobatchundelete.js: How many pages should be processed at a time
 		{
 			name: "batchundeleteChunks",
 			type: "integer"
 		},
-		// twinklebatchundelete.js: How many pages left in the process of being completed should allow a new batch to be initialized
+		// Kaizobatchundelete.js: How many pages left in the process of being completed should allow a new batch to be initialized
 		{
 			name: "batchUndeleteMinCutOff",
 			type: "integer"
@@ -4024,7 +4024,7 @@ Twinkle.config.sections = [
 	]
 }
 
-]; // end of Twinkle.config.sections
+]; // end of Kaizo.config.sections
 
 //{
 //			name: "",
@@ -4033,34 +4033,34 @@ Twinkle.config.sections = [
 //		},
 
 
-Twinkle.config.init = function twinkleconfigInit() {
+Kaizo.config.init = function KaizoconfigInit() {
 
-	if ((mw.config.get("wgNamespaceNumber") === mw.config.get("wgNamespaceIds").project && mw.config.get("wgTitle") === "Twinkle/Preferences" ||
-	    (mw.config.get("wgNamespaceNumber") === mw.config.get("wgNamespaceIds").user && mw.config.get("wgTitle").lastIndexOf("/Twinkle preferences") === (mw.config.get("wgTitle").length - 20))) &&
+	if ((mw.config.get("wgNamespaceNumber") === mw.config.get("wgNamespaceIds").project && mw.config.get("wgTitle") === "Kaizo/Preferences" ||
+	    (mw.config.get("wgNamespaceNumber") === mw.config.get("wgNamespaceIds").user && mw.config.get("wgTitle").lastIndexOf("/Kaizo preferences") === (mw.config.get("wgTitle").length - 20))) &&
 	    mw.config.get("wgAction") === "view") {
-		// create the config page at Wikipedia:Twinkle/Preferences, and at user subpages (for testing purposes)
+		// create the config page at Wikipedia:Kaizo/Preferences, and at user subpages (for testing purposes)
 
-		if (!document.getElementById("twinkle-config")) {
+		if (!document.getElementById("Kaizo-config")) {
 			return;  // maybe the page is misconfigured, or something - but any attempt to modify it will be pointless
 		}
 
 		// set style (the url() CSS function doesn't seem to work from wikicode - ?!)
-		document.getElementById("twinkle-config-titlebar").style.backgroundImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAMAAAB%2FqqA%2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAEhQTFRFr73ZobTPusjdsMHZp7nVwtDhzNbnwM3fu8jdq7vUt8nbxtDkw9DhpbfSvMrfssPZqLvVztbno7bRrr7W1d%2Fs1N7qydXk0NjpkW7Q%2BgAAADVJREFUeNoMwgESQCAAAMGLkEIi%2FP%2BnbnbpdB59app5Vdg0sXAoMZCpGoFbK6ciuy6FX4ABAEyoAef0BXOXAAAAAElFTkSuQmCC)";
+		document.getElementById("Kaizo-config-titlebar").style.backgroundImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAMAAAB%2FqqA%2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAEhQTFRFr73ZobTPusjdsMHZp7nVwtDhzNbnwM3fu8jdq7vUt8nbxtDkw9DhpbfSvMrfssPZqLvVztbno7bRrr7W1d%2Fs1N7qydXk0NjpkW7Q%2BgAAADVJREFUeNoMwgESQCAAAMGLkEIi%2FP%2BnbnbpdB59app5Vdg0sXAoMZCpGoFbK6ciuy6FX4ABAEyoAef0BXOXAAAAAElFTkSuQmCC)";
 
-		var contentdiv = document.getElementById("twinkle-config-content");
+		var contentdiv = document.getElementById("Kaizo-config-content");
 		contentdiv.textContent = "";  // clear children
 
 		// let user know about possible conflict with monobook.js/vector.js file
-		// (settings in that file will still work, but they will be overwritten by twinkleoptions.js settings)
+		// (settings in that file will still work, but they will be overwritten by Kaizooptions.js settings)
 		var contentnotice = document.createElement("p");
 		// I hate innerHTML, but this is one thing it *is* good for...
-		contentnotice.innerHTML = "<b>Before modifying your preferences here,</b> make sure you have removed any old <code>TwinkleConfig</code> and <code>FriendlyConfig</code> settings from your <a href=\"" + mw.util.getUrl("Special:MyPage/skin.js") + "\" title=\"Special:MyPage/skin.js\">user JavaScript file</a>.";
+		contentnotice.innerHTML = "<b>Before modifying your preferences here,</b> make sure you have removed any old <code>KaizoConfig</code> and <code>FriendlyConfig</code> settings from your <a href=\"" + mw.util.getUrl("Special:MyPage/skin.js") + "\" title=\"Special:MyPage/skin.js\">user JavaScript file</a>.";
 		contentdiv.appendChild(contentnotice);
 
 		// look and see if the user does in fact have any old settings in their skin JS file
 		var skinjs = new Morebits.wiki.page("User:" + mw.config.get("wgUserName") + "/" + mw.config.get("skin") + ".js");
 		skinjs.setCallbackParameters(contentnotice);
-		skinjs.load(Twinkle.config.legacyPrefsNotice);
+		skinjs.load(Kaizo.config.legacyPrefsNotice);
 
 		// start a table of contents
 		var toctable = document.createElement("table");
@@ -4088,7 +4088,7 @@ Twinkle.config.init = function twinkleconfigInit() {
 		toctd.appendChild(toctitle);
 		// create item container: this is what we add stuff to
 		var tocul = document.createElement("ul");
-		toctogglelink.addEventListener("click", function twinkleconfigTocToggle() {
+		toctogglelink.addEventListener("click", function KaizoconfigTocToggle() {
 			var $tocul = $(tocul);
 			$tocul.toggle();
 			if ($tocul.find(":visible").length) {
@@ -4106,30 +4106,30 @@ Twinkle.config.init = function twinkleconfigInit() {
 
 		var contentform = document.createElement("form");
 		contentform.setAttribute("action", "javascript:void(0)");  // was #tw-save - changed to void(0) to work around Chrome issue
-		contentform.addEventListener("submit", Twinkle.config.save, true);
+		contentform.addEventListener("submit", Kaizo.config.save, true);
 		contentdiv.appendChild(contentform);
 
 		var container = document.createElement("table");
 		container.style.width = "100%";
 		contentform.appendChild(container);
 
-		$(Twinkle.config.sections).each(function(sectionkey, section) {
+		$(Kaizo.config.sections).each(function(sectionkey, section) {
 			if (section.hidden || (section.adminOnly && !Morebits.userIsInGroup("sysop"))) {
 				return true;  // i.e. "continue" in this context
 			}
 
 			var configgetter;  // retrieve the live config values
 			if (section.inFriendlyConfig) {
-				configgetter = Twinkle.getFriendlyPref;
+				configgetter = Kaizo.getFriendlyPref;
 			} else {
-				configgetter = Twinkle.getPref;
+				configgetter = Kaizo.getPref;
 			}
 
 			// add to TOC
 			var tocli = document.createElement("li");
 			tocli.className = "toclevel-1";
 			var toca = document.createElement("a");
-			toca.setAttribute("href", "#twinkle-config-section-" + tocnumber.toString());
+			toca.setAttribute("href", "#Kaizo-config-section-" + tocnumber.toString());
 			toca.appendChild(document.createTextNode(section.title));
 			tocli.appendChild(toca);
 			tocul.appendChild(tocli);
@@ -4140,7 +4140,7 @@ Twinkle.config.init = function twinkleconfigInit() {
 			var heading = document.createElement("h4");
 			heading.style.borderBottom = "1px solid gray";
 			heading.style.marginTop = "0.2em";
-			heading.id = "twinkle-config-section-" + (tocnumber++).toString();
+			heading.id = "Kaizo-config-section-" + (tocnumber++).toString();
 			heading.appendChild(document.createTextNode(section.title));
 			cell.appendChild(heading);
 			row.appendChild(cell);
@@ -4298,7 +4298,7 @@ Twinkle.config.init = function twinkleconfigInit() {
 						button.setAttribute("id", pref.name);
 						button.setAttribute("name", pref.name);
 						button.setAttribute("type", "button");
-						button.addEventListener("click", Twinkle.config.listDialog.display, false);
+						button.addEventListener("click", Kaizo.config.listDialog.display, false);
 						// use jQuery data on the button to store the current config value
 						$(button).data({
 							value: configgetter(pref.name),
@@ -4310,7 +4310,7 @@ Twinkle.config.init = function twinkleconfigInit() {
 						break;
 
 					default:
-						alert("twinkleconfig: unknown data type for preference " + pref.name);
+						alert("Kaizoconfig: unknown data type for preference " + pref.name);
 						break;
 				}
 				row.appendChild(cell);
@@ -4327,8 +4327,8 @@ Twinkle.config.init = function twinkleconfigInit() {
 				if (pref.type !== "customList") {
 					var resetlink = document.createElement("a");
 					resetlink.setAttribute("href", "#tw-reset");
-					resetlink.setAttribute("id", "twinkle-config-reset-" + pref.name);
-					resetlink.addEventListener("click", Twinkle.config.resetPrefLink, false);
+					resetlink.setAttribute("id", "Kaizo-config-reset-" + pref.name);
+					resetlink.addEventListener("click", Kaizo.config.resetPrefLink, false);
 					if (resetlink.style.styleFloat) {  // IE (inc. IE9)
 						resetlink.style.styleFloat = "right";
 					} else {  // standards
@@ -4347,11 +4347,11 @@ Twinkle.config.init = function twinkleconfigInit() {
 		});
 
 		var footerbox = document.createElement("div");
-		footerbox.setAttribute("id", "twinkle-config-buttonpane");
+		footerbox.setAttribute("id", "Kaizo-config-buttonpane");
 		footerbox.style.backgroundColor = "#BCCADF";
 		footerbox.style.padding = "0.5em";
 		var button = document.createElement("button");
-		button.setAttribute("id", "twinkle-config-submit");
+		button.setAttribute("id", "Kaizo-config-submit");
 		button.setAttribute("type", "submit");
 		button.appendChild(document.createTextNode("Save changes"));
 		footerbox.appendChild(button);
@@ -4361,8 +4361,8 @@ Twinkle.config.init = function twinkleconfigInit() {
 		footerspan.style.fontSize = "90%";
 		var footera = document.createElement("a");
 		footera.setAttribute("href", "#tw-reset-all");
-		footera.setAttribute("id", "twinkle-config-resetall");
-		footera.addEventListener("click", Twinkle.config.resetAllPrefs, false);
+		footera.setAttribute("id", "Kaizo-config-resetall");
+		footera.addEventListener("click", Kaizo.config.resetAllPrefs, false);
 		footera.appendChild(document.createTextNode("Restore defaults"));
 		footerspan.appendChild(footera);
 		footerbox.appendChild(footerspan);
@@ -4376,7 +4376,7 @@ Twinkle.config.init = function twinkleconfigInit() {
 	} else if (mw.config.get("wgNamespaceNumber") === mw.config.get("wgNamespaceIds").user) {
 
 		var box = document.createElement("div");
-		box.setAttribute("id", "twinkle-config-headerbox");
+		box.setAttribute("id", "Kaizo-config-headerbox");
 		box.style.border = "1px #f60 solid";
 		box.style.background = "#fed";
 		box.style.padding = "0.6em";
@@ -4384,33 +4384,33 @@ Twinkle.config.init = function twinkleconfigInit() {
 		box.style.textAlign = "center";
 
 		var link;
-		if (mw.config.get("wgTitle") === mw.config.get("wgUserName") + "/twinkleoptions.js") {
+		if (mw.config.get("wgTitle") === mw.config.get("wgUserName") + "/Kaizooptions.js") {
 			// place "why not try the preference panel" notice
 			box.style.fontWeight = "bold";
 			box.style.width = "80%";
 			box.style.borderWidth = "2px";
 
 			if (mw.config.get("wgArticleId") > 0) {  // page exists
-				box.appendChild(document.createTextNode("This page contains your Twinkle preferences. You can change them using the "));
+				box.appendChild(document.createTextNode("This page contains your Kaizo preferences. You can change them using the "));
 			} else {  // page does not exist
-				box.appendChild(document.createTextNode("You can customize Twinkle to suit your preferences by using the "));
+				box.appendChild(document.createTextNode("You can customize Kaizo to suit your preferences by using the "));
 			}
 			link = document.createElement("a");
-			link.setAttribute("href", mw.util.getUrl(mw.config.get("wgFormattedNamespaces")[mw.config.get("wgNamespaceIds").project] + ":Twinkle/Preferences") );
-			link.appendChild(document.createTextNode("Twinkle preferences panel"));
+			link.setAttribute("href", mw.util.getUrl(mw.config.get("wgFormattedNamespaces")[mw.config.get("wgNamespaceIds").project] + ":Kaizo/Preferences") );
+			link.appendChild(document.createTextNode("Kaizo preferences panel"));
 			box.appendChild(link);
 			box.appendChild(document.createTextNode(", or by editing this page."));
 			$(box).insertAfter($("#contentSub"));
 
 		} else if (mw.config.get("wgTitle").indexOf(mw.config.get("wgUserName")) === 0 &&
 				mw.config.get("wgPageName").lastIndexOf(".js") === mw.config.get("wgPageName").length - 3) {
-			// place "Looking for Twinkle options?" notice
+			// place "Looking for Kaizo options?" notice
 			box.style.width = "60%";
 
-			box.appendChild(document.createTextNode("If you want to set Twinkle preferences, you can use the "));
+			box.appendChild(document.createTextNode("If you want to set Kaizo preferences, you can use the "));
 			link = document.createElement("a");
-			link.setAttribute("href", mw.util.getUrl(mw.config.get("wgFormattedNamespaces")[mw.config.get("wgNamespaceIds").project] + ":Twinkle/Preferences") );
-			link.appendChild(document.createTextNode("Twinkle preferences panel"));
+			link.setAttribute("href", mw.util.getUrl(mw.config.get("wgFormattedNamespaces")[mw.config.get("wgNamespaceIds").project] + ":Kaizo/Preferences") );
+			link.appendChild(document.createTextNode("Kaizo preferences panel"));
 			box.appendChild(link);
 			box.appendChild(document.createTextNode("."));
 			$(box).insertAfter($("#contentSub"));
@@ -4419,14 +4419,14 @@ Twinkle.config.init = function twinkleconfigInit() {
 };
 
 // Morebits.wiki.page callback from init code
-Twinkle.config.legacyPrefsNotice = function twinkleconfigLegacyPrefsNotice(pageobj) {
+Kaizo.config.legacyPrefsNotice = function KaizoconfigLegacyPrefsNotice(pageobj) {
 	var text = pageobj.getPageText();
 	var contentnotice = pageobj.getCallbackParameters();
-	if (text.indexOf("TwinkleConfig") !== -1 || text.indexOf("FriendlyConfig") !== -1) {
+	if (text.indexOf("KaizoConfig") !== -1 || text.indexOf("FriendlyConfig") !== -1) {
 		contentnotice.innerHTML = '<table class="plainlinks ombox ombox-content"><tr><td class="mbox-image">' +
 			'<img alt="" src="http://upload.wikimedia.org/wikipedia/en/3/38/Imbox_content.png" /></td>' +
-			'<td class="mbox-text"><p><big><b>Before modifying your settings here,</b> you must remove your old Twinkle and Friendly settings from your personal skin JavaScript.</big></p>' +
-			'<p>To do this, you can <a href="' + mw.config.get("wgScript") + '?title=User:' + encodeURIComponent(mw.config.get("wgUserName")) + '/' + mw.config.get("skin") + '.js&action=edit" target="_tab"><b>edit your personal JavaScript</b></a>, removing all lines of code that refer to <code>TwinkleConfig</code> and <code>FriendlyConfig</code>.</p>' +
+			'<td class="mbox-text"><p><big><b>Before modifying your settings here,</b> you must remove your old Kaizo and Friendly settings from your personal skin JavaScript.</big></p>' +
+			'<p>To do this, you can <a href="' + mw.config.get("wgScript") + '?title=User:' + encodeURIComponent(mw.config.get("wgUserName")) + '/' + mw.config.get("skin") + '.js&action=edit" target="_tab"><b>edit your personal JavaScript</b></a>, removing all lines of code that refer to <code>KaizoConfig</code> and <code>FriendlyConfig</code>.</p>' +
 			'</td></tr></table>';
 	} else {
 		$(contentnotice).remove();
@@ -4435,9 +4435,9 @@ Twinkle.config.legacyPrefsNotice = function twinkleconfigLegacyPrefsNotice(pageo
 
 // custom list-related stuff
 
-Twinkle.config.listDialog = {};
+Kaizo.config.listDialog = {};
 
-Twinkle.config.listDialog.addRow = function twinkleconfigListDialogAddRow(dlgtable, value, label) {
+Kaizo.config.listDialog.addRow = function KaizoconfigListDialogAddRow(dlgtable, value, label) {
 	var contenttr = document.createElement("tr");
 	// "remove" button
 	var contenttd = document.createElement("td");
@@ -4452,7 +4452,7 @@ Twinkle.config.listDialog.addRow = function twinkleconfigListDialogAddRow(dlgtab
 	contenttd = document.createElement("td");
 	var input = document.createElement("input");
 	input.setAttribute("type", "text");
-	input.className = "twinkle-config-customlist-value";
+	input.className = "Kaizo-config-customlist-value";
 	input.style.width = "97%";
 	if (value) {
 		input.setAttribute("value", value);
@@ -4464,7 +4464,7 @@ Twinkle.config.listDialog.addRow = function twinkleconfigListDialogAddRow(dlgtab
 	contenttd = document.createElement("td");
 	input = document.createElement("input");
 	input.setAttribute("type", "text");
-	input.className = "twinkle-config-customlist-label";
+	input.className = "Kaizo-config-customlist-label";
 	input.style.width = "98%";
 	if (label) {
 		input.setAttribute("value", label);
@@ -4475,14 +4475,14 @@ Twinkle.config.listDialog.addRow = function twinkleconfigListDialogAddRow(dlgtab
 	dlgtable.appendChild(contenttr);
 };
 
-Twinkle.config.listDialog.display = function twinkleconfigListDialogDisplay(e) {
+Kaizo.config.listDialog.display = function KaizoconfigListDialogDisplay(e) {
 	var $prefbutton = $(e.target);
 	var curvalue = $prefbutton.data("value");
 	var curpref = $prefbutton.data("pref");
 
 	var dialog = new Morebits.simpleWindow(720, 400);
 	dialog.setTitle(curpref.label);
-	dialog.setScriptName("Twinkle preferences");
+	dialog.setScriptName("Kaizo preferences");
 
 	var dialogcontent = document.createElement("div");
 	var dlgtable = document.createElement("table");
@@ -4514,11 +4514,11 @@ Twinkle.config.listDialog.display = function twinkleconfigListDialogDisplay(e) {
 	var gotRow = false;
 	$.each(curvalue, function(k, v) {
 		gotRow = true;
-		Twinkle.config.listDialog.addRow(dlgtbody, v.value, v.label);
+		Kaizo.config.listDialog.addRow(dlgtbody, v.value, v.label);
 	});
 	// if there are no values present, add a blank row to start the user off
 	if (!gotRow) {
-		Twinkle.config.listDialog.addRow(dlgtbody);
+		Kaizo.config.listDialog.addRow(dlgtbody);
 	}
 
 	// final "add" button
@@ -4530,7 +4530,7 @@ Twinkle.config.listDialog.display = function twinkleconfigListDialogDisplay(e) {
 	addButton.style.minWidth = "8em";
 	addButton.setAttribute("type", "button");
 	addButton.addEventListener("click", function(e) {
-		Twinkle.config.listDialog.addRow(dlgtbody);
+		Kaizo.config.listDialog.addRow(dlgtbody);
 	}, false);
 	addButton.textContent = "Add";
 	dlgtd.appendChild(addButton);
@@ -4545,7 +4545,7 @@ Twinkle.config.listDialog.display = function twinkleconfigListDialogDisplay(e) {
 	var button = document.createElement("button");
 	button.setAttribute("type", "submit");  // so Morebits.simpleWindow puts the button in the button pane
 	button.addEventListener("click", function(e) {
-		Twinkle.config.listDialog.save($prefbutton, dlgtbody);
+		Kaizo.config.listDialog.save($prefbutton, dlgtbody);
 		dialog.close();
 	}, false);
 	button.textContent = "Save changes";
@@ -4553,7 +4553,7 @@ Twinkle.config.listDialog.display = function twinkleconfigListDialogDisplay(e) {
 	button = document.createElement("button");
 	button.setAttribute("type", "submit");  // so Morebits.simpleWindow puts the button in the button pane
 	button.addEventListener("click", function(e) {
-		Twinkle.config.listDialog.reset($prefbutton, dlgtbody);
+		Kaizo.config.listDialog.reset($prefbutton, dlgtbody);
 	}, false);
 	button.textContent = "Reset";
 	dialogcontent.appendChild(button);
@@ -4571,12 +4571,12 @@ Twinkle.config.listDialog.display = function twinkleconfigListDialogDisplay(e) {
 
 // Resets the data value, re-populates based on the new (default) value, then saves the
 // old data value again (less surprising behaviour)
-Twinkle.config.listDialog.reset = function twinkleconfigListDialogReset(button, tbody) {
+Kaizo.config.listDialog.reset = function KaizoconfigListDialogReset(button, tbody) {
 	// reset value on button
 	var $button = $(button);
 	var curpref = $button.data("pref");
 	var oldvalue = $button.data("value");
-	Twinkle.config.resetPref(curpref, $button.data("inFriendlyConfig"));
+	Kaizo.config.resetPref(curpref, $button.data("inFriendlyConfig"));
 
 	// reset form
 	var $tbody = $(tbody);
@@ -4584,18 +4584,18 @@ Twinkle.config.listDialog.reset = function twinkleconfigListDialogReset(button, 
 	// add the new values
 	var curvalue = $button.data("value");
 	$.each(curvalue, function(k, v) {
-		Twinkle.config.listDialog.addRow(tbody, v.value, v.label);
+		Kaizo.config.listDialog.addRow(tbody, v.value, v.label);
 	});
 
 	// save the old value
 	$button.data("value", oldvalue);
 };
 
-Twinkle.config.listDialog.save = function twinkleconfigListDialogSave(button, tbody) {
+Kaizo.config.listDialog.save = function KaizoconfigListDialogSave(button, tbody) {
 	var result = [];
 	var current = {};
 	$(tbody).find('input[type="text"]').each(function(inputkey, input) {
-		if ($(input).hasClass("twinkle-config-customlist-value")) {
+		if ($(input).hasClass("Kaizo-config-customlist-value")) {
 			current = { value: input.value };
 		} else {
 			current.label = input.value;
@@ -4610,11 +4610,11 @@ Twinkle.config.listDialog.save = function twinkleconfigListDialogSave(button, tb
 
 // reset/restore defaults
 
-Twinkle.config.resetPrefLink = function twinkleconfigResetPrefLink(e) {
-	var wantedpref = e.target.id.substring(21); // "twinkle-config-reset-" prefix is stripped
+Kaizo.config.resetPrefLink = function KaizoconfigResetPrefLink(e) {
+	var wantedpref = e.target.id.substring(21); // "Kaizo-config-reset-" prefix is stripped
 
 	// search tactics
-	$(Twinkle.config.sections).each(function(sectionkey, section) {
+	$(Kaizo.config.sections).each(function(sectionkey, section) {
 		if (section.hidden || (section.adminOnly && !Morebits.userIsInGroup("sysop"))) {
 			return true;  // continue: skip impossibilities
 		}
@@ -4625,7 +4625,7 @@ Twinkle.config.resetPrefLink = function twinkleconfigResetPrefLink(e) {
 			if (pref.name !== wantedpref) {
 				return true;  // continue
 			}
-			Twinkle.config.resetPref(pref, section.inFriendlyConfig);
+			Kaizo.config.resetPref(pref, section.inFriendlyConfig);
 			foundit = true;
 			return false;  // break
 		});
@@ -4637,50 +4637,50 @@ Twinkle.config.resetPrefLink = function twinkleconfigResetPrefLink(e) {
 	return false;  // stop link from scrolling page
 };
 
-Twinkle.config.resetPref = function twinkleconfigResetPref(pref, inFriendlyConfig) {
+Kaizo.config.resetPref = function KaizoconfigResetPref(pref, inFriendlyConfig) {
 	switch (pref.type) {
 
 		case "boolean":
 			document.getElementById(pref.name).checked = (inFriendlyConfig ?
-				Twinkle.defaultConfig.friendly[pref.name] : Twinkle.defaultConfig.twinkle[pref.name]);
+				Kaizo.defaultConfig.friendly[pref.name] : Kaizo.defaultConfig.Kaizo[pref.name]);
 			break;
 
 		case "string":
 		case "integer":
 		case "enum":
 			document.getElementById(pref.name).value = (inFriendlyConfig ?
-				Twinkle.defaultConfig.friendly[pref.name] : Twinkle.defaultConfig.twinkle[pref.name]);
+				Kaizo.defaultConfig.friendly[pref.name] : Kaizo.defaultConfig.Kaizo[pref.name]);
 			break;
 
 		case "set":
 			$.each(pref.setValues, function(itemkey, itemvalue) {
 				if (document.getElementById(pref.name + "_" + itemkey)) {
 					document.getElementById(pref.name + "_" + itemkey).checked = ((inFriendlyConfig ?
-						Twinkle.defaultConfig.friendly[pref.name] : Twinkle.defaultConfig.twinkle[pref.name]).indexOf(itemkey) !== -1);
+						Kaizo.defaultConfig.friendly[pref.name] : Kaizo.defaultConfig.Kaizo[pref.name]).indexOf(itemkey) !== -1);
 				}
 			});
 			break;
 
 		case "customList":
 			$(document.getElementById(pref.name)).data("value", (inFriendlyConfig ?
-				Twinkle.defaultConfig.friendly[pref.name] : Twinkle.defaultConfig.twinkle[pref.name]));
+				Kaizo.defaultConfig.friendly[pref.name] : Kaizo.defaultConfig.Kaizo[pref.name]));
 			break;
 
 		default:
-			alert("twinkleconfig: unknown data type for preference " + pref.name);
+			alert("Kaizoconfig: unknown data type for preference " + pref.name);
 			break;
 	}
 };
 
-Twinkle.config.resetAllPrefs = function twinkleconfigResetAllPrefs() {
+Kaizo.config.resetAllPrefs = function KaizoconfigResetAllPrefs() {
 	// no confirmation message - the user can just refresh/close the page to abort
-	$(Twinkle.config.sections).each(function(sectionkey, section) {
+	$(Kaizo.config.sections).each(function(sectionkey, section) {
 		if (section.hidden || (section.adminOnly && !Morebits.userIsInGroup("sysop"))) {
 			return true;  // continue: skip impossibilities
 		}
 		$(section.preferences).each(function(prefkey, pref) {
 			if (!pref.adminOnly || Morebits.userIsInGroup("sysop")) {
-				Twinkle.config.resetPref(pref, section.inFriendlyConfig);
+				Kaizo.config.resetPref(pref, section.inFriendlyConfig);
 			}
 		});
 		return true;
@@ -4688,26 +4688,26 @@ Twinkle.config.resetAllPrefs = function twinkleconfigResetAllPrefs() {
 	return false;  // stop link from scrolling page
 };
 
-Twinkle.config.save = function twinkleconfigSave(e) {
-	Morebits.status.init( document.getElementById("twinkle-config-content") );
+Kaizo.config.save = function KaizoconfigSave(e) {
+	Morebits.status.init( document.getElementById("Kaizo-config-content") );
 
 	Morebits.wiki.actionCompleted.notice = "Save";
 
-	var userjs = mw.config.get("wgFormattedNamespaces")[mw.config.get("wgNamespaceIds").user] + ":" + mw.config.get("wgUserName") + "/twinkleoptions.js";
+	var userjs = mw.config.get("wgFormattedNamespaces")[mw.config.get("wgNamespaceIds").user] + ":" + mw.config.get("wgUserName") + "/Kaizooptions.js";
 	var wikipedia_page = new Morebits.wiki.page(userjs, "Saving preferences to " + userjs);
 	wikipedia_page.setCallbackParameters(e.target);
-	wikipedia_page.load(Twinkle.config.writePrefs);
+	wikipedia_page.load(Kaizo.config.writePrefs);
 
 	return false;
 };
 
-Twinkle.config.writePrefs = function twinkleconfigWritePrefs(pageobj) {
+Kaizo.config.writePrefs = function KaizoconfigWritePrefs(pageobj) {
 	var form = pageobj.getCallbackParameters();
 	var statelem = pageobj.getStatusElement();
 
 	// this is the object which gets serialized into JSON
 	var newConfig = {
-		twinkle: {},
+		Kaizo: {},
 		friendly: {}
 	};
 
@@ -4715,7 +4715,7 @@ Twinkle.config.writePrefs = function twinkleconfigWritePrefs(pageobj) {
 	// any others that are set in the user's current config are kept
 	// this way, preferences that this script doesn't know about are not lost
 	// (it does mean obsolete prefs will never go away, but... ah well...)
-	var foundTwinklePrefs = [], foundFriendlyPrefs = [];
+	var foundKaizoPrefs = [], foundFriendlyPrefs = [];
 
 	// a comparison function is needed later on
 	// it is just enough for our purposes (i.e. comparing strings, numbers, booleans,
@@ -4743,7 +4743,7 @@ Twinkle.config.writePrefs = function twinkleconfigWritePrefs(pageobj) {
 		}
 	};
 
-	$(Twinkle.config.sections).each(function(sectionkey, section) {
+	$(Kaizo.config.sections).each(function(sectionkey, section) {
 		if (section.adminOnly && !Morebits.userIsInGroup("sysop")) {
 			return;  // i.e. "continue" in this context
 		}
@@ -4797,33 +4797,33 @@ Twinkle.config.writePrefs = function twinkleconfigWritePrefs(pageobj) {
 						break;
 
 					default:
-						alert("twinkleconfig: unknown data type for preference " + pref.name);
+						alert("Kaizoconfig: unknown data type for preference " + pref.name);
 						break;
 				}
 			}
 
 			// only save those preferences that are *different* from the default
 			if (section.inFriendlyConfig) {
-				if (userValue !== undefined && !compare(userValue, Twinkle.defaultConfig.friendly[pref.name])) {
+				if (userValue !== undefined && !compare(userValue, Kaizo.defaultConfig.friendly[pref.name])) {
 					newConfig.friendly[pref.name] = userValue;
 				}
 				foundFriendlyPrefs.push(pref.name);
 			} else {
-				if (userValue !== undefined && !compare(userValue, Twinkle.defaultConfig.twinkle[pref.name])) {
-					newConfig.twinkle[pref.name] = userValue;
+				if (userValue !== undefined && !compare(userValue, Kaizo.defaultConfig.Kaizo[pref.name])) {
+					newConfig.Kaizo[pref.name] = userValue;
 				}
-				foundTwinklePrefs.push(pref.name);
+				foundKaizoPrefs.push(pref.name);
 			}
 		});
 	});
 
-	if (Twinkle.prefs) {
-		$.each(Twinkle.prefs.twinkle, function(tkey, tvalue) {
-			if (foundTwinklePrefs.indexOf(tkey) === -1) {
-				newConfig.twinkle[tkey] = tvalue;
+	if (Kaizo.prefs) {
+		$.each(Kaizo.prefs.Kaizo, function(tkey, tvalue) {
+			if (foundKaizoPrefs.indexOf(tkey) === -1) {
+				newConfig.Kaizo[tkey] = tvalue;
 			}
 		});
-		$.each(Twinkle.prefs.friendly, function(fkey, fvalue) {
+		$.each(Kaizo.prefs.friendly, function(fkey, fvalue) {
 			if (foundFriendlyPrefs.indexOf(fkey) === -1) {
 				newConfig.friendly[fkey] = fvalue;
 			}
@@ -4831,37 +4831,37 @@ Twinkle.config.writePrefs = function twinkleconfigWritePrefs(pageobj) {
 	}
 
 	var text =
-		"// twinkleoptions.js: personal Twinkle preferences file\n" +
+		"// Kaizooptions.js: personal Kaizo preferences file\n" +
 		"//\n" +
-		"// NOTE: The easiest way to change your Twinkle preferences is by using the\n" +
-		"// Twinkle preferences panel, at [[" + mw.config.get("wgPageName") + "]].\n" +
+		"// NOTE: The easiest way to change your Kaizo preferences is by using the\n" +
+		"// Kaizo preferences panel, at [[" + mw.config.get("wgPageName") + "]].\n" +
 		"//\n" +
 		"// This file is AUTOMATICALLY GENERATED.  Any changes you make (aside from\n" +
 		"// changing the configuration parameters in a valid-JavaScript way) will be\n" +
-		"// overwritten the next time you click \"save\" in the Twinkle preferences\n" +
+		"// overwritten the next time you click \"save\" in the Kaizo preferences\n" +
 		"// panel.  If modifying this file, make sure to use correct JavaScript.\n" +
 		"\n" +
-		"window.Twinkle.prefs = ";
+		"window.Kaizo.prefs = ";
 	text += JSON.stringify(newConfig, null, 2);
 	text +=
 		";\n" +
 		"\n" +
-		"// End of twinkleoptions.js\n";
+		"// End of Kaizooptions.js\n";
 
 	pageobj.setPageText(text);
-	pageobj.setEditSummary("Saving Twinkle preferences: automatic edit from [[" + mw.config.get("wgPageName") + "]] ([[mh:dev:Twinkle|TW]])");
+	pageobj.setEditSummary("Saving Kaizo preferences: automatic edit from [[" + mw.config.get("wgPageName") + "]] ([[mh:dev:Kaizo|TW]])");
 	pageobj.setCreateOption("recreate");
-	pageobj.save(Twinkle.config.saveSuccess);
+	pageobj.save(Kaizo.config.saveSuccess);
 };
 
-Twinkle.config.saveSuccess = function twinkleconfigSaveSuccess(pageobj) {
+Kaizo.config.saveSuccess = function KaizoconfigSaveSuccess(pageobj) {
 	pageobj.getStatusElement().info("successful");
 
 	var noticebox = document.createElement("div");
 	noticebox.className = "successbox";
 	noticebox.style.fontSize = "100%";
 	noticebox.style.marginTop = "2em";
-	noticebox.innerHTML = "<p><b>Your Twinkle preferences have been saved.</b></p><p>To see the changes, you will need to <b>clear your browser cache entirely</b> (see <a href=\"" + mw.util.getUrl("WP:BYPASS") + "\" title=\"WP:BYPASS\">WP:BYPASS</a> for instructions).</p>";
+	noticebox.innerHTML = "<p><b>Your Kaizo preferences have been saved.</b></p><p>To see the changes, you will need to <b>clear your browser cache entirely</b> (see <a href=\"" + mw.util.getUrl("WP:BYPASS") + "\" title=\"WP:BYPASS\">WP:BYPASS</a> for instructions).</p>";
 	Morebits.status.root.appendChild(noticebox);
 	var noticeclear = document.createElement("br");
 	noticeclear.style.clear = "both";
@@ -4871,14 +4871,14 @@ Twinkle.config.saveSuccess = function twinkleconfigSaveSuccess(pageobj) {
 
 /*
  ****************************************
- *** twinklediff.js: Diff module
+ *** Kaizodiff.js: Diff module
  ****************************************
  * Mode of invocation:     Tab on non-diff pages ("Last"); tabs on diff pages ("Since", "Since mine", "Current")
  * Active on:              Existing non-special pages
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
-Twinkle.diff = function twinklediff() { 
+Kaizo.diff = function Kaizodiff() { 
 	if( mw.config.get('wgNamespaceNumber') < 0 || !mw.config.get('wgArticleId') ) {
 		return;
 	}
@@ -4893,8 +4893,8 @@ Twinkle.diff = function twinklediff() {
 
 	// Show additional tabs only on diff pages
 	if (Morebits.queryString.exists('diff')) {
-		twAddPortletLink(function(){ Twinkle.diff.evaluate(false); }, 'Since', 'tw-since', 'Show difference between last diff and the revision made by previous user' );
-		twAddPortletLink( function(){ Twinkle.diff.evaluate(true); }, 'Since mine', 'tw-sincemine', 'Show difference between last diff and my last revision' );
+		twAddPortletLink(function(){ Kaizo.diff.evaluate(false); }, 'Since', 'tw-since', 'Show difference between last diff and the revision made by previous user' );
+		twAddPortletLink( function(){ Kaizo.diff.evaluate(true); }, 'Since mine', 'tw-sincemine', 'Show difference between last diff and my last revision' );
 
 		var oldid = /oldid=(.+)/.exec($('#mw-diff-ntitle1').find('strong a').first().attr("href"))[1];
 		query = {
@@ -4906,7 +4906,7 @@ Twinkle.diff = function twinklediff() {
 	}
 };
 
-Twinkle.diff.evaluate = function twinklediffEvaluate(me) {
+Kaizo.diff.evaluate = function KaizodiffEvaluate(me) {
 
 	var user;
 	if( me ) {
@@ -4929,12 +4929,12 @@ Twinkle.diff.evaluate = function twinklediffEvaluate(me) {
 		'rvuser': user
 	};
 	Morebits.status.init( document.getElementById('bodyContent') );
-	var wikipedia_api = new Morebits.wiki.api( 'Grabbing data of initial contributor', query, Twinkle.diff.callbacks.main );
+	var wikipedia_api = new Morebits.wiki.api( 'Grabbing data of initial contributor', query, Kaizo.diff.callbacks.main );
 	wikipedia_api.params = { user: user };
 	wikipedia_api.post();
 };
 
-Twinkle.diff.callbacks = {
+Kaizo.diff.callbacks = {
 	main: function( self ) {
 		var xmlDoc = self.responseXML;
 		var revid = $(xmlDoc).find('rev').attr('revid');
@@ -4953,18 +4953,18 @@ Twinkle.diff.callbacks = {
 };
 /*
  ****************************************
- *** twinklefluff.js: Revert/rollback module
+ *** Kaizofluff.js: Revert/rollback module
  ****************************************
  * Mode of invocation:     Links on history, contributions, and diff pages
  * Active on:              Diff pages, history pages, contributions pages
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
 /**
- Twinklefluff revert and antivandalism utility
+ Kaizofluff revert and antivandalism utility
  */
 
-Twinkle.fluff = {
+Kaizo.fluff = {
 	auto: function() {
 		if( parseInt( Morebits.queryString.get('oldid'), 10) !== mw.config.get('wgCurRevisionId') ) {
 			// not latest revision
@@ -4974,7 +4974,7 @@ Twinkle.fluff = {
 
 		var vandal = $("#mw-diff-ntitle2").find("a.mw-userlink").text();
 
-		Twinkle.fluff.revert( Morebits.queryString.get( 'twinklerevert' ), vandal, true );
+		Kaizo.fluff.revert( Morebits.queryString.get( 'Kaizorevert' ), vandal, true );
 	},
 	normal: function() {
 
@@ -4994,9 +4994,9 @@ Twinkle.fluff = {
 			);
 			if(!logMatch) return;
 			username = decodeURIComponent(logMatch[1]);
-			if( Twinkle.getPref('showRollbackLinks').indexOf('contribs') !== -1 || 
-				( mw.config.get('wgUserName') !== username && Twinkle.getPref('showRollbackLinks').indexOf('others') !== -1 ) || 
-				( mw.config.get('wgUserName') === username && Twinkle.getPref('showRollbackLinks').indexOf('mine') !== -1 ) ) {
+			if( Kaizo.getPref('showRollbackLinks').indexOf('contribs') !== -1 || 
+				( mw.config.get('wgUserName') !== username && Kaizo.getPref('showRollbackLinks').indexOf('others') !== -1 ) || 
+				( mw.config.get('wgUserName') === username && Kaizo.getPref('showRollbackLinks').indexOf('mine') !== -1 ) ) {
 				var list = $("#bodyContent").find("ul li:has(span.mw-uctop)");
 
 				var revNode = document.createElement('strong');
@@ -5017,11 +5017,11 @@ Twinkle.fluff = {
 					var href = $(current).children("a:eq(1)").attr("href");
 					current.appendChild( document.createTextNode(' ') );
 					var tmpNode = revNode.cloneNode( true );
-					tmpNode.firstChild.setAttribute( 'href', href + '&' + Morebits.queryString.create( { 'twinklerevert': 'norm' } ) );
+					tmpNode.firstChild.setAttribute( 'href', href + '&' + Morebits.queryString.create( { 'Kaizorevert': 'norm' } ) );
 					current.appendChild( tmpNode );
 					current.appendChild( document.createTextNode(' ') );
 					tmpNode = revVandNode.cloneNode( true );
-					tmpNode.firstChild.setAttribute( 'href', href + '&' + Morebits.queryString.create( { 'twinklerevert': 'vand' } ) );
+					tmpNode.firstChild.setAttribute( 'href', href + '&' + Morebits.queryString.create( { 'Kaizorevert': 'vand' } ) );
 					current.appendChild( tmpNode );
 				});
 			}
@@ -5068,7 +5068,7 @@ Twinkle.fluff = {
 			var revertToRevisionLink = revertToRevision.appendChild( document.createElement('a') );
 			revertToRevisionLink.href = "#";
 			$(revertToRevisionLink).click(function(){
-				Twinkle.fluff.revertToRevision(oldrev);
+				Kaizo.fluff.revertToRevision(oldrev);
 			});
 			revertToRevisionLink.appendChild( spanTag( 'Black', '[' ) );
 			revertToRevisionLink.appendChild( spanTag( 'SaddleBrown', 'restore this version' ) );
@@ -5089,7 +5089,7 @@ Twinkle.fluff = {
 				revertToRevisionLink = revertToRevision.appendChild( document.createElement('a') );
 				revertToRevisionLink.href = "#";
 				$(revertToRevisionLink).click(function(){
-					Twinkle.fluff.revertToRevision(newrev);
+					Kaizo.fluff.revertToRevision(newrev);
 				});
 				revertToRevisionLink.appendChild( spanTag( 'Black', '[' ) );
 				revertToRevisionLink.appendChild( spanTag( 'SaddleBrown', 'restore this version' ) );
@@ -5098,7 +5098,7 @@ Twinkle.fluff = {
 
 				return;
 			}
-			if( Twinkle.getPref('showRollbackLinks').indexOf('diff') !== -1 ) {
+			if( Kaizo.getPref('showRollbackLinks').indexOf('diff') !== -1 ) {
 				var vandal = $("#mw-diff-ntitle2").find("a").first().text();
 
 				var revertNode = document.createElement('div');
@@ -5116,13 +5116,13 @@ Twinkle.fluff = {
 				vandLink.href = "#"; 
 				normLink.href = "#"; 
 				$(agfLink).click(function(){
-					Twinkle.fluff.revert('agf', vandal);
+					Kaizo.fluff.revert('agf', vandal);
 				});
 				$(vandLink).click(function(){
-					Twinkle.fluff.revert('vand', vandal);
+					Kaizo.fluff.revert('vand', vandal);
 				});
 				$(normLink).click(function(){
-					Twinkle.fluff.revert('norm', vandal);
+					Kaizo.fluff.revert('norm', vandal);
 				});
 
 				agfLink.appendChild( spanTag( 'Black', '[' ) );
@@ -5153,7 +5153,7 @@ Twinkle.fluff = {
 	}
 };
 
-Twinkle.fluff.revert = function revertPage( type, vandal, autoRevert, rev, page ) {
+Kaizo.fluff.revert = function revertPage( type, vandal, autoRevert, rev, page ) {
 	if (mw.util.isIPv6Address(vandal)) {
 		vandal = Morebits.sanitizeIPv6(vandal);
 	}
@@ -5179,12 +5179,12 @@ Twinkle.fluff.revert = function revertPage( type, vandal, autoRevert, rev, page 
 		'meta': 'tokens',
 		'type': 'csrf'
 	};
-	var wikipedia_api = new Morebits.wiki.api( 'Grabbing data of earlier revisions', query, Twinkle.fluff.callbacks.main );
+	var wikipedia_api = new Morebits.wiki.api( 'Grabbing data of earlier revisions', query, Kaizo.fluff.callbacks.main );
 	wikipedia_api.params = params;
 	wikipedia_api.post();
 };
 
-Twinkle.fluff.revertToRevision = function revertToRevision( oldrev ) {
+Kaizo.fluff.revertToRevision = function revertToRevision( oldrev ) {
 
 	Morebits.status.init( document.getElementById('bodyContent') );
 
@@ -5200,16 +5200,16 @@ Twinkle.fluff.revertToRevision = function revertToRevision( oldrev ) {
 		'type': 'csrf',
 		'format': 'xml'
 	};
-	var wikipedia_api = new Morebits.wiki.api( 'Grabbing data of the earlier revision', query, Twinkle.fluff.callbacks.toRevision.main );
+	var wikipedia_api = new Morebits.wiki.api( 'Grabbing data of the earlier revision', query, Kaizo.fluff.callbacks.toRevision.main );
 	wikipedia_api.params = { rev: oldrev };
 	wikipedia_api.post();
 };
 
-Twinkle.fluff.userIpLink = function( user ) {
+Kaizo.fluff.userIpLink = function( user ) {
 	return (Morebits.isIPAddress(user) ? "[[Special:Contributions/" : "[[User:" ) + user + "|" + user + "]]";
 };
 
-Twinkle.fluff.callbacks = {
+Kaizo.fluff.callbacks = {
 	toRevision: {
 		main: function( self ) {
 			var xmlDoc = self.responseXML;
@@ -5233,7 +5233,7 @@ Twinkle.fluff.callbacks = {
 				return;
 			}
 			var summary = "Reverted to revision " + revertToRevID + " by " + revertToUser + (optional_summary ? ": " + optional_summary : '') + "." +
-				Twinkle.getPref('summaryAd');
+				Kaizo.getPref('summaryAd');
 		
 			var query = { 
 				'action': 'edit',
@@ -5244,14 +5244,14 @@ Twinkle.fluff.callbacks = {
 				'undoafter': revertToRevID,
 				'basetimestamp': touched,
 				'starttimestamp': starttimestamp,
-				'watchlist': Twinkle.getPref('watchRevertedPages').indexOf( self.params.type ) !== -1 ? 'watch' : undefined,
-				'minor': Twinkle.getPref('markRevertedPagesAsMinor').indexOf( self.params.type ) !== -1  ? true : undefined
+				'watchlist': Kaizo.getPref('watchRevertedPages').indexOf( self.params.type ) !== -1 ? 'watch' : undefined,
+				'minor': Kaizo.getPref('markRevertedPagesAsMinor').indexOf( self.params.type ) !== -1  ? true : undefined
 			};
 
 			Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
 			Morebits.wiki.actionCompleted.notice = "Reversion completed";
 
-			var wikipedia_api = new Morebits.wiki.api( 'Saving reverted contents', query, null/*Twinkle.fluff.callbacks.toRevision.complete*/, self.statelem);
+			var wikipedia_api = new Morebits.wiki.api( 'Saving reverted contents', query, null/*Kaizo.fluff.callbacks.toRevision.complete*/, self.statelem);
 			wikipedia_api.params = self.params;
 			wikipedia_api.post();
 
@@ -5296,7 +5296,7 @@ Twinkle.fluff.callbacks = {
 				}
 			}
 			else if(self.params.type === 'vand' && 
-					Twinkle.fluff.whiteList.indexOf( top.getAttribute( 'user' ) ) !== -1 && revs.length > 1 &&
+					Kaizo.fluff.whiteList.indexOf( top.getAttribute( 'user' ) ) !== -1 && revs.length > 1 &&
 					revs[1].getAttribute( 'pageId' ) === self.params.revid) {
 				Morebits.status.info( 'Info', [ 'Latest revision was made by ', Morebits.htmlNode( 'strong', lastuser ), ', a trusted bot, and the revision before was made by our vandal, so we proceed with the revert.' ] );
 				index = 2;
@@ -5307,7 +5307,7 @@ Twinkle.fluff.callbacks = {
 
 		}
 
-		if( Twinkle.fluff.whiteList.indexOf( self.params.user ) !== -1  ) {
+		if( Kaizo.fluff.whiteList.indexOf( self.params.user ) !== -1  ) {
 			switch( self.params.type ) {
 			case 'vand':
 				Morebits.status.info( 'Info', [ 'Vandalism revert was chosen on ', Morebits.htmlNode( 'strong', self.params.user ), '. As this is a whitelisted bot, we assume you wanted to revert vandalism made by the previous user instead.' ] );
@@ -5344,7 +5344,7 @@ Twinkle.fluff.callbacks = {
 		}
 
 		if( ! found ) {
-			self.statelem.error( [ 'No previous revision found. Perhaps ', Morebits.htmlNode( 'strong', self.params.user ), ' is the only contributor, or that the user has made more than ' + Twinkle.getPref('revertMaxRevisions') + ' edits in a row.' ] );
+			self.statelem.error( [ 'No previous revision found. Perhaps ', Morebits.htmlNode( 'strong', self.params.user ), ' is the only contributor, or that the user has made more than ' + Kaizo.getPref('revertMaxRevisions') + ' edits in a row.' ] );
 			return;
 		}
 
@@ -5383,7 +5383,7 @@ Twinkle.fluff.callbacks = {
 
 			userstr = self.params.user;
 			summary = "Reverted good faith edits by [[Special:Contributions/" + userstr + "|" + userstr + "]] ([[User talk:" + 
-				userstr + "|talk]])" + Twinkle.fluff.formatSummaryPostfix(extra_summary) + Twinkle.getPref('summaryAd');
+				userstr + "|talk]])" + Kaizo.fluff.formatSummaryPostfix(extra_summary) + Kaizo.getPref('summaryAd');
 			break;
 
 		case 'vand':
@@ -5392,13 +5392,13 @@ Twinkle.fluff.callbacks = {
 			gooduserstr = self.params.gooduser;
 			summary = "Reverted " + self.params.count + (self.params.count > 1 ? ' edits' : ' edit') + " by [[Special:Contributions/" +
 				userstr + "|" + userstr + "]] ([[User talk:" + userstr + "|talk]]) to last revision by " +
-				gooduserstr + "." + Twinkle.getPref('summaryAd');
+				gooduserstr + "." + Kaizo.getPref('summaryAd');
 			break;
 
 		case 'norm':
 			/* falls through */
 		default:
-			if( Twinkle.getPref('offerReasonOnNormalRevert') ) {
+			if( Kaizo.getPref('offerReasonOnNormalRevert') ) {
 				extra_summary = prompt( "An optional comment for the edit summary:                              ", "" );  // padded out to widen prompt in Firefox
 				if (extra_summary === null)
 				{
@@ -5410,19 +5410,19 @@ Twinkle.fluff.callbacks = {
 
 			userstr = self.params.user;
 			summary = "Reverted " + self.params.count + (self.params.count > 1 ? ' edits' : ' edit') + " by [[Special:Contributions/" + 
-				userstr + "|" + userstr + "]] ([[User talk:" + userstr + "|talk]])" + Twinkle.fluff.formatSummaryPostfix(extra_summary) +
-				Twinkle.getPref('summaryAd');
+				userstr + "|" + userstr + "]] ([[User talk:" + userstr + "|talk]])" + Kaizo.fluff.formatSummaryPostfix(extra_summary) +
+				Kaizo.getPref('summaryAd');
 			break;
 		}
 
-		if (Twinkle.getPref('confirmOnFluff') && !userHasAlreadyConfirmedAction && !confirm("Reverting page: are you sure?")) {
+		if (Kaizo.getPref('confirmOnFluff') && !userHasAlreadyConfirmedAction && !confirm("Reverting page: are you sure?")) {
 			self.statelem.error( 'Aborted by user.' );
 			return;
 		}
 
 		var query;
-		if( (!self.params.autoRevert || Twinkle.getPref('openTalkPageOnAutoRevert')) && 
-				Twinkle.getPref('openTalkPage').indexOf( self.params.type ) !== -1 &&
+		if( (!self.params.autoRevert || Kaizo.getPref('openTalkPageOnAutoRevert')) && 
+				Kaizo.getPref('openTalkPage').indexOf( self.params.type ) !== -1 &&
 				mw.config.get('wgUserName') !== self.params.user ) {
 			Morebits.status.info( 'Info', [ 'Opening user talk page edit form for user ', Morebits.htmlNode( 'strong', self.params.user ) ] );
 			
@@ -5437,7 +5437,7 @@ Twinkle.fluff.callbacks = {
 				'count': self.params.count
 			};
 
-			switch( Twinkle.getPref('userTalkPageMode') ) {
+			switch( Kaizo.getPref('userTalkPageMode') ) {
 			case 'tab':
 				window.open( mw.util.wikiScript('index') + '?' + Morebits.queryString.create( query ), '_tab' );
 				break;
@@ -5447,7 +5447,7 @@ Twinkle.fluff.callbacks = {
 			case 'window':
 				/* falls through */
 			default:
-				window.open( mw.util.wikiScript('index') + '?' + Morebits.queryString.create( query ), 'twinklewarnwindow', 'location=no,toolbar=no,status=no,directories=no,scrollbars=yes,width=1200,height=800' );
+				window.open( mw.util.wikiScript('index') + '?' + Morebits.queryString.create( query ), 'Kaizowarnwindow', 'location=no,toolbar=no,status=no,directories=no,scrollbars=yes,width=1200,height=800' );
 				break;
 			}
 		}
@@ -5461,14 +5461,14 @@ Twinkle.fluff.callbacks = {
 			'undoafter': self.params.goodid,
 			'basetimestamp': touched,
 			'starttimestamp': starttimestamp,
-			'watchlist' :  Twinkle.getPref('watchRevertedPages').indexOf( self.params.type ) !== -1 ? 'watch' : undefined,
-			'minor': Twinkle.getPref('markRevertedPagesAsMinor').indexOf( self.params.type ) !== -1 ? true : undefined
+			'watchlist' :  Kaizo.getPref('watchRevertedPages').indexOf( self.params.type ) !== -1 ? 'watch' : undefined,
+			'minor': Kaizo.getPref('markRevertedPagesAsMinor').indexOf( self.params.type ) !== -1 ? true : undefined
 		};
 
 		Morebits.wiki.actionCompleted.redirect = self.params.pagename;
 		Morebits.wiki.actionCompleted.notice = "Reversion completed";
 
-		var wikipedia_api = new Morebits.wiki.api( 'Saving reverted contents', query, Twinkle.fluff.callbacks.complete, self.statelem);
+		var wikipedia_api = new Morebits.wiki.api( 'Saving reverted contents', query, Kaizo.fluff.callbacks.complete, self.statelem);
 		wikipedia_api.params = self.params;
 		wikipedia_api.post();
 
@@ -5478,7 +5478,7 @@ Twinkle.fluff.callbacks = {
 	}
 };
 
-Twinkle.fluff.formatSummaryPostfix = function(stringToAdd) {
+Kaizo.fluff.formatSummaryPostfix = function(stringToAdd) {
 	if (stringToAdd) {
 		stringToAdd = ': ' + Morebits.string.toUpperCaseFirstChar(stringToAdd);
 		if (stringToAdd.search(/[.?!;]$/) === -1) {
@@ -5491,75 +5491,75 @@ Twinkle.fluff.formatSummaryPostfix = function(stringToAdd) {
 	}
 };
 
-Twinkle.fluff.init = function twinklefluffinit() {
-	if (twinkleUserAuthorized)
+Kaizo.fluff.init = function Kaizofluffinit() {
+	if (KaizoUserAuthorized)
 	{
 		// a list of usernames, usually only bots, that vandalism revert is jumped over, that is
 		// if vandalism revert was chosen on such username, then it's target is on the revision before.
 		// This is for handeling quick bots that makes edits seconds after the original edit is made.
 		// This only affect vandalism rollback, for good faith rollback, it will stop, indicating a bot 
 		// has no faith, and for normal rollback, it will rollback that edit.
-		Twinkle.fluff.whiteList = [
+		Kaizo.fluff.whiteList = [
 			'AnomieBOT',
 			'ClueBot NG',
 			'SineBot'
 		];
 
-		if ( Morebits.queryString.exists( 'twinklerevert' ) ) {
-			Twinkle.fluff.auto();
+		if ( Morebits.queryString.exists( 'Kaizorevert' ) ) {
+			Kaizo.fluff.auto();
 		} else {
-			Twinkle.fluff.normal();
+			Kaizo.fluff.normal();
 		}
 	}
 };
 
 /*
  ****************************************
- *** twinklespeedy.js: CSD module
+ *** Kaizospeedy.js: CSD module
  ****************************************
  * Mode of invocation:     Tab ("CSD")
  * Active on:              Non-special, existing pages
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  *
  * NOTE FOR DEVELOPERS:
  *   If adding a new criterion, check out the default values of the CSD preferences
- *   in twinkle.header.js, and add your new criterion to those if you think it would
+ *   in Kaizo.header.js, and add your new criterion to those if you think it would
  *   be good. 
  */
 
-Twinkle.speedy = function twinklespeedy() {
+Kaizo.speedy = function Kaizospeedy() {
 	// Disable on:
 	// * special pages
 	// * non-existent pages
 	if (mw.config.get('wgNamespaceNumber') < 0 || !mw.config.get('wgArticleId')) {
 		return;
 	}
-	twAddPortletLink( Twinkle.speedy.callback, "Del", "tw-csd", Morebits.userIsInGroup('sysop') ? "Delete page" : "Request deletion" );
+	twAddPortletLink( Kaizo.speedy.callback, "Del", "tw-csd", Morebits.userIsInGroup('sysop') ? "Delete page" : "Request deletion" );
 };
 
 // This function is run when the CSD tab/header link is clicked
-Twinkle.speedy.callback = function twinklespeedyCallback() {
-	if ( !twinkleUserAuthorized ) {
-		alert("Your account is too new to use Twinkle.");
+Kaizo.speedy.callback = function KaizospeedyCallback() {
+	if ( !KaizoUserAuthorized ) {
+		alert("Your account is too new to use Kaizo.");
 		return;
 	}
 
-	Twinkle.speedy.initDialog(Morebits.userIsInGroup( 'sysop' ) ? Twinkle.speedy.callback.evaluateSysop : Twinkle.speedy.callback.evaluateUser, true);
+	Kaizo.speedy.initDialog(Morebits.userIsInGroup( 'sysop' ) ? Kaizo.speedy.callback.evaluateSysop : Kaizo.speedy.callback.evaluateUser, true);
 };
 
-Twinkle.speedy.dialog = null;  // used by unlink feature
+Kaizo.speedy.dialog = null;  // used by unlink feature
 
 // Prepares the speedy deletion dialog and displays it
-Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
+Kaizo.speedy.initDialog = function KaizospeedyInitDialog(callbackfunc) {
 	var dialog;
-	Twinkle.speedy.dialog = new Morebits.simpleWindow( Twinkle.getPref('speedyWindowWidth'), Twinkle.getPref('speedyWindowHeight') );
-	dialog = Twinkle.speedy.dialog;
+	Kaizo.speedy.dialog = new Morebits.simpleWindow( Kaizo.getPref('speedyWindowWidth'), Kaizo.getPref('speedyWindowHeight') );
+	dialog = Kaizo.speedy.dialog;
 	dialog.setTitle( "Choose criteria for deletion" );
-	dialog.setScriptName( "Twinkle" );
+	dialog.setScriptName( "Kaizo" );
 	dialog.addFooterLink( "Common deletion reasons", "MediaWiki:Deletereason-dropdown" );
-	dialog.addFooterLink( "Twinkle help", "WP:TW/DOC#speedy" );
+	dialog.addFooterLink( "Kaizo help", "WP:TW/DOC#speedy" );
 
-	var form = new Morebits.quickForm( callbackfunc, (Twinkle.getPref('speedySelectionStyle') === 'radioClick' ? 'change' : null) );
+	var form = new Morebits.quickForm( callbackfunc, (Kaizo.getPref('speedySelectionStyle') === 'radioClick' ? 'change' : null) );
 	if( Morebits.userIsInGroup( 'sysop' ) ) {
 		form.append( {
 				type: 'checkbox',
@@ -5569,14 +5569,14 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 						value: 'tag_only',
 						name: 'tag_only',
 						tooltip: 'If you just want to tag the page, instead of deleting it now',
-						checked : Twinkle.getPref('deleteSysopDefaultToTag'),
+						checked : Kaizo.getPref('deleteSysopDefaultToTag'),
 						event: function( event ) {
 							var cForm = event.target.form;
 							var cChecked = event.target.checked;
 							// enable/disable talk page checkbox
 							if (cForm.talkpage) {
 								cForm.talkpage.disabled = cChecked;
-								cForm.talkpage.checked = !cChecked && Twinkle.getPref('deleteTalkPageOnDelete');
+								cForm.talkpage.checked = !cChecked && Kaizo.getPref('deleteTalkPageOnDelete');
 							}
 							// enable/disable redirects checkbox
 							cForm.redirects.disabled = cChecked;
@@ -5589,7 +5589,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 							cForm.multiple.disabled = !cChecked;
 							cForm.multiple.checked = false;
 
-							Twinkle.speedy.callback.dbMultipleChanged(cForm, false);
+							Kaizo.speedy.callback.dbMultipleChanged(cForm, false);
 
 							event.stopPropagation();
 						}
@@ -5606,8 +5606,8 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 						value: 'talkpage',
 						name: 'talkpage',
 						tooltip: "This option deletes the page's talk page in addition. If you choose the F8 (moved to Commons) criterion, this option is ignored and the talk page is *not* deleted.",
-						checked: Twinkle.getPref('deleteTalkPageOnDelete'),
-						disabled: Twinkle.getPref('deleteSysopDefaultToTag'),
+						checked: Kaizo.getPref('deleteTalkPageOnDelete'),
+						disabled: Kaizo.getPref('deleteSysopDefaultToTag'),
 						event: function( event ) {
 							event.stopPropagation();
 						}
@@ -5624,7 +5624,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 						name: 'redirects',
 						tooltip: "This option deletes all incoming redirects in addition. Avoid this option for procedural (e.g. move/merge) deletions.",
 						checked: true,
-						disabled: Twinkle.getPref('deleteSysopDefaultToTag'),
+						disabled: Kaizo.getPref('deleteSysopDefaultToTag'),
 						event: function( event ) {
 							event.stopPropagation();
 						}
@@ -5641,10 +5641,10 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 					label: 'Notify page creator if possible',
 					value: 'notify',
 					name: 'notify',
-					tooltip: "A notification template will be placed on the talk page of the creator, IF you have a notification enabled in your Twinkle preferences " +
+					tooltip: "A notification template will be placed on the talk page of the creator, IF you have a notification enabled in your Kaizo preferences " +
 						"for the criterion you choose AND this box is checked. The creator may be welcomed as well.",
-					checked: !Morebits.userIsInGroup( 'sysop' ) || Twinkle.getPref('deleteSysopDefaultToTag'),
-					disabled: Morebits.userIsInGroup( 'sysop' ) && !Twinkle.getPref('deleteSysopDefaultToTag'),
+					checked: !Morebits.userIsInGroup( 'sysop' ) || Kaizo.getPref('deleteSysopDefaultToTag'),
+					disabled: Morebits.userIsInGroup( 'sysop' ) && !Kaizo.getPref('deleteSysopDefaultToTag'),
 					event: function( event ) {
 						event.stopPropagation();
 					}
@@ -5655,10 +5655,10 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 	form.append( {
 			type: 'div',
 			name: 'work_area',
-			label: 'Failed to initialize the CSD module. Please try again, or tell the Twinkle developers about the issue.'
+			label: 'Failed to initialize the CSD module. Please try again, or tell the Kaizo developers about the issue.'
 		} );
 
-	if( Twinkle.getPref( 'speedySelectionStyle' ) !== 'radioClick' ) {
+	if( Kaizo.getPref( 'speedySelectionStyle' ) !== 'radioClick' ) {
 		form.append( { type: 'submit' } );
 	}
 
@@ -5666,10 +5666,10 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 	dialog.setContent( result );
 	dialog.display();
 
-	Twinkle.speedy.callback.dbMultipleChanged( result, false );
+	Kaizo.speedy.callback.dbMultipleChanged( result, false );
 };
 
-Twinkle.speedy.callback.dbMultipleChanged = function twinklespeedyCallbackDbMultipleChanged(form, checked) {
+Kaizo.speedy.callback.dbMultipleChanged = function KaizospeedyCallbackDbMultipleChanged(form, checked) {
 	var namespace = mw.config.get('wgNamespaceNumber');
 	var value = checked;
 
@@ -5678,7 +5678,7 @@ Twinkle.speedy.callback.dbMultipleChanged = function twinklespeedyCallbackDbMult
 			name: 'work_area'
 		} );
 
-	if (checked && Twinkle.getPref('speedySelectionStyle') === 'radioClick') {
+	if (checked && Kaizo.getPref('speedySelectionStyle') === 'radioClick') {
 		work_area.append( {
 				type: 'div',
 				label: 'When finished choosing criteria, click:'
@@ -5688,7 +5688,7 @@ Twinkle.speedy.callback.dbMultipleChanged = function twinklespeedyCallbackDbMult
 				name: 'submit-multiple',
 				label: 'Submit Query',
 				event: function( event ) {
-					Twinkle.speedy.callback.evaluateUser( event );
+					Kaizo.speedy.callback.evaluateUser( event );
 					event.stopPropagation();
 				}
 			} );
@@ -5698,38 +5698,38 @@ Twinkle.speedy.callback.dbMultipleChanged = function twinklespeedyCallbackDbMult
 	/*
 	if (namespace % 2 === 1 && namespace !== 3) {  // talk pages, but not user talk pages
 		work_area.append( { type: 'header', label: 'Talk pages' } );
-		work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.talkList } );
+		work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.talkList } );
 	}
 
 	switch (namespace) {
 		case 0:  // article
 		case 1:  // talk
 			work_area.append( { type: 'header', label: 'Articles' } );
-			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.getArticleList(value) } );
+			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.getArticleList(value) } );
 			break;
 
 		case 2:  // user
 		case 3:  // user talk
 			work_area.append( { type: 'header', label: 'User pages' } );
-			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.userList } );
+			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.userList } );
 			break;
 
 		case 6:  // file
 		case 7:  // file talk
 			work_area.append( { type: 'header', label: 'Files' } );
-			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.getFileList(value) } );
+			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.getFileList(value) } );
 			break;
 
 		case 10:  // template
 		case 11:  // template talk
 			work_area.append( { type: 'header', label: 'Templates' } );
-			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.templateList } );
+			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.templateList } );
 			break;
 
 		case 14:  // category
 		case 15:  // category talk
 			work_area.append( { type: 'header', label: 'Categories' } );
-			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.categoryList } );
+			work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.categoryList } );
 			break;
 			
 		default:
@@ -5737,16 +5737,16 @@ Twinkle.speedy.callback.dbMultipleChanged = function twinklespeedyCallbackDbMult
 	}
 	*/
 	work_area.append( { type: 'header', label: 'General criteria' } );
-	work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.getGeneralList(value) });
+	work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.getGeneralList(value) });
 	/*
 	work_area.append( { type: 'header', label: 'Redirects' } );
-	work_area.append( { type: radioOrCheckbox, name: 'csd', list: Twinkle.speedy.redirectList } );
+	work_area.append( { type: radioOrCheckbox, name: 'csd', list: Kaizo.speedy.redirectList } );
 	*/
 	var old_area = Morebits.quickForm.getElements(form, "work_area")[0];
 	form.replaceChild(work_area.render(), old_area);
 };
 
-Twinkle.speedy.talkList = [
+Kaizo.speedy.talkList = [
 	/*{
 		label: 'G8: Talk pages with no page belonging to it',
 		value: 'talk',
@@ -5755,7 +5755,7 @@ Twinkle.speedy.talkList = [
 ];
 
 // this is a function to allow for db-multiple filtering
-Twinkle.speedy.getFileList = function twinklespeedyGetFileList(multiple) {
+Kaizo.speedy.getFileList = function KaizospeedyGetFileList(multiple) {
 	var result = [];
 	/*result.push({
 		label: 'F1: Not allowed',
@@ -5765,7 +5765,7 @@ Twinkle.speedy.getFileList = function twinklespeedyGetFileList(multiple) {
 	return result;
 };
 
-Twinkle.speedy.getArticleList = function twinklespeedyGetArticleList(multiple) {
+Kaizo.speedy.getArticleList = function KaizospeedyGetArticleList(multiple) {
 	var result = [];
 	/*result.push({
 		label: 'A1: Little or no meaning',
@@ -5800,7 +5800,7 @@ Twinkle.speedy.getArticleList = function twinklespeedyGetArticleList(multiple) {
 	return result;
 };
 
-Twinkle.speedy.categoryList = [
+Kaizo.speedy.categoryList = [
 	/*{
 		label: 'C1: Empty categories',
 		value: 'catempty',
@@ -5818,7 +5818,7 @@ Twinkle.speedy.categoryList = [
 	}*/
 ];
 
-Twinkle.speedy.userList = [
+Kaizo.speedy.userList = [
 	/*{
 		label: 'U1: User request',
 		value: 'userreq',
@@ -5831,7 +5831,7 @@ Twinkle.speedy.userList = [
 	}*/
 ];
 
-Twinkle.speedy.templateList = [
+Kaizo.speedy.templateList = [
 		/*{
 		label: 'T2: They are deprecated or replaced by a newer template and are completely unused and not linked to.',
 		value: 'replaced',
@@ -5841,7 +5841,7 @@ Twinkle.speedy.templateList = [
 	//	return result;
 ];
 
-Twinkle.speedy.getGeneralList = function twinklespeedyGetGeneralList(multiple) {
+Kaizo.speedy.getGeneralList = function KaizospeedyGetGeneralList(multiple) {
 	var result = [];
 	if (!multiple) {
 		result.push({
@@ -5927,7 +5927,7 @@ Twinkle.speedy.getGeneralList = function twinklespeedyGetGeneralList(multiple) {
 	return result;
 };
 
-Twinkle.speedy.redirectList = [
+Kaizo.speedy.redirectList = [
 	/*{ 
 		label: 'R1: Redirects to a non-existent page.', 
 		value: 'redirnone', 
@@ -5945,7 +5945,7 @@ Twinkle.speedy.redirectList = [
 	}*/
 ];
 
-Twinkle.speedy.normalizeHash = {
+Kaizo.speedy.normalizeHash = {
 	'reason': 'db',
 	'nonsense': 'g1',
 	'test': 'g2',
@@ -5981,7 +5981,7 @@ Twinkle.speedy.normalizeHash = {
 };
 
 // keep this synched with [[MediaWiki:Deletereason-dropdown]]
-Twinkle.speedy.reasonHash = {
+Kaizo.speedy.reasonHash = {
 	'reason': '',
 		'nonsense': 'was all nonsense',
 		'test': 'was a test page',
@@ -6016,7 +6016,7 @@ Twinkle.speedy.reasonHash = {
 		'replaced': 'was deprecated or replaced by a newer template and are completely unused and not linked to'
 };
 
-Twinkle.speedy.callbacks = {
+Kaizo.speedy.callbacks = {
 	sysop: {
 		main: function( params ) {
 			var thispage = new Morebits.wiki.page( mw.config.get('wgPageName'), "Deleting page" );
@@ -6027,7 +6027,7 @@ Twinkle.speedy.callbacks = {
 				reason = prompt("Enter the deletion summary to use, which will be entered into the deletion log:", "");
 			} else {
 				var presetReason = params.normalized.toUpperCase(); // should be never called on meta miraheze
-				if (Twinkle.getPref("promptForSpeedyDeletionSummary").indexOf(params.normalized) !== -1) {
+				if (Kaizo.getPref("promptForSpeedyDeletionSummary").indexOf(params.normalized) !== -1) {
 					reason = prompt("Enter the deletion summary to use, or press OK to accept the automatically generated one.", presetReason);
 				} else {
 					reason = presetReason;
@@ -6037,7 +6037,7 @@ Twinkle.speedy.callbacks = {
 				Morebits.status.error("Asking for reason", "you didn't give one.  I don't know... what with admins and their apathetic antics... I give up...");
 				return;
 			}
-			thispage.setEditSummary( reason + Twinkle.getPref('deletionSummaryAd') );
+			thispage.setEditSummary( reason + Kaizo.getPref('deletionSummaryAd') );
 			thispage.deletePage();
 
 			// delete talk page
@@ -6045,7 +6045,7 @@ Twinkle.speedy.callbacks = {
 			    params.normalized !== 'f8' &&
 			    document.getElementById( 'ca-talk' ).className !== 'new') {
 				var talkpage = new Morebits.wiki.page( Morebits.wikipedia.namespaces[ mw.config.get('wgNamespaceNumber') + 1 ] + ':' + mw.config.get('wgTitle'), "Deleting talk page" );
-				talkpage.setEditSummary('[[WP:QD#G8|G8]]: Talk page of deleted page "' + mw.config.get('wgPageName') + '"' + Twinkle.getPref('deletionSummaryAd'));
+				talkpage.setEditSummary('[[WP:QD#G8|G8]]: Talk page of deleted page "' + mw.config.get('wgPageName') + '"' + Kaizo.getPref('deletionSummaryAd'));
 				talkpage.deletePage();
 			}
 
@@ -6058,8 +6058,8 @@ Twinkle.speedy.callbacks = {
 					'css': { 'fontSize': '130%', 'fontWeight': 'bold' },
 					'click': function(){
 						Morebits.wiki.actionCompleted.redirect = null;
-						Twinkle.speedy.dialog.close();
-						Twinkle.unlink.callback("Removing usages of and/or links to deleted file " + mw.config.get('wgPageName'));
+						Kaizo.speedy.dialog.close();
+						Kaizo.unlink.callback("Removing usages of and/or links to deleted file " + mw.config.get('wgPageName'));
 					}
 				});
 				$bigtext = $('<span/>', {
@@ -6074,8 +6074,8 @@ Twinkle.speedy.callbacks = {
 					'css': { 'fontSize': '130%', 'fontWeight': 'bold' },
 					'click': function(){
 						Morebits.wiki.actionCompleted.redirect = null;
-						Twinkle.speedy.dialog.close();
-						Twinkle.unlink.callback("Removing links to deleted page " + mw.config.get('wgPageName'));
+						Kaizo.speedy.dialog.close();
+						Kaizo.unlink.callback("Removing links to deleted page " + mw.config.get('wgPageName'));
 					}
 				});
 				$bigtext = $('<span/>', {
@@ -6089,7 +6089,7 @@ Twinkle.speedy.callbacks = {
 			if( params.openusertalk ) {
 				thispage = new Morebits.wiki.page( mw.config.get('wgPageName') );  // a necessary evil, in order to clear incorrect status text
 				thispage.setCallbackParameters( params );
-				thispage.lookupCreator( Twinkle.speedy.callbacks.sysop.openUserTalkPage );
+				thispage.lookupCreator( Kaizo.speedy.callbacks.sysop.openUserTalkPage );
 			}
 
 			// delete redirects
@@ -6101,7 +6101,7 @@ Twinkle.speedy.callbacks = {
 					'bltitle': mw.config.get('wgPageName'),
 					'bllimit': 5000  // 500 is max for normal users, 5000 for bots and sysops
 				};
-				var wikipedia_api = new Morebits.wiki.api( 'getting list of redirects...', query, Twinkle.speedy.callbacks.sysop.deleteRedirectsMain,
+				var wikipedia_api = new Morebits.wiki.api( 'getting list of redirects...', query, Kaizo.speedy.callbacks.sysop.deleteRedirectsMain,
 					new Morebits.status( 'Deleting redirects' ) );
 				wikipedia_api.params = params;
 				wikipedia_api.post();
@@ -6118,7 +6118,7 @@ Twinkle.speedy.callbacks = {
 				'preview': 'yes',
 				'vanarticle': mw.config.get('wgPageName').replace(/_/g, ' ')
 			};
-			switch( Twinkle.getPref('userTalkPageMode') ) {
+			switch( Kaizo.getPref('userTalkPageMode') ) {
 			case 'tab':
 				window.open( mw.util.wikiScript('index') + '?' + Morebits.queryString.create( query ), '_tab' );
 				break;
@@ -6128,7 +6128,7 @@ Twinkle.speedy.callbacks = {
 			case 'window':
 				/* falls through */
 				default :
-				window.open( mw.util.wikiScript('index') + '?' + Morebits.queryString.create( query ), 'twinklewarnwindow', 'location=no,toolbar=no,status=no,directories=no,scrollbars=yes,width=1200,height=800' );
+				window.open( mw.util.wikiScript('index') + '?' + Morebits.queryString.create( query ), 'Kaizowarnwindow', 'location=no,toolbar=no,status=no,directories=no,scrollbars=yes,width=1200,height=800' );
 				break;
 			}
 
@@ -6169,7 +6169,7 @@ Twinkle.speedy.callbacks = {
 			$snapshot.each(function(key, value) {
 				var title = $(value).attr('title');
 				var page = new Morebits.wiki.page(title, 'Deleting redirect "' + title + '"');
-				page.setEditSummary('Redirect to deleted page "' + mw.config.get('wgPageName') + '"' + Twinkle.getPref('deletionSummaryAd'));
+				page.setEditSummary('Redirect to deleted page "' + mw.config.get('wgPageName') + '"' + Kaizo.getPref('deletionSummaryAd'));
 				page.deletePage(onsuccess);
 			});
 		}
@@ -6208,7 +6208,7 @@ Twinkle.speedy.callbacks = {
 				var breakFlag = false;
 				$.each(params.normalizeds, function(index, norm) {
 					code += "|" + norm.toUpperCase();
-					parameters = Twinkle.speedy.getParameters(params.values[index], norm, statelem);
+					parameters = Kaizo.speedy.getParameters(params.values[index], norm, statelem);
 					if (!parameters) {
 						breakFlag = true;
 						return false;  // the user aborted
@@ -6227,7 +6227,7 @@ Twinkle.speedy.callbacks = {
 			}
 			else
 			{
-				parameters = Twinkle.speedy.getParameters(params.values[0], params.normalizeds[0], statelem);
+				parameters = Kaizo.speedy.getParameters(params.values[0], params.normalizeds[0], statelem);
 				if (!parameters) {
 					return;  // the user aborted
 				}
@@ -6239,12 +6239,12 @@ Twinkle.speedy.callbacks = {
 				}
 				code += "|editor=" + mw.config.get("wgUserName") + "|date=~~~~~";
 				code += "}}";
-				params.utparams = Twinkle.speedy.getUserTalkParameters(params.normalizeds[0], parameters);
+				params.utparams = Kaizo.speedy.getUserTalkParameters(params.normalizeds[0], parameters);
 			}
 
 			var thispage = new Morebits.wiki.page(mw.config.get('wgPageName'));
 			// patrol the page, if reached from Special:NewPages
-			if( Twinkle.getPref('markSpeedyPagesAsPatrolled') ) {
+			if( Kaizo.getPref('markSpeedyPagesAsPatrolled') ) {
 				thispage.patrol();
 			}
 
@@ -6278,10 +6278,10 @@ Twinkle.speedy.callbacks = {
 			}
 
 			pageobj.setPageText(code + ((params.normalizeds.indexOf('g10') !== -1) ? '' : ("\n" + text) )); // cause attack pages to be blanked
-			pageobj.setEditSummary(editsummary + Twinkle.getPref('summaryAd'));
+			pageobj.setEditSummary(editsummary + Kaizo.getPref('summaryAd'));
 			pageobj.setWatchlist(params.watch);
 			pageobj.setCreateOption('nocreate');
-			pageobj.save(Twinkle.speedy.callbacks.user.tagComplete);
+			pageobj.save(Kaizo.speedy.callbacks.user.tagComplete);
 		},
 
 		tagComplete: function(pageobj) {
@@ -6322,14 +6322,14 @@ Twinkle.speedy.callbacks = {
 					notifytext += (params.welcomeuser ? "" : "|nowelcome=yes") + "}} ~~~~";
 
 					usertalkpage.setAppendText(notifytext);
-					usertalkpage.setEditSummary("Notification: quick deletion nomination of [[" + mw.config.get('wgPageName') + "]]." + Twinkle.getPref('summaryAd'));
+					usertalkpage.setEditSummary("Notification: quick deletion nomination of [[" + mw.config.get('wgPageName') + "]]." + Kaizo.getPref('summaryAd'));
 					usertalkpage.setCreateOption('recreate');
 					usertalkpage.setFollowRedirect(true);
 					usertalkpage.append();
 
 					// add this nomination to the user's userspace log, if the user has enabled it
 					if (params.lognomination) {
-						Twinkle.speedy.callbacks.user.addToLog(params, initialContrib);
+						Kaizo.speedy.callbacks.user.addToLog(params, initialContrib);
 					}
 				};
 				var thispage = new Morebits.wiki.page(mw.config.get('wgPageName'));
@@ -6337,19 +6337,19 @@ Twinkle.speedy.callbacks = {
 			}
 			// or, if not notifying, add this nomination to the user's userspace log without the initial contributor's name
 			else if (params.lognomination) {
-				Twinkle.speedy.callbacks.user.addToLog(params, null);
+				Kaizo.speedy.callbacks.user.addToLog(params, null);
 			}
 		},
 
-		// note: this code is also invoked from twinkleimage
+		// note: this code is also invoked from Kaizoimage
 		// the params used are:
 		//   for CSD: params.values, params.normalizeds  (note: normalizeds is an array)
 		//   for DI: params.fromDI = true, params.type, params.normalized  (note: normalized is a string)
 		addToLog: function(params, initialContrib) {
-			var wikipedia_page = new Morebits.wiki.page("User:" + mw.config.get('wgUserName') + "/" + Twinkle.getPref('speedyLogPageName'), "Adding entry to userspace log");
+			var wikipedia_page = new Morebits.wiki.page("User:" + mw.config.get('wgUserName') + "/" + Kaizo.getPref('speedyLogPageName'), "Adding entry to userspace log");
 			params.logInitialContrib = initialContrib;
 			wikipedia_page.setCallbackParameters(params);
-			wikipedia_page.load(Twinkle.speedy.callbacks.user.saveLog);
+			wikipedia_page.load(Kaizo.speedy.callbacks.user.saveLog);
 		},
 
 		saveLog: function(pageobj) {
@@ -6359,11 +6359,11 @@ Twinkle.speedy.callbacks = {
 			// add blurb if log page doesn't exist
 			if (!pageobj.exists()) {
 				text =
-					"This is a log of all deletion requests made by this user using [[mh:dev:Twinkle|Twinkle]]'s QD module.\n\n" +
-					"If you no longer wish to keep this log, you can turn it off using the [[Wikipedia:Twinkle/Preferences|preferences panel]], and " +
+					"This is a log of all deletion requests made by this user using [[mh:dev:Kaizo|Kaizo]]'s QD module.\n\n" +
+					"If you no longer wish to keep this log, you can turn it off using the [[Wikipedia:Kaizo/Preferences|preferences panel]], and " +
 					"nominate this page for speedy deletion as your own userspace.\n";
 				if (Morebits.userIsInGroup("sysop")) {
-					text += "\nThis log does not track outright speedy deletions made using Twinkle.\n";
+					text += "\nThis log does not track outright speedy deletions made using Kaizo.\n";
 				}
 			}
 
@@ -6398,7 +6398,7 @@ Twinkle.speedy.callbacks = {
 			text += " ~~~~~\n";
 
 			pageobj.setPageText(text);
-			pageobj.setEditSummary("Logging quick deletion nomination of [[" + mw.config.get('wgPageName') + "]]." + Twinkle.getPref('summaryAd'));
+			pageobj.setEditSummary("Logging quick deletion nomination of [[" + mw.config.get('wgPageName') + "]]." + Kaizo.getPref('summaryAd'));
 			pageobj.setCreateOption("recreate");
 			pageobj.save();
 		}
@@ -6406,7 +6406,7 @@ Twinkle.speedy.callbacks = {
 };
 
 // prompts user for parameters to be passed into the speedy deletion tag
-Twinkle.speedy.getParameters = function twinklespeedyGetParameters(value, normalized, statelem)
+Kaizo.speedy.getParameters = function KaizospeedyGetParameters(value, normalized, statelem)
 {
 	var parameters = [];
 	switch( normalized ) {
@@ -6442,7 +6442,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(value, normal
 };
 
 // function for processing talk page notification template parameters
-Twinkle.speedy.getUserTalkParameters = function twinklespeedyGetUserTalkParameters(normalized, parameters)
+Kaizo.speedy.getUserTalkParameters = function KaizospeedyGetUserTalkParameters(normalized, parameters)
 {
 	var utparams = [];
 	switch (normalized)
@@ -6461,7 +6461,7 @@ Twinkle.speedy.getUserTalkParameters = function twinklespeedyGetUserTalkParamete
 };
 
 
-Twinkle.speedy.resolveCsdValues = function twinklespeedyResolveCsdValues(e) {
+Kaizo.speedy.resolveCsdValues = function KaizospeedyResolveCsdValues(e) {
 	var values = (e.target.form ? e.target.form : e.target).getChecked('csd');
 	if (values.length === 0) {
 		alert( "Please select a criterion!" );
@@ -6470,29 +6470,29 @@ Twinkle.speedy.resolveCsdValues = function twinklespeedyResolveCsdValues(e) {
 	return values;
 };
 
-Twinkle.speedy.callback.evaluateSysop = function twinklespeedyCallbackEvaluateSysop(e)
+Kaizo.speedy.callback.evaluateSysop = function KaizospeedyCallbackEvaluateSysop(e)
 {
 	mw.config.set('wgPageName', mw.config.get('wgPageName').replace(/_/g, ' ')); // for queen/king/whatever and country!
 	var form = (e.target.form ? e.target.form : e.target);
 
 	var tag_only = form.tag_only;
 	if( tag_only && tag_only.checked ) {
-		Twinkle.speedy.callback.evaluateUser(e);
+		Kaizo.speedy.callback.evaluateUser(e);
 		return;
 	}
 
-	var value = Twinkle.speedy.resolveCsdValues(e)[0];
+	var value = Kaizo.speedy.resolveCsdValues(e)[0];
 	if (!value) {
 		return;
 	}
-	var normalized = Twinkle.speedy.normalizeHash[ value ];
+	var normalized = Kaizo.speedy.normalizeHash[ value ];
 
 	var params = {
 		value: value,
 		normalized: normalized,
-		watch: Twinkle.getPref('watchSpeedyPages').indexOf( normalized ) !== -1,
-		reason: Twinkle.speedy.reasonHash[ value ],
-		openusertalk: Twinkle.getPref('openUserTalkPageOnSpeedyDelete').indexOf( normalized ) !== -1,
+		watch: Kaizo.getPref('watchSpeedyPages').indexOf( normalized ) !== -1,
+		reason: Kaizo.speedy.reasonHash[ value ],
+		openusertalk: Kaizo.getPref('openUserTalkPageOnSpeedyDelete').indexOf( normalized ) !== -1,
 		deleteTalkPage: form.talkpage && form.talkpage.checked,
 		deleteRedirects: form.redirects.checked
 	};
@@ -6500,10 +6500,10 @@ Twinkle.speedy.callback.evaluateSysop = function twinklespeedyCallbackEvaluateSy
 	Morebits.simpleWindow.setButtonsEnabled( false );
 	Morebits.status.init( form );
 
-	Twinkle.speedy.callbacks.sysop.main( params );
+	Kaizo.speedy.callbacks.sysop.main( params );
 };
 
-Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUser(e) {
+Kaizo.speedy.callback.evaluateUser = function KaizospeedyCallbackEvaluateUser(e) {
 	mw.config.set('wgPageName', mw.config.get('wgPageName').replace(/_/g, ' '));  // for queen/king/whatever and country!
 	var form = (e.target.form ? e.target.form : e.target);
 
@@ -6511,14 +6511,14 @@ Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUse
 		return;
 	}
 
-	var values = Twinkle.speedy.resolveCsdValues(e);
+	var values = Kaizo.speedy.resolveCsdValues(e);
 	if (!values) {
 		return;
 	}
 	//var multiple = form.multiple.checked;
 	var normalizeds = [];
 	$.each(values, function(index, value) {
-		var norm = Twinkle.speedy.normalizeHash[ value ];
+		var norm = Kaizo.speedy.normalizeHash[ value ];
 
 		// for sysops only
 		if (['f4', 'f5', 'f6', 'f11'].indexOf(norm) !== -1) {
@@ -6532,7 +6532,7 @@ Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUse
 	// analyse each criterion to determine whether to watch the page/notify the creator
 	var watchPage = false;
 	$.each(normalizeds, function(index, norm) {
-		if (Twinkle.getPref('watchSpeedyPages').indexOf(norm) !== -1) {
+		if (Kaizo.getPref('watchSpeedyPages').indexOf(norm) !== -1) {
 			watchPage = true;
 			return false;  // break
 		}
@@ -6541,7 +6541,7 @@ Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUse
 	var notifyuser = false;
 	if (form.notify.checked) {
 		$.each(normalizeds, function(index, norm) {
-			if (Twinkle.getPref('notifyUserOnSpeedyDeletionNomination').indexOf(norm) !== -1) {
+			if (Kaizo.getPref('notifyUserOnSpeedyDeletionNomination').indexOf(norm) !== -1) {
 				notifyuser = true;
 				return false;  // break
 			}
@@ -6551,7 +6551,7 @@ Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUse
 	var welcomeuser = false;
 	if (notifyuser) {
 		$.each(normalizeds, function(index, norm) {
-			if (Twinkle.getPref('welcomeUserOnSpeedyDeletionNotification').indexOf(norm) !== -1) {
+			if (Kaizo.getPref('welcomeUserOnSpeedyDeletionNotification').indexOf(norm) !== -1) {
 				welcomeuser = true;
 				return false;  // break
 			}
@@ -6559,9 +6559,9 @@ Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUse
 	}
 
 	var csdlog = false;
-	if (Twinkle.getPref('logSpeedyNominations')) {
+	if (Kaizo.getPref('logSpeedyNominations')) {
 		$.each(normalizeds, function(index, norm) {
-			if (Twinkle.getPref('noLogOnSpeedyNomination').indexOf(norm) === -1) {
+			if (Kaizo.getPref('noLogOnSpeedyNomination').indexOf(norm) === -1) {
 				csdlog = true;
 				return false;  // break
 			}
@@ -6585,25 +6585,25 @@ Twinkle.speedy.callback.evaluateUser = function twinklespeedyCallbackEvaluateUse
 
 	var wikipedia_page = new Morebits.wiki.page(mw.config.get('wgPageName'), "Tagging page");
 	wikipedia_page.setCallbackParameters(params);
-	wikipedia_page.load(Twinkle.speedy.callbacks.user.main);
+	wikipedia_page.load(Kaizo.speedy.callbacks.user.main);
 };
 /*
  ****************************************
- *** twinkleunlink.js: Unlink module
+ *** Kaizounlink.js: Unlink module
  ****************************************
  * Mode of invocation:     Tab ("Unlink")
  * Active on:              Non-special pages
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
-Twinkle.unlink = function twinkleunlink() {
+Kaizo.unlink = function Kaizounlink() {
 	if( mw.config.get('wgNamespaceNumber') < 0 ) {
 		return;
 	}
-	twAddPortletLink( Twinkle.unlink.callback, "Unlink", "tw-unlink", "Unlink backlinks" );
+	twAddPortletLink( Kaizo.unlink.callback, "Unlink", "tw-unlink", "Unlink backlinks" );
 };
 
-Twinkle.unlink.getChecked2 = function twinkleunlinkGetChecked2( nodelist ) {
+Kaizo.unlink.getChecked2 = function KaizounlinkGetChecked2( nodelist ) {
 	if( !( nodelist instanceof NodeList ) && !( nodelist instanceof HTMLCollection ) ) {
 		return nodelist.checked ? [ nodelist.values ] : [];
 	}
@@ -6617,13 +6617,13 @@ Twinkle.unlink.getChecked2 = function twinkleunlinkGetChecked2( nodelist ) {
 };
 
 // the parameter is used when invoking unlink from admin speedy
-Twinkle.unlink.callback = function(presetReason) {
+Kaizo.unlink.callback = function(presetReason) {
 	var Window = new Morebits.simpleWindow( 800, 400 );
 	Window.setTitle( "Unlink backlinks" );
-	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#unlink" );
+	Window.setScriptName( "Kaizo" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#unlink" );
 
-	var form = new Morebits.quickForm( Twinkle.unlink.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.unlink.callback.evaluate );
 	form.append( {
 		type: 'textarea',
 		name: 'reason',
@@ -6640,7 +6640,7 @@ Twinkle.unlink.callback = function(presetReason) {
 			'iutitle': mw.config.get('wgPageName'),
 			'bllimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500, // 500 is max for normal users, 5000 for bots and sysops
 			'iulimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500, // 500 is max for normal users, 5000 for bots and sysops
-			'blnamespace': Twinkle.getPref('unlinkNamespaces') // Main namespace and portal namespace only, keep on talk pages.
+			'blnamespace': Kaizo.getPref('unlinkNamespaces') // Main namespace and portal namespace only, keep on talk pages.
 		};
 	} else {
 		query = {
@@ -6649,10 +6649,10 @@ Twinkle.unlink.callback = function(presetReason) {
 			'bltitle': mw.config.get('wgPageName'),
 			'blfilterredir': 'nonredirects',
 			'bllimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500, // 500 is max for normal users, 5000 for bots and sysops
-			'blnamespace': Twinkle.getPref('unlinkNamespaces') // Main namespace and portal namespace only, keep on talk pages.
+			'blnamespace': Kaizo.getPref('unlinkNamespaces') // Main namespace and portal namespace only, keep on talk pages.
 		};
 	}
-	var wikipedia_api = new Morebits.wiki.api( 'Grabbing backlinks', query, Twinkle.unlink.callbacks.display.backlinks );
+	var wikipedia_api = new Morebits.wiki.api( 'Grabbing backlinks', query, Kaizo.unlink.callbacks.display.backlinks );
 	wikipedia_api.params = { form: form, Window: Window, image: mw.config.get('wgNamespaceNumber') === 6 };
 	wikipedia_api.post();
 
@@ -6664,11 +6664,11 @@ Twinkle.unlink.callback = function(presetReason) {
 	Window.display();
 };
 
-Twinkle.unlink.callback.evaluate = function twinkleunlinkCallbackEvaluate(event) {
+Kaizo.unlink.callback.evaluate = function KaizounlinkCallbackEvaluate(event) {
 	mw.config.set('wgPageName', mw.config.get('wgPageName').replace(/_/g, ' '));  // for queen/king/whatever and country!
 
-	Twinkle.unlink.backlinksdone = 0;
-	Twinkle.unlink.imageusagedone = 0;
+	Kaizo.unlink.backlinksdone = 0;
+	Kaizo.unlink.imageusagedone = 0;
 
 	function processunlink(pages, imageusage) {
 		var statusIndicator = new Morebits.status((imageusage ? 'Unlinking instances of file usage' : 'Unlinking backlinks'), '0%');
@@ -6689,17 +6689,17 @@ Twinkle.unlink.callback.evaluate = function twinkleunlinkCallbackEvaluate(event)
 			var myparams = $.extend({}, params);
 			var articlepage = new Morebits.wiki.page(pages[i], 'Unlinking in article "' + pages[i] + '"');
 			articlepage.setCallbackParameters(myparams);
-			articlepage.load(imageusage ? Twinkle.unlink.callbacks.unlinkImageInstances : Twinkle.unlink.callbacks.unlinkBacklinks);
+			articlepage.load(imageusage ? Kaizo.unlink.callbacks.unlinkImageInstances : Kaizo.unlink.callbacks.unlinkBacklinks);
 		}
 	}
 
 	var reason = event.target.reason.value;
 	var backlinks, imageusage;
 	if( event.target.backlinks ) {
-		backlinks = Twinkle.unlink.getChecked2(event.target.backlinks);
+		backlinks = Kaizo.unlink.getChecked2(event.target.backlinks);
 	}
 	if( event.target.imageusage ) {
-		imageusage = Twinkle.unlink.getChecked2(event.target.imageusage);
+		imageusage = Kaizo.unlink.getChecked2(event.target.imageusage);
 	}
 
 	Morebits.simpleWindow.setButtonsEnabled( false );
@@ -6714,12 +6714,12 @@ Twinkle.unlink.callback.evaluate = function twinkleunlinkCallbackEvaluate(event)
 	Morebits.wiki.removeCheckpoint();
 };
 
-Twinkle.unlink.backlinksdone = 0;
-Twinkle.unlink.imageusagedone = 0;
+Kaizo.unlink.backlinksdone = 0;
+Kaizo.unlink.imageusagedone = 0;
 
-Twinkle.unlink.callbacks = {
+Kaizo.unlink.callbacks = {
 	display: {
-		backlinks: function twinkleunlinkCallbackDisplayBacklinks(apiobj) {
+		backlinks: function KaizounlinkCallbackDisplayBacklinks(apiobj) {
 			var xmlDoc = apiobj.responseXML;
 			var havecontent = false;
 			var list, namespaces, i;
@@ -6739,13 +6739,13 @@ Twinkle.unlink.callbacks = {
 				{
 					apiobj.params.form.append( { type:'header', label: 'File usage' } );
 					namespaces = [];
-					$.each(Twinkle.getPref('unlinkNamespaces'), function(k, v) {
+					$.each(Kaizo.getPref('unlinkNamespaces'), function(k, v) {
 						namespaces.push(Morebits.wikipedia.namespacesFriendly[v]);
 					});
 					apiobj.params.form.append( {
 						type: 'div',
 						label: "Selected namespaces: " + namespaces.join(', '),
-						tooltip: "You can change this with your Twinkle preferences, at [[Meta:Twinkle/Preferences]]"
+						tooltip: "You can change this with your Kaizo preferences, at [[Meta:Kaizo/Preferences]]"
 					});
 					if ($(xmlDoc).find('query-continue').length) {
 						apiobj.params.form.append( {
@@ -6771,13 +6771,13 @@ Twinkle.unlink.callbacks = {
 				}
 				apiobj.params.form.append( { type:'header', label: 'Backlinks' } );
 				namespaces = [];
-				$.each(Twinkle.getPref('unlinkNamespaces'), function(k, v) {
+				$.each(Kaizo.getPref('unlinkNamespaces'), function(k, v) {
 					namespaces.push(Morebits.wikipedia.namespacesFriendly[v]);
 				});
 				apiobj.params.form.append( {
 					type: 'div',
 					label: "Selected namespaces: " + namespaces.join(', '),
-					tooltip: "You can change this with your Twinkle preferences, at [[WP:TWPREFS]]"
+					tooltip: "You can change this with your Kaizo preferences, at [[WP:TWPREFS]]"
 				});
 				if ($(xmlDoc).find('query-continue').length) {
 					apiobj.params.form.append( {
@@ -6805,7 +6805,7 @@ Twinkle.unlink.callbacks = {
 			apiobj.params.Window.setContent( result );
 		}
 	},
-	unlinkBacklinks: function twinkleunlinkCallbackUnlinkBacklinks(pageobj) {
+	unlinkBacklinks: function KaizounlinkCallbackUnlinkBacklinks(pageobj) {
 		var text, oldtext;
 		text = oldtext = pageobj.getPageText();
 		var params = pageobj.getCallbackParameters();
@@ -6815,17 +6815,17 @@ Twinkle.unlink.callbacks = {
 		text = wikiPage.getText();
 		if (text === oldtext) {
 			// Nothing to do, return
-			Twinkle.unlink.callbacks.success(pageobj);
+			Kaizo.unlink.callbacks.success(pageobj);
 			Morebits.wiki.actionCompleted();
 			return;
 		}
 
 		pageobj.setPageText(text);
-		pageobj.setEditSummary("Removing link(s) to \"" + mw.config.get('wgPageName') + "\": " + params.reason + "." + Twinkle.getPref('summaryAd'));
+		pageobj.setEditSummary("Removing link(s) to \"" + mw.config.get('wgPageName') + "\": " + params.reason + "." + Kaizo.getPref('summaryAd'));
 		pageobj.setCreateOption('nocreate');
-		pageobj.save(Twinkle.unlink.callbacks.success);
+		pageobj.save(Kaizo.unlink.callbacks.success);
 	},
-	unlinkImageInstances: function twinkleunlinkCallbackUnlinkImageInstances(pageobj) {
+	unlinkImageInstances: function KaizounlinkCallbackUnlinkImageInstances(pageobj) {
 		var text, oldtext;
 		text = oldtext = pageobj.getPageText();
 		var params = pageobj.getCallbackParameters();
@@ -6835,22 +6835,22 @@ Twinkle.unlink.callbacks = {
 		text = wikiPage.getText();
 		if (text === oldtext) {
 			// Nothing to do, return
-			Twinkle.unlink.callbacks.success(pageobj);
+			Kaizo.unlink.callbacks.success(pageobj);
 			Morebits.wiki.actionCompleted();
 			return;
 		}
 
 		pageobj.setPageText(text);
-		pageobj.setEditSummary("Commenting out use(s) of file \"" + mw.config.get('wgPageName') + "\": " + params.reason + "." + Twinkle.getPref('summaryAd'));
+		pageobj.setEditSummary("Commenting out use(s) of file \"" + mw.config.get('wgPageName') + "\": " + params.reason + "." + Kaizo.getPref('summaryAd'));
 		pageobj.setCreateOption('nocreate');
-		pageobj.save(Twinkle.unlink.callbacks.success);
+		pageobj.save(Kaizo.unlink.callbacks.success);
 	},
-	success: function twinkleunlinkCallbackSuccess(pageobj) {
+	success: function KaizounlinkCallbackSuccess(pageobj) {
 		var params = pageobj.getCallbackParameters();
 		var total = params.total;
-		var now = parseInt( 100 * (params.imageusage ? ++(Twinkle.unlink.imageusagedone) : ++(Twinkle.unlink.backlinksdone))/total, 10 ) + '%';
+		var now = parseInt( 100 * (params.imageusage ? ++(Kaizo.unlink.imageusagedone) : ++(Kaizo.unlink.backlinksdone))/total, 10 ) + '%';
 		params.globalstatus.update( now );
-		if((params.imageusage ? Twinkle.unlink.imageusagedone : Twinkle.unlink.backlinksdone) >= total) {
+		if((params.imageusage ? Kaizo.unlink.imageusagedone : Kaizo.unlink.backlinksdone) >= total) {
 			params.globalstatus.info( now + ' (completed)' );
 			Morebits.wiki.removeCheckpoint();
 		}
@@ -6858,23 +6858,23 @@ Twinkle.unlink.callbacks = {
 };
 /*
  ****************************************
- *** twinklewarn.js: Warn module
+ *** Kaizowarn.js: Warn module
  ****************************************
  * Mode of invocation:     Tab ("Warn")
  * Active on:              User talk pages
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
-Twinkle.warn = function twinklewarn() {
+Kaizo.warn = function Kaizowarn() {
 	if( mw.config.get('wgNamespaceNumber') === 3 ) {
-			twAddPortletLink( Twinkle.warn.callback, "Warn", "tw-warn", "Warn/notify user" );
+			twAddPortletLink( Kaizo.warn.callback, "Warn", "tw-warn", "Warn/notify user" );
 	}
 
 	// modify URL of talk page on rollback success pages
 	if( mw.config.get('wgAction') === 'rollback' ) {
 		var $vandalTalkLink = $("#mw-rollback-success").find(".mw-usertoollinks a").first();
 		$vandalTalkLink.css("font-weight", "bold");
-		$vandalTalkLink.wrapInner($("<span/>").attr("title", "If appropriate, you can use Twinkle to warn the user about their edits to this page."));
+		$vandalTalkLink.wrapInner($("<span/>").attr("title", "If appropriate, you can use Kaizo to warn the user about their edits to this page."));
 
 		var extraParam = "vanarticle=" + mw.util.rawurlencode(mw.config.get("wgPageName").replace(/_/g, " "));
 		var href = $vandalTalkLink.attr("href");
@@ -6886,9 +6886,9 @@ Twinkle.warn = function twinklewarn() {
 	}
 };
 
-Twinkle.warn.callback = function twinklewarnCallback() {
-	if ( !twinkleUserAuthorized ) {
-		alert("Your account is too new to use Twinkle.");
+Kaizo.warn.callback = function KaizowarnCallback() {
+	if ( !KaizoUserAuthorized ) {
+		alert("Your account is too new to use Kaizo.");
 		return;
 	}
 	if( mw.config.get('wgTitle').split( '/' )[0] === mw.config.get('wgUserName') &&
@@ -6898,11 +6898,11 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	
 	var Window = new Morebits.simpleWindow( 600, 440 );
 	Window.setTitle( "Warn/notify user" );
-	Window.setScriptName( "Twinkle" );
+	Window.setScriptName( "Kaizo" );
 	Window.addFooterLink( "User talk page warnings", "Template:User_talk_page_warnings#Warnings_and_notices" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#warn" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#warn" );
 
-	var form = new Morebits.quickForm( Twinkle.warn.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.warn.callback.evaluate );
 	var main_select = form.append( {
 			type:'field',
 			label:'Choose type of warning/notice to issue',
@@ -6912,10 +6912,10 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	var main_group = main_select.append( {
 			type:'select',
 			name:'main_group',
-			event:Twinkle.warn.callback.change_category
+			event:Kaizo.warn.callback.change_category
 		} );
 
-	var defaultGroup = parseInt(Twinkle.getPref('defaultWarningGroup'), 10);
+	var defaultGroup = parseInt(Kaizo.getPref('defaultWarningGroup'), 10);
 	main_group.append( { type:'option', label:'General note (1)', value:'level1', selected: ( defaultGroup === 1 || defaultGroup < 1 || ( Morebits.userIsInGroup( 'sysop' ) ? defaultGroup > 8 : defaultGroup > 7 ) ) } );
 	main_group.append( { type:'option', label:'Caution (2)', value:'level2', selected: ( defaultGroup === 2 ) } );
 	main_group.append( { type:'option', label:'Warning (3)', value:'level3', selected: ( defaultGroup === 3 ) } );
@@ -6929,7 +6929,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 		main_group.append( { type:'option', label:'Blocking', value:'block', selected: ( defaultGroup === 8 ) } );
 	}
 
-	main_select.append( { type:'select', name:'sub_group', event:Twinkle.warn.callback.change_subcategory } ); //Will be empty to begin with.
+	main_select.append( { type:'select', name:'sub_group', event:Kaizo.warn.callback.change_subcategory } ); //Will be empty to begin with.
 
 	form.append( {
 			type:'input',
@@ -6944,12 +6944,12 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 
 	var previewlink = document.createElement( 'a' );
 	$(previewlink).click(function(){
-		Twinkle.warn.callbacks.preview(result);  // |result| is defined below
+		Kaizo.warn.callbacks.preview(result);  // |result| is defined below
 	});
 	previewlink.style.cursor = "pointer";
 	previewlink.textContent = 'Preview';
 	more.append( { type: 'div', id: 'warningpreview', label: [ previewlink ] } );
-	more.append( { type: 'div', id: 'twinklewarn-previewbox', style: 'display: none' } );
+	more.append( { type: 'div', id: 'Kaizowarn-previewbox', style: 'display: none' } );
 
 	more.append( { type:'submit', label:'Submit' } );
 
@@ -6957,7 +6957,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	Window.setContent( result );
 	Window.display();
 	result.main_group.root = result;
-	result.previewer = new Morebits.wiki.preview($(result).find('div#twinklewarn-previewbox').last()[0]);
+	result.previewer = new Morebits.wiki.preview($(result).find('div#Kaizowarn-previewbox').last()[0]);
 
 	// We must init the first choice (General Note);
 	var evt = document.createEvent( "Event" );
@@ -6970,7 +6970,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 //   label (required): A short description displayed in the dialog
 //   summary (required): The edit summary used. If an article name is entered, the summary is postfixed with "on [[article]]", and it is always postfixed with ". $summaryAd"
 //   suppressArticleInSummary (optional): Set to true to suppress showing the article name in the edit summary. Useful if the warning relates to attack pages, or some such.
-Twinkle.warn.messages = {
+Kaizo.warn.messages = {
 	level1: {
 		"uw-vandalism1": {
 			label:"Vandalism",
@@ -7085,23 +7085,23 @@ Twinkle.warn.messages = {
 };
 
 if(!Morebits.userIsInGroup("steward") && !Morebits.userIsInGroup("globalsysop")){
-	delete Twinkle.warn.messages.singlewarn["uw-username"];
+	delete Kaizo.warn.messages.singlewarn["uw-username"];
 }
 
 if(!Morebits.userIsInGroup("wikicreator")){
-	delete Twinkle.warn.messages.singlenotice["uw-dupewikireq"];
-	delete Twinkle.warn.messages.singlenotice["uw-invalidwikireq"];
+	delete Kaizo.warn.messages.singlenotice["uw-dupewikireq"];
+	delete Kaizo.warn.messages.singlenotice["uw-invalidwikireq"];
 }
 
-Twinkle.warn.prev_block_timer = null;
-Twinkle.warn.prev_block_reason = null;
-Twinkle.warn.prev_article = null;
-Twinkle.warn.prev_reason = null;
+Kaizo.warn.prev_block_timer = null;
+Kaizo.warn.prev_block_reason = null;
+Kaizo.warn.prev_article = null;
+Kaizo.warn.prev_reason = null;
 
-Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCategory(e) {
+Kaizo.warn.callback.change_category = function KaizowarnCallbackChangeCategory(e) {
 	var value = e.target.value;
 	var sub_group = e.target.root.sub_group;
-	var messages = Twinkle.warn.messages[ value ];
+	var messages = Kaizo.warn.messages[ value ];
 	sub_group.main_group = value;
 	var old_subvalue = sub_group.value;
 	var old_subvalue_re;
@@ -7143,16 +7143,16 @@ Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCatego
 		e.target.root.insertBefore( more.render(), e.target.root.lastChild );
 
 		// restore saved values of fields
-		if(Twinkle.warn.prev_block_timer !== null) {
-			e.target.root.block_timer.value = Twinkle.warn.prev_block_timer;
-			Twinkle.warn.prev_block_timer = null;
+		if(Kaizo.warn.prev_block_timer !== null) {
+			e.target.root.block_timer.value = Kaizo.warn.prev_block_timer;
+			Kaizo.warn.prev_block_timer = null;
 		}
-		if(Twinkle.warn.prev_block_reason !== null) {
-			e.target.root.block_reason.value = Twinkle.warn.prev_block_reason;
-			Twinkle.warn.prev_block_reason = null;
+		if(Kaizo.warn.prev_block_reason !== null) {
+			e.target.root.block_reason.value = Kaizo.warn.prev_block_reason;
+			Kaizo.warn.prev_block_reason = null;
 		}
-		if(Twinkle.warn.prev_article === null) {
-			Twinkle.warn.prev_article = e.target.root.article.value;
+		if(Kaizo.warn.prev_article === null) {
+			Kaizo.warn.prev_article = e.target.root.article.value;
 		}
 		e.target.root.article.disabled = false;
 
@@ -7160,17 +7160,17 @@ Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCatego
 		e.target.root.previewer.closePreview();
 	} else if( e.target.root.block_timer ) {
 		// hide the block-related fields
-		if(!e.target.root.block_timer.disabled && Twinkle.warn.prev_block_timer === null) {
-			Twinkle.warn.prev_block_timer = e.target.root.block_timer.value;
+		if(!e.target.root.block_timer.disabled && Kaizo.warn.prev_block_timer === null) {
+			Kaizo.warn.prev_block_timer = e.target.root.block_timer.value;
 		}
-		if(!e.target.root.block_reason.disabled && Twinkle.warn.prev_block_reason === null) {
-			Twinkle.warn.prev_block_reason = e.target.root.block_reason.value;
+		if(!e.target.root.block_reason.disabled && Kaizo.warn.prev_block_reason === null) {
+			Kaizo.warn.prev_block_reason = e.target.root.block_reason.value;
 		}
 		$(e.target.root).find("#block_fields").remove();
 
-		if(e.target.root.article.disabled && Twinkle.warn.prev_article !== null) {
-			e.target.root.article.value = Twinkle.warn.prev_article;
-			Twinkle.warn.prev_article = null;
+		if(e.target.root.article.disabled && Kaizo.warn.prev_article !== null) {
+			e.target.root.article.value = Kaizo.warn.prev_article;
+			Kaizo.warn.prev_article = null;
 		}
 		e.target.root.article.disabled = false;
 
@@ -7183,62 +7183,62 @@ Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCatego
 	Morebits.quickForm.resetElementLabel(e.target.root.article);
 };
 
-Twinkle.warn.callback.change_subcategory = function twinklewarnCallbackChangeSubcategory(e) {
+Kaizo.warn.callback.change_subcategory = function KaizowarnCallbackChangeSubcategory(e) {
 	var main_group = e.target.form.main_group.value;
 	var value = e.target.form.sub_group.value;
 
 	if( main_group === 'singlewarn' ) {
 		if( value === 'uw-username' ) {
-			if(Twinkle.warn.prev_article === null) {
-				Twinkle.warn.prev_article = e.target.form.article.value;
+			if(Kaizo.warn.prev_article === null) {
+				Kaizo.warn.prev_article = e.target.form.article.value;
 			}
 			e.target.form.article.notArticle = true;
 			e.target.form.article.value = '';
 		} else if( e.target.form.article.notArticle ) {
-			if(Twinkle.warn.prev_article !== null) {
-				e.target.form.article.value = Twinkle.warn.prev_article;
-				Twinkle.warn.prev_article = null;
+			if(Kaizo.warn.prev_article !== null) {
+				e.target.form.article.value = Kaizo.warn.prev_article;
+				Kaizo.warn.prev_article = null;
 			}
 			e.target.form.article.notArticle = false;
 		}
 	} else if( main_group === 'block' ) {
-		if( Twinkle.warn.messages.block[value].indefinite ) {
-			if(Twinkle.warn.prev_block_timer === null) {
-				Twinkle.warn.prev_block_timer = e.target.form.block_timer.value;
+		if( Kaizo.warn.messages.block[value].indefinite ) {
+			if(Kaizo.warn.prev_block_timer === null) {
+				Kaizo.warn.prev_block_timer = e.target.form.block_timer.value;
 			}
 			e.target.form.block_timer.disabled = true;
 			e.target.form.block_timer.value = 'indefinite';
 		} else if( e.target.form.block_timer.disabled ) {
-			if(Twinkle.warn.prev_block_timer !== null) {
-				e.target.form.block_timer.value = Twinkle.warn.prev_block_timer;
-				Twinkle.warn.prev_block_timer = null;
+			if(Kaizo.warn.prev_block_timer !== null) {
+				e.target.form.block_timer.value = Kaizo.warn.prev_block_timer;
+				Kaizo.warn.prev_block_timer = null;
 			}
 			e.target.form.block_timer.disabled = false;
 		}
 
-		if( Twinkle.warn.messages.block[value].pageParam ) {
-			if(Twinkle.warn.prev_article !== null) {
-				e.target.form.article.value = Twinkle.warn.prev_article;
-				Twinkle.warn.prev_article = null;
+		if( Kaizo.warn.messages.block[value].pageParam ) {
+			if(Kaizo.warn.prev_article !== null) {
+				e.target.form.article.value = Kaizo.warn.prev_article;
+				Kaizo.warn.prev_article = null;
 			}
 			e.target.form.article.disabled = false;
 		} else if( !e.target.form.article.disabled ) {
-			if(Twinkle.warn.prev_article === null) {
-				Twinkle.warn.prev_article = e.target.form.article.value;
+			if(Kaizo.warn.prev_article === null) {
+				Kaizo.warn.prev_article = e.target.form.article.value;
 			}
 			e.target.form.article.disabled = true;
 			e.target.form.article.value = '';
 		}
 
-		if( Twinkle.warn.messages.block[value].reasonParam ) {
-			if(Twinkle.warn.prev_block_reason !== null) {
-				e.target.form.block_reason.value = Twinkle.warn.prev_block_reason;
-				Twinkle.warn.prev_block_reason = null;
+		if( Kaizo.warn.messages.block[value].reasonParam ) {
+			if(Kaizo.warn.prev_block_reason !== null) {
+				e.target.form.block_reason.value = Kaizo.warn.prev_block_reason;
+				Kaizo.warn.prev_block_reason = null;
 			}
 			e.target.form.block_reason.disabled = false;
 		} else if( !e.target.form.block_reason.disabled ) {
-			if(Twinkle.warn.prev_block_reason === null) {
-				Twinkle.warn.prev_block_reason = e.target.form.block_reason.value;
+			if(Kaizo.warn.prev_block_reason === null) {
+				Kaizo.warn.prev_block_reason = e.target.form.block_reason.value;
 			}
 			e.target.form.block_reason.disabled = true;
 			e.target.form.block_reason.value = '';
@@ -7255,19 +7255,19 @@ Twinkle.warn.callback.change_subcategory = function twinklewarnCallbackChangeSub
 	}
 };
 
-Twinkle.warn.callbacks = {
+Kaizo.warn.callbacks = {
 	preview: function(form) {
 		var templatename = form.sub_group.value;
 		
 		var templatetext = '{{subst:' + templatename;
 		var linkedarticle = form.article.value;
-		if (templatename in Twinkle.warn.messages.block) {
-			if( linkedarticle && Twinkle.warn.messages.block[templatename].pageParam ) {
+		if (templatename in Kaizo.warn.messages.block) {
+			if( linkedarticle && Kaizo.warn.messages.block[templatename].pageParam ) {
 				templatetext += '|page=' + linkedarticle;
 			}
 
 			var blocktime = form.block_timer.value;
-			if( /te?mp|^\s*$|min/.exec( blocktime ) || Twinkle.warn.messages.block[templatename].indefinite ) {
+			if( /te?mp|^\s*$|min/.exec( blocktime ) || Kaizo.warn.messages.block[templatename].indefinite ) {
 				; // nothing
 			} else if( /indef|\*|max/.exec( blocktime ) ) {
 				templatetext += '|indef=yes';
@@ -7301,7 +7301,7 @@ Twinkle.warn.callbacks = {
 	main: function( pageobj ) {
 		var text = pageobj.getPageText();
 		var params = pageobj.getCallbackParameters();
-		var messageData = Twinkle.warn.messages[params.main_group][params.sub_group];
+		var messageData = Kaizo.warn.messages[params.main_group][params.sub_group];
 
 		var history_re = /<!-- Template:(uw-.*?) -->.*?(\d{1,2}:\d{1,2}, \d{1,2} \w+ \d{4}) \(UTC\)/g;
 		var history = {};
@@ -7352,7 +7352,7 @@ Twinkle.warn.callbacks = {
 		if( params.main_group === 'block' ) {
 			var article = '', reason = '', host = '', time = null;
 			
-			if( Twinkle.getPref('blankTalkpageOnIndefBlock') && params.sub_group !== 'uw-lblock' && ( Twinkle.warn.messages.block[params.sub_group].indefinite || (/indef|\*|max/).exec( params.block_timer ) ) ) {
+			if( Kaizo.getPref('blankTalkpageOnIndefBlock') && params.sub_group !== 'uw-lblock' && ( Kaizo.warn.messages.block[params.sub_group].indefinite || (/indef|\*|max/).exec( params.block_timer ) ) ) {
 				Morebits.status.info( 'Info', 'Blanking talk page per preferences and creating a new level 2 heading for the date' );
 				text = "== " + date.getUTCMonthName() + " " + date.getUTCFullYear() + " ==\n";
 			} else if( !headerRe.exec( text ) ) {
@@ -7360,11 +7360,11 @@ Twinkle.warn.callbacks = {
 				text += "== " + date.getUTCMonthName() + " " + date.getUTCFullYear() + " ==\n";
 			}
 			
-			if( params.reason && Twinkle.warn.messages.block[params.sub_group].reasonParam ) {
+			if( params.reason && Kaizo.warn.messages.block[params.sub_group].reasonParam ) {
 				reason = '|reason=' + params.reason;
 			}
 			
-			if( /te?mp|^\s*$|min/.exec( params.block_timer ) || Twinkle.warn.messages.block[params.sub_group].indefinite ) {
+			if( /te?mp|^\s*$|min/.exec( params.block_timer ) || Kaizo.warn.messages.block[params.sub_group].indefinite ) {
 				time = '';
 			} else if( /indef|\*|max/.exec( params.block_timer ) ) {
 				time = '|indef=yes';
@@ -7387,7 +7387,7 @@ Twinkle.warn.callbacks = {
 			text += "{{subst:" + params.sub_group + ( params.article ? '|1=' + params.article : '' ) + "|subst=subst:}}" + (params.reason ? " ''" + params.reason + "'' ": ' ' ) + "~~~~";
 		}
 		
-		if ( Twinkle.getPref('showSharedIPNotice') && Morebits.isIPAddress( mw.config.get('wgTitle') ) ) {
+		if ( Kaizo.getPref('showSharedIPNotice') && Morebits.isIPAddress( mw.config.get('wgTitle') ) ) {
 			Morebits.status.info( 'Info', 'Adding a shared IP notice' );
 			text +=  "\n{{subst:SharedIPAdvice}}";
 		}
@@ -7401,16 +7401,16 @@ Twinkle.warn.callbacks = {
 				summary += " on [[" + params.article + "]]";
 			}
 		}
-		summary += "." + Twinkle.getPref("summaryAd");
+		summary += "." + Kaizo.getPref("summaryAd");
 
 		pageobj.setPageText( text );
 		pageobj.setEditSummary( summary );
-		pageobj.setWatchlist( Twinkle.getPref('watchWarnings') );
+		pageobj.setWatchlist( Kaizo.getPref('watchWarnings') );
 		pageobj.save();
 	}
 };
 
-Twinkle.warn.callback.evaluate = function twinklewarnCallbackEvaluate(e) {
+Kaizo.warn.callback.evaluate = function KaizowarnCallbackEvaluate(e) {
 
 	// First, check to make sure a reason was filled in if uw-username was selected
 	
@@ -7438,19 +7438,19 @@ Twinkle.warn.callback.evaluate = function twinklewarnCallbackEvaluate(e) {
 	var wikipedia_page = new Morebits.wiki.page( mw.config.get('wgPageName'), 'User talk page modification' );
 	wikipedia_page.setCallbackParameters( params );
 	wikipedia_page.setFollowRedirect( true );
-	wikipedia_page.load( Twinkle.warn.callbacks.main );
+	wikipedia_page.load( Kaizo.warn.callbacks.main );
 };
 
 /*
  ****************************************
- *** twinklexfd.js: XFD module
+ *** Kaizoxfd.js: XFD module
  ****************************************
  * Mode of invocation:     Tab ("XFD")
  * Active on:              Existing, non-special pages, except for file pages with no local (non-Commons) file which are not redirects
- * Config directives in:   TwinkleConfig
+ * Config directives in:   KaizoConfig
  */
 
-Twinkle.xfd = function twinklexfd() {
+Kaizo.xfd = function Kaizoxfd() {
 	// Disable on:
 	// * special pages
 	// * non-existent pages
@@ -7459,10 +7459,10 @@ Twinkle.xfd = function twinklexfd() {
 	if ( mw.config.get('wgNamespaceNumber') < 0 || !mw.config.get('wgArticleId') || (mw.config.get('wgNamespaceNumber') === 6 && (document.getElementById('mw-sharedupload') || (!document.getElementById('mw-imagepage-section-filehistory') && !Morebits.wiki.isPageRedirect()))) ) {
 		return;
 	}
-	//twAddPortletLink( Twinkle.xfd.callback, "RfD", "tw-xfd", "Nominate for deletion" );
+	//twAddPortletLink( Kaizo.xfd.callback, "RfD", "tw-xfd", "Nominate for deletion" );
 };
 
-Twinkle.xfd.num2order = function twinklexfdNum2order( num ) {
+Kaizo.xfd.num2order = function KaizoxfdNum2order( num ) {
 	switch( num ) {
 	case 1: return '';
 	case 2: return '2nd';
@@ -7471,44 +7471,44 @@ Twinkle.xfd.num2order = function twinklexfdNum2order( num ) {
 	}
 };
 
-Twinkle.xfd.currentRationale = null;
+Kaizo.xfd.currentRationale = null;
 
 // error callback on Morebits.status.object
-Twinkle.xfd.printRationale = function twinklexfdPrintRationale() {
-	if (Twinkle.xfd.currentRationale) {
+Kaizo.xfd.printRationale = function KaizoxfdPrintRationale() {
+	if (Kaizo.xfd.currentRationale) {
 		var p = document.createElement("p");
 		p.textContent = "Your deletion rationale is provided below, which you can copy and paste into a new XFD dialog if you wish to try again:";
 		var pre = document.createElement("pre");
 		pre.className = "toccolours";
 		pre.style.marginTop = "0";
-		pre.textContent = Twinkle.xfd.currentRationale;
+		pre.textContent = Kaizo.xfd.currentRationale;
 		p.appendChild(pre);
 		Morebits.status.root.appendChild(p);
 		// only need to print the rationale once
-		Twinkle.xfd.currentRationale = null;
+		Kaizo.xfd.currentRationale = null;
 	}
 };
 
-Twinkle.xfd.callback = function twinklexfdCallback() {
-	if (!twinkleUserAuthorized) {
-		alert("Your account is too new to use Twinkle.");
+Kaizo.xfd.callback = function KaizoxfdCallback() {
+	if (!KaizoUserAuthorized) {
+		alert("Your account is too new to use Kaizo.");
 		return;
 	}
 
 	var Window = new Morebits.simpleWindow( 600, 350 );
 	Window.setTitle( "Nominate for deletion (RfD)" );
-	Window.setScriptName( "Twinkle" );
+	Window.setScriptName( "Kaizo" );
 	Window.addFooterLink( "Deletion policy", "Wikipedia:Deletion policy" );
 	Window.addFooterLink( "About deletion discussions", "WP:RfD" );
-	Window.addFooterLink( "Twinkle help", "WP:TW/DOC#xfd" );
+	Window.addFooterLink( "Kaizo help", "WP:TW/DOC#xfd" );
 
-	var form = new Morebits.quickForm( Twinkle.xfd.callback.evaluate );
+	var form = new Morebits.quickForm( Kaizo.xfd.callback.evaluate );
 	var categories = form.append( {
 			type: 'select',
 			name: 'category',
 			label: 'Select wanted type of category: ',
 			tooltip: 'This default should be the most appropriate, as no other deletion discussion pages exist here.',
-			event: Twinkle.xfd.callback.change_category
+			event: Kaizo.xfd.callback.change_category
 		} );
 	categories.append( {
 			type: 'option',
@@ -7546,9 +7546,9 @@ Twinkle.xfd.callback = function twinklexfdCallback() {
 	result.category.dispatchEvent( evt );
 };
 
-Twinkle.xfd.previousNotify = true;
+Kaizo.xfd.previousNotify = true;
 
-Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory(e) {
+Kaizo.xfd.callback.change_category = function KaizoxfdCallbackChangeCategory(e) {
 	var value = e.target.value;
 	var form = e.target.form;
 	var old_area = Morebits.quickForm.getElements(e.target.form, "work_area")[0];
@@ -7583,7 +7583,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 		old_area.parentNode.replaceChild( work_area, old_area );
 	}
 
-Twinkle.xfd.callbacks = {
+Kaizo.xfd.callbacks = {
 	afd: {
 		main: function(apiobj) {
 			var xmlDoc = apiobj.responseXML;
@@ -7616,7 +7616,7 @@ Twinkle.xfd.callbacks = {
 					// A match, set number to the max of current
 					number = Math.max( number, Number(match[1]) );
 				}
-				apiobj.params.number = Twinkle.xfd.num2order( parseInt( number, 10 ) + 1);
+				apiobj.params.number = Kaizo.xfd.num2order( parseInt( number, 10 ) + 1);
 				apiobj.params.numbering = number > 0 ? ' (' + apiobj.params.number + ' nomination)' : '';
 			}
 			apiobj.params.discussionpage = 'Wikipedia:Requests for deletion/Requests/' + ((new Date()).getUTCFullYear()) + '/' + mw.config.get('wgPageName') + apiobj.params.numbering;
@@ -7635,7 +7635,7 @@ Twinkle.xfd.callbacks = {
 				wikipedia_page.setFollowRedirect(true);  // should never be needed, but if the article is moved, we would want to follow the redirect
 			}
 			wikipedia_page.setCallbackParameters(apiobj.params);
-			wikipedia_page.load(Twinkle.xfd.callbacks.afd.taggingArticle);
+			wikipedia_page.load(Kaizo.xfd.callbacks.afd.taggingArticle);
 		},
 		// Tagging needs to happen before everything else: this means we can check if there is an AfD tag already on the page
 		taggingArticle: function(pageobj) {
@@ -7660,21 +7660,21 @@ Twinkle.xfd.callbacks = {
 			// Starting discussion page
 			var wikipedia_page = new Morebits.wiki.page(params.discussionpage, "Creating article deletion discussion page");
 			wikipedia_page.setCallbackParameters(params);
-			wikipedia_page.load(Twinkle.xfd.callbacks.afd.discussionPage);
+			wikipedia_page.load(Kaizo.xfd.callbacks.afd.discussionPage);
 
 			// Today's list
 			var date = new Date();
 			wikipedia_page = new Morebits.wiki.page('Wikipedia:Requests for deletion', "Adding discussion to today's list");
 			wikipedia_page.setFollowRedirect(true);
 			wikipedia_page.setCallbackParameters(params);
-			wikipedia_page.load(Twinkle.xfd.callbacks.afd.todaysList);
+			wikipedia_page.load(Kaizo.xfd.callbacks.afd.todaysList);
 
 			
 			// Notification to first contributor
 			if (params.usertalk) {
 				var thispage = new Morebits.wiki.page(mw.config.get('wgPageName'));
 				thispage.setCallbackParameters(params);
-				thispage.lookupCreator(Twinkle.xfd.callbacks.afd.userNotification);
+				thispage.lookupCreator(Kaizo.xfd.callbacks.afd.userNotification);
 			}
 
 			// Then, test if there are speedy deletion-related templates on the article.
@@ -7685,8 +7685,8 @@ Twinkle.xfd.callbacks = {
 
 			pageobj.setPageText(( params.noinclude ? "<noinclude>" : "" ) + "\{\{RfD|" + params.reason + "\}\}\n" + ( params.noinclude ? "</noinclude>" : "" ) + text);
 				
-			pageobj.setEditSummary("Nominated for deletion; see [[" + params.discussionpage + "]]." + Twinkle.getPref('summaryAd'));
-			switch (Twinkle.getPref('xfdWatchPage')) {
+			pageobj.setEditSummary("Nominated for deletion; see [[" + params.discussionpage + "]]." + Kaizo.getPref('summaryAd'));
+			switch (Kaizo.getPref('xfdWatchPage')) {
 				case 'yes':
 					pageobj.setWatchlist(true);
 					break;
@@ -7705,8 +7705,8 @@ Twinkle.xfd.callbacks = {
 			var params = pageobj.getCallbackParameters();
 
 			pageobj.setPageText("{{subst:RfD/Preload/Template|deletereason=" + params.reason + "}}\n");
-			pageobj.setEditSummary("Creating deletion discussion page for [[" + mw.config.get('wgPageName') + "]]." + Twinkle.getPref('summaryAd'));
-			switch (Twinkle.getPref('xfdWatchDiscussion')) {
+			pageobj.setEditSummary("Creating deletion discussion page for [[" + mw.config.get('wgPageName') + "]]." + Kaizo.getPref('summaryAd'));
+			switch (Kaizo.getPref('xfdWatchDiscussion')) {
 				case 'yes':
 					pageobj.setWatchlist(true);
 					break;
@@ -7719,7 +7719,7 @@ Twinkle.xfd.callbacks = {
 			}
 			pageobj.setCreateOption('createonly');
 			pageobj.save(function() {
-				Twinkle.xfd.currentRationale = null;  // any errors from now on do not need to print the rationale, as it is safely saved on-wiki
+				Kaizo.xfd.currentRationale = null;  // any errors from now on do not need to print the rationale, as it is safely saved on-wiki
 			});
 		},
 		todaysList: function(pageobj) {
@@ -7733,8 +7733,8 @@ Twinkle.xfd.callbacks = {
 				return;
 			}
 			pageobj.setPageText(text);
-			pageobj.setEditSummary("Adding [[" + params.discussionpage + "]]." + Twinkle.getPref('summaryAd'));
-			switch (Twinkle.getPref('xfdWatchList')) {
+			pageobj.setEditSummary("Adding [[" + params.discussionpage + "]]." + Kaizo.getPref('summaryAd'));
+			switch (Kaizo.getPref('xfdWatchList')) {
 				case 'yes':
 					pageobj.setWatchlist(true);
 					break;
@@ -7754,9 +7754,9 @@ Twinkle.xfd.callbacks = {
 			var usertalkpage = new Morebits.wiki.page('User talk:' + initialContrib, "Notifying initial contributor (" + initialContrib + ")");
 			var notifytext = "\n{{subst:RFDNote|1=" + mw.config.get('wgPageName') + "|2=" + mw.config.get('wgPageName') + ( params.numbering !== '' ? '|order=&#32;' + params.numbering : '' ) + "}} ~~~~";
 			usertalkpage.setAppendText(notifytext);
-			usertalkpage.setEditSummary("Notification: listing at [[WP:RfD|requests for deletion]] of [[" + mw.config.get('wgPageName') + "]]." + Twinkle.getPref('summaryAd'));
+			usertalkpage.setEditSummary("Notification: listing at [[WP:RfD|requests for deletion]] of [[" + mw.config.get('wgPageName') + "]]." + Kaizo.getPref('summaryAd'));
 			usertalkpage.setCreateOption('recreate');
-			switch (Twinkle.getPref('xfdWatchUser')) {
+			switch (Kaizo.getPref('xfdWatchUser')) {
 				case 'yes':
 					usertalkpage.setWatchlist(true);
 					break;
@@ -7775,7 +7775,7 @@ Twinkle.xfd.callbacks = {
 
 
 
-Twinkle.xfd.callback.evaluate = function(e) {
+Kaizo.xfd.callback.evaluate = function(e) {
 	mw.config.set('wgPageName', mw.config.get('wgPageName').replace(/_/g, ' '));  // for queen/king/whatever and country!
 
 	var type =  e.target.category.value;
@@ -7786,8 +7786,8 @@ Twinkle.xfd.callback.evaluate = function(e) {
 	Morebits.simpleWindow.setButtonsEnabled( false );
 	Morebits.status.init( e.target );
 
-	Twinkle.xfd.currentRationale = reason;
-	Morebits.status.onError(Twinkle.xfd.printRationale);
+	Kaizo.xfd.currentRationale = reason;
+	Morebits.status.onError(Kaizo.xfd.printRationale);
 
 	if( !type ) {
 		Morebits.status.error( 'Error', 'no action given' );
@@ -7804,7 +7804,7 @@ Twinkle.xfd.callback.evaluate = function(e) {
 			'apfilterredir': 'nonredirects',
 			'aplimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500
 		};
-		wikipedia_api = new Morebits.wiki.api( 'Tagging article with deletion tag', query, Twinkle.xfd.callbacks.afd.main );
+		wikipedia_api = new Morebits.wiki.api( 'Tagging article with deletion tag', query, Kaizo.xfd.callbacks.afd.main );
 		wikipedia_api.params = { usertalk:usertalk, reason:reason, noinclude:noinclude };
 		wikipedia_api.post();
 };
@@ -7815,11 +7815,11 @@ Twinkle.xfd.callback.evaluate = function(e) {
 var scriptpathbefore = mw.util.wikiScript( "index" ) + "?title=",
     scriptpathafter = "&action=raw&ctype=text/javascript&happy=yes";
 
-// Retrieve the user's Twinkle preferences
+// Retrieve the user's Kaizo preferences
 $.ajax({
-	url: scriptpathbefore + "User:" + encodeURIComponent( mw.config.get("wgUserName")) + "/twinkleoptions.js" + scriptpathafter,
+	url: scriptpathbefore + "User:" + encodeURIComponent( mw.config.get("wgUserName")) + "/Kaizooptions.js" + scriptpathafter,
 	dataType: "text",
-	error: function () { mw.notify( "Could not load twinkleoptions.js" ); },
+	error: function () { mw.notify( "Could not load Kaizooptions.js" ); },
 	success: function ( optionsText ) {
 
 		// Quick pass if user has no options
@@ -7827,12 +7827,12 @@ $.ajax({
 			return;
 		}
 
-		// Twinkle options are basically a JSON object with some comments. Strip those:
+		// Kaizo options are basically a JSON object with some comments. Strip those:
 		optionsText = optionsText.replace( /(?:^(?:\/\/[^\n]*\n)*\n*|(?:\/\/[^\n]*(?:\n|$))*$)/g, "" );
 
 		// First version of options had some boilerplate code to make it eval-able -- strip that too. This part may become obsolete down the line.
-		if ( optionsText.lastIndexOf( "window.Twinkle.prefs = ", 0 ) === 0 ) {
-			optionsText = optionsText.replace( /(?:^window.Twinkle.prefs = |;\n*$)/g, "" );
+		if ( optionsText.lastIndexOf( "window.Kaizo.prefs = ", 0 ) === 0 ) {
+			optionsText = optionsText.replace( /(?:^window.Kaizo.prefs = |;\n*$)/g, "" );
 		}
 
 		try {
@@ -7847,27 +7847,27 @@ $.ajax({
 			// ...
 			// options.optionsVersion = 2;
 			//}
-			// At the same time, twinkleconfig.js needs to be adapted to write a higher version number into the options.
+			// At the same time, Kaizoconfig.js needs to be adapted to write a higher version number into the options.
 
 			if ( options ) {
-				Twinkle.prefs = options;
+				Kaizo.prefs = options;
 			}
 		}
 		catch ( e ) {
-			mw.notify("Could not parse twinkleoptions.js");
+			mw.notify("Could not parse Kaizooptions.js");
 		}
 	},
 	complete: function () {
-		$( Twinkle.load );
+		$( Kaizo.load );
 	}
 });
 
-// Developers: you can import custom Twinkle modules here
+// Developers: you can import custom Kaizo modules here
 // For example, mw.loader.load(scriptpathbefore + "User:UncleDouggie/morebits-test.js" + scriptpathafter);
 
-Twinkle.load = function () {
+Kaizo.load = function () {
 	// Don't activate on special pages other than "Contributions" so that they load faster, especially the watchlist.
-	// Also, Twinkle is incompatible with Internet Explorer versions 8 or lower, so don't load there either.
+	// Also, Kaizo is incompatible with Internet Explorer versions 8 or lower, so don't load there either.
 	var specialPageWhitelist = [ 'Block', 'Contributions', 'Recentchanges', 'Recentchangeslinked' ]; // wgRelevantUserName defined for non-sysops on Special:Block
 	if (Morebits.userIsInGroup('sysop')) {
 		specialPageWhitelist = specialPageWhitelist.concat([ 'DeletedContributions', 'Prefixindex' ]);
@@ -7887,37 +7887,37 @@ Twinkle.load = function () {
 	}
 	
 	// Set custom Api-User-Agent header, for server-side logging purposes
-	Morebits.wiki.api.setApiUserAgent('Twinkle/2.0 (' + mw.config.get('wgDBname') + ')');
+	Morebits.wiki.api.setApiUserAgent('Kaizo/2.0 (' + mw.config.get('wgDBname') + ')');
 
 	// Load the modules in the order that the tabs should appears
 	// User/user talk-related
-	Twinkle.arv();
-	Twinkle.warn();
-	Twinkle.welcome();
-	Twinkle.shared();
-	Twinkle.talkback();
+	Kaizo.arv();
+	Kaizo.warn();
+	Kaizo.welcome();
+	Kaizo.shared();
+	Kaizo.talkback();
 	// Deletion
-	Twinkle.speedy();
-	Twinkle.xfd();
+	Kaizo.speedy();
+	Kaizo.xfd();
 	// Maintenance
-	Twinkle.tag();
-	Twinkle.stub();
+	Kaizo.tag();
+	Kaizo.stub();
 	// Misc. ones last
-	Twinkle.diff();
-	Twinkle.unlink();
-	Twinkle.config.init();
-	Twinkle.fluff.init();
+	Kaizo.diff();
+	Kaizo.unlink();
+	Kaizo.config.init();
+	Kaizo.fluff.init();
 	if ( Morebits.userIsInGroup('sysop') ) {
-		Twinkle.batchdelete();
-		Twinkle.batchprotect();
-		Twinkle.batchundelete();
+		Kaizo.batchdelete();
+		Kaizo.batchprotect();
+		Kaizo.batchundelete();
 	}
 	// Run the initialization callbacks for any custom modules
-	$( Twinkle.initCallbacks ).each(function ( k, v ) { v(); });
-	Twinkle.addInitCallback = function ( func ) { func(); };
+	$( Kaizo.initCallbacks ).each(function ( k, v ) { v(); });
+	Kaizo.addInitCallback = function ( func ) { func(); };
 
-	// Increases text size in Twinkle dialogs, if so configured
-	if ( Twinkle.getPref( "dialogLargeFont" ) ) {
+	// Increases text size in Kaizo dialogs, if so configured
+	if ( Kaizo.getPref( "dialogLargeFont" ) ) {
 		mw.util.addCSS( ".morebits-dialog-content, .morebits-dialog-footerlinks { font-size: 100% !important; } " +
 			".morebits-dialog input, .morebits-dialog select, .morebits-dialog-content button { font-size: inherit !important; }" );
 	}
