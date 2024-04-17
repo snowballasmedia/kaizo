@@ -86,7 +86,7 @@ Twinkle.defaultConfig.twinkle = {
 if ( mw.config.get( "skin" ) === "vector" || mw.config.get( "skin" ) === "vector-2022") {
 	Twinkle.defaultConfig.twinkle.portletArea = "right-navigation";
 	Twinkle.defaultConfig.twinkle.portletId   = "p-twinkle";
-	Twinkle.defaultConfig.twinkle.portletName = "TW";
+	Twinkle.defaultConfig.twinkle.portletName = "KZ";
 	Twinkle.defaultConfig.twinkle.portletType = "menu";
 	Twinkle.defaultConfig.twinkle.portletNext = "p-search";
 } else {
