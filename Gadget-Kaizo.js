@@ -29,9 +29,9 @@ Kaizo.defaultConfig = {};
  */
 Kaizo.defaultConfig.Kaizo = {
 	 // General
-	summaryAd: " ([[Meta:Kaizo|TW]])",
-	deletionSummaryAd: " ([[Meta:Kaizo|TW]])",
-	protectionSummaryAd: " ([[Meta:Kaizo|TW]])",
+	summaryAd: " ([[snowballasmeta:Kaizo|KZ]])",
+	deletionSummaryAd: " ([[snowballasmeta:Kaizo|KZ]])",
+	protectionSummaryAd: " ([[snowballasmeta:Kaizo|KZ]])",
 	userTalkPageMode: "window",
 	dialogLargeFont: false,
 	 // Fluff (revert and rollback)
